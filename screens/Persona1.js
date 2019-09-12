@@ -42,25 +42,31 @@ export default class Persona1 extends Component {
                 </View>
                 <View style={styles.tabBarInfoContainer}>
                     <TouchableOpacity
-                        onPress={() => {
-                            this.setModalVisible(true);
-                        }}>
+                      onPress={() => {
+                          this.props.navigation.navigate('VideoModal', {
+                              video: require('../assets/videos/pexels.mp4')
+                          });
+                      }}>
                         <Text style={styles.tabBarInfoText}>Question 2</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
                     <TouchableOpacity
-                        onPress={() => {
-                            this.setModalVisible(true);
-                        }}>
+                    onPress={() => {
+                        this.props.navigation.navigate('VideoModal', {
+                            video: require('../assets/videos/zelda_ghibli.mp4')
+                        });
+                    }}>
                         <Text style={styles.tabBarInfoText}>Question 3</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
                     <TouchableOpacity
-                        onPress={() => {
-                            this.setModalVisible(true);
-                        }}>
+                    onPress={() => {
+                        this.props.navigation.navigate('VideoModal', {
+                            video: require('../assets/videos/pexels.mp4')
+                        });
+                    }}>
                         <Text style={styles.tabBarInfoText}>Question 4</Text>
                     </TouchableOpacity>
                 </View>
