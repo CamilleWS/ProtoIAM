@@ -36,10 +36,6 @@ export default class SettingsScreen extends Component {
     (this.state.playbackObject).stopAsync();
   }
 
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible});
-  }
-
   handleVolume = () => {
       this.setState({mute: !this.state.mute});
       if (this.state.mute) {
@@ -57,6 +53,10 @@ export default class SettingsScreen extends Component {
         (this.state.playbackObject).playAsync();
       }
   }
+    setModalVisible(visible) {
+      this.setState({modalVisible: visible});
+    }
+
 
   render() {
     return (
@@ -69,53 +69,74 @@ export default class SettingsScreen extends Component {
          Alert.alert('Modal has been closed.');
        }}>
        <View style={styles.container}>
-         <View style={styles.container}>
-           <View style={styles.container}>
-             <Video
-               source={require('../assets/videos/zelda_ghibli.mp4')}
-               ref={this._handleVideoRef}
-               //isMuted={this.state.mute}
-               resizeMode="cover"
-               //shouldPlay //={this.state.play}
-               style={{ width: width, height: 300, backgroundColor: 'black' }}
-             />
-             <View style={styles.controlBar}>
-                 <MaterialIcons
-                      name={this.state.mute? "volume-mute" : "volume-up"}
+          <View>
+               <Video
+                 source={require('../assets/videos/zelda_ghibli.mp4')}
+                 ref={this._handleVideoRef}
+                 //isMuted={this.state.mute}
+                 resizeMode="cover"
+                 //shouldPlay //={this.state.play}
+                 style={{ width: width, height: 300, backgroundColor: 'black' }}
+               />
+               <View style={styles.controlBar}>
+                   <MaterialIcons
+                        name={this.state.mute? "volume-mute" : "volume-up"}
+                        size={45}
+                        color="white"
+                        onPress={this.handleVolume}
+                      />
+                    <MaterialIcons
+                      name={this.state.play ? "pause" : "play-arrow"}
                       size={45}
                       color="white"
-                      onPress={this.handleVolume}
+                      onPress={this.handlePlayAndPause}
                     />
-                  <MaterialIcons
-                    name={this.state.play ? "pause" : "play-arrow"}
-                    size={45}
-                    color="white"
-                    onPress={this.handlePlayAndPause}
-                  />
+               </View>
              </View>
-        </View>
                <View style={styles.tabBarInfoContainer}>
                  <Text
                  style={styles.tabBarInfoText}
                    onPress={() => {
                      this.setModalVisible(!this.state.modalVisible);
                    }}>
-                   Hide Modal
+                   Close
                  </Text>
-               </View>
-       </View>
+          </View>
        </View>
      </Modal>
-                    <View style={styles.container}>
 
+                    <View style={styles.tabBarInfoContainer}>
                        <TouchableOpacity
                          onPress={() => {
                            this.setModalVisible(true);
                          }}>
-                         <Text>Show Modal</Text>
+                         <Text  style={styles.tabBarInfoText}>Question 1</Text>
                        </TouchableOpacity>
-
-                       </View>
+                    </View>
+                    <View style={styles.tabBarInfoContainer}>
+                       <TouchableOpacity
+                         onPress={() => {
+                           this.setModalVisible(true);
+                         }}>
+                         <Text  style={styles.tabBarInfoText}>Question 2</Text>
+                       </TouchableOpacity>
+                    </View>
+                    <View style={styles.tabBarInfoContainer}>
+                       <TouchableOpacity
+                         onPress={() => {
+                           this.setModalVisible(true);
+                         }}>
+                         <Text  style={styles.tabBarInfoText}>Question 3</Text>
+                       </TouchableOpacity>
+                    </View>
+                    <View style={styles.tabBarInfoContainer}>
+                       <TouchableOpacity
+                         onPress={() => {
+                           this.setModalVisible(true);
+                         }}>
+                         <Text  style={styles.tabBarInfoText}>Question 4</Text>
+                       </TouchableOpacity>
+                    </View>
    </View>
     );
   }
@@ -151,7 +172,7 @@ const styles = StyleSheet.create({
   },
 
   tabBarInfoContainer: {
-    position: 'absolute',
+    position: 'relative',
     bottom: 0,
     left: 0,
     right: 0,
@@ -169,6 +190,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
     paddingVertical: 20,
+    marginBottom: 10
   },
   tabBarInfoText: {
     fontSize: 17,

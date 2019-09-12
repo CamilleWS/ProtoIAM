@@ -8,6 +8,9 @@ import {Image,
         Text,
         Dimensions,
         TouchableOpacity,
+        Modal,
+        Alert,
+        TouchableHighlight,
         View} from 'react-native';
 import { Video } from 'expo-av'
 
@@ -17,82 +20,128 @@ const { width } = Dimensions.get('window');
 
 export default class SettingsScreen extends Component {
 
-state = {
-   mute: false,
-   play: false,
-   playbackObject:[]
-}
+  state = {
+     mute: false,
+     play: false,
+     playbackObject:[],
+    modalVisible: false,
+  }
 
-_handleVideoRef = component => {
-    this.setState({playbackObject: component})
-}
+  _handleVideoRef = component => {
+      this.setState({playbackObject: component})
+  }
 
 
-stopVideo = () => {
-  (this.state.playbackObject).stopAsync();
-}
+  stopVideo = () => {
+    (this.state.playbackObject).stopAsync();
+    this.setState({mute: false});
+    this.setState({play: false});
+  }
 
-handleVolume = () => {
-    this.setState({mute: !this.state.mute});
-    if (this.state.mute) {
-      (this.state.playbackObject).setVolumeAsync(1);
-    } else {
-      (this.state.playbackObject).setVolumeAsync(0);
+  handleVolume = () => {
+      this.setState({mute: !this.state.mute});
+      if (this.state.mute) {
+        (this.state.playbackObject).setVolumeAsync(1);
+      } else {
+        (this.state.playbackObject).setVolumeAsync(0);
+      }
+  }
+
+  handlePlayAndPause = () => {
+      this.setState({play: !this.state.play})
+      if (this.state.play) {
+        (this.state.playbackObject).pauseAsync();
+      } else {
+        (this.state.playbackObject).playAsync();
+      }
+  }
+    setModalVisible(visible) {
+      this.setState({modalVisible: visible});
+      if (!visible)
+        this.stopVideo();
     }
-}
 
-handlePlayAndPause = () => {
-    this.setState({play: !this.state.play})
-    if (this.state.play) {
-      (this.state.playbackObject).pauseAsync();
-    } else {
-      (this.state.playbackObject).playAsync();
-    }
-}
 
-render() {
+  render() {
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
+     <Modal
+       animationType="slide"
+       transparent={false}
+       visible={this.state.modalVisible}
+       onRequestClose={() => {
+         Alert.alert('Modal has been closed.');
+       }}>
+       <View style={styles.container}>
           <View>
-                <Video
-                  source={require('../assets/videos/zelda_ghibli.mp4')}
-                  ref={this._handleVideoRef}
-                  //isMuted={this.state.mute}
-                  resizeMode="cover"
-                  //shouldPlay //={this.state.play}
-                  style={{ width: width, height: 300, backgroundColor: 'black' }}
-                />
-                <View style={styles.controlBar}>
+               <Video
+                 source={require('../assets/videos/zelda_ghibli.mp4')}
+                 ref={this._handleVideoRef}
+                 //isMuted={this.state.mute}
+                 resizeMode="cover"
+                 //shouldPlay //={this.state.play}
+                 style={{ width: width, height: 300, backgroundColor: 'black' }}
+               />
+               <View style={styles.controlBar}>
+                   <MaterialIcons
+                        name={this.state.mute? "volume-mute" : "volume-up"}
+                        size={45}
+                        color="white"
+                        onPress={this.handleVolume}
+                      />
                     <MaterialIcons
-                         name={this.state.mute? "volume-mute" : "volume-up"}
-                         size={45}
-                         color="white"
-                         onPress={this.handleVolume}
-                       />
-                     <MaterialIcons
-                       name={this.state.play ? "pause" : "play-arrow"}
-                       size={45}
-                       color="white"
-                       onPress={this.handlePlayAndPause}
-                     />
-                </View>
-              </View>
-           <View style={styles.tabBarInfoContainer}>
-                 <Text style={styles.tabBarInfoText}>
-                  Question 1
+                      name={this.state.play ? "pause" : "play-arrow"}
+                      size={45}
+                      color="white"
+                      onPress={this.handlePlayAndPause}
+                    />
+               </View>
+             </View>
+               <View style={styles.tabBarInfoContainer}>
+                 <Text
+                 style={styles.tabBarInfoText}
+                   onPress={() => {
+                     this.setModalVisible(!this.state.modalVisible);
+                   }}>
+                   Close
                  </Text>
-           </View>
-           <View style={styles.tabBarInfoContainer}>
-                 <Text style={styles.tabBarInfoText}>
-                  Question 2
-                 </Text>
-           </View>
-           <View style={styles.tabBarInfoContainer}>
-                 <Text style={styles.tabBarInfoText}>
-                  Question 3
-                 </Text>
-           </View>
-        </View>
+          </View>
+       </View>
+     </Modal>
+
+                    <View style={styles.tabBarInfoContainer}>
+                       <TouchableOpacity
+                         onPress={() => {
+                           this.setModalVisible(true);
+                         }}>
+                         <Text  style={styles.tabBarInfoText}>Question 1</Text>
+                       </TouchableOpacity>
+                    </View>
+                    <View style={styles.tabBarInfoContainer}>
+                       <TouchableOpacity
+                         onPress={() => {
+                           this.setModalVisible(true);
+                         }}>
+                         <Text  style={styles.tabBarInfoText}>Question 2</Text>
+                       </TouchableOpacity>
+                    </View>
+                    <View style={styles.tabBarInfoContainer}>
+                       <TouchableOpacity
+                         onPress={() => {
+                           this.setModalVisible(true);
+                         }}>
+                         <Text  style={styles.tabBarInfoText}>Question 3</Text>
+                       </TouchableOpacity>
+                    </View>
+                    <View style={styles.tabBarInfoContainer}>
+                       <TouchableOpacity
+                         onPress={() => {
+                           this.setModalVisible(true);
+                         }}>
+                         <Text  style={styles.tabBarInfoText}>Question 4</Text>
+                       </TouchableOpacity>
+                    </View>
+   </View>
     );
   }
 }
