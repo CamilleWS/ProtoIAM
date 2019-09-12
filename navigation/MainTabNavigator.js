@@ -4,8 +4,8 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import Persona1 from '../screens/Persona1';
+import Persona2 from '../screens/Persona2';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -35,42 +35,42 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+const Perso1Stack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Perso1: Persona1,
   },
   config
 );
 
-LinksStack.navigationOptions = {
+Perso1Stack.navigationOptions = {
   tabBarLabel: 'Perso 1',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-woman' : 'md-woman'} />
   ),
 };
 
-LinksStack.path = '';
+Perso1Stack.path = '';
 
-const SettingsStack = createStackNavigator(
+const Perso2Stack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Perso2: Persona2,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
+Perso2Stack.navigationOptions = {
   tabBarLabel: 'Perso 2',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-man' : 'md-man'} />
   ),
 };
 
-SettingsStack.path = '';
+Perso2Stack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  Perso1Stack,
+  Perso2Stack,
 });
 
 tabNavigator.path = '';
