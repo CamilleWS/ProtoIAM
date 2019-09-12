@@ -69,7 +69,8 @@ export default class SettingsScreen extends Component {
          Alert.alert('Modal has been closed.');
        }}>
        <View style={styles.container}>
-         <View>
+         <View style={styles.container}>
+           <View style={styles.container}>
              <Video
                source={require('../assets/videos/zelda_ghibli.mp4')}
                ref={this._handleVideoRef}
@@ -92,17 +93,17 @@ export default class SettingsScreen extends Component {
                     onPress={this.handlePlayAndPause}
                   />
              </View>
+        </View>
                <View style={styles.tabBarInfoContainer}>
-                  <TouchableOpacity
-                  onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                  }}
-                     <Text style={styles.tabBarInfoText}>
-                       Hide Modal
-                     </Text>
-                     </TouchableOpacity>
+                 <Text
+                 style={styles.tabBarInfoText}
+                   onPress={() => {
+                     this.setModalVisible(!this.state.modalVisible);
+                   }}>
+                   Hide Modal
+                 </Text>
                </View>
-               </View>
+       </View>
        </View>
      </Modal>
                     <View style={styles.container}>
