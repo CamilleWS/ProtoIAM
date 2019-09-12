@@ -37,7 +37,7 @@ export default class Persona1 extends Component {
                                 video: require('../assets/videos/zelda_ghibli.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Question 1</Text>
+                        <Text style={styles.tabBarInfoText}>Peux tu te presenter ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -47,7 +47,7 @@ export default class Persona1 extends Component {
                               video: require('../assets/videos/pexels.mp4')
                           });
                       }}>
-                        <Text style={styles.tabBarInfoText}>Question 2</Text>
+                        <Text style={styles.tabBarInfoText}>Sur quels sujets as-tu travaillée ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -57,7 +57,7 @@ export default class Persona1 extends Component {
                             video: require('../assets/videos/zelda_ghibli.mp4')
                         });
                     }}>
-                        <Text style={styles.tabBarInfoText}>Question 3</Text>
+                        <Text style={styles.tabBarInfoText}>Tu es morte comment ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -67,7 +67,7 @@ export default class Persona1 extends Component {
                             video: require('../assets/videos/pexels.mp4')
                         });
                     }}>
-                        <Text style={styles.tabBarInfoText}>Question 4</Text>
+                        <Text style={styles.tabBarInfoText}>Tu es enterrée où ?</Text>
                     </TouchableOpacity>
                 </View>
             </View>

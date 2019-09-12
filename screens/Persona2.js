@@ -71,7 +71,7 @@ export default class Persona2 extends Component {
                                 video: require('../assets/videos/zelda_ghibli.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Question 1</Text>
+                        <Text style={styles.tabBarInfoText}>Tu avais combien d’enfants ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -81,7 +81,7 @@ export default class Persona2 extends Component {
                                 video: require('../assets/videos/pexels.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Question 2</Text>
+                        <Text style={styles.tabBarInfoText}>Tu es née quand ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -91,7 +91,7 @@ export default class Persona2 extends Component {
                                 video: require('../assets/videos/zelda_ghibli.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Question 3</Text>
+                        <Text style={styles.tabBarInfoText}>Qui était ta reine ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -101,7 +101,7 @@ export default class Persona2 extends Component {
                                 video: require('../assets/videos/pexels.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Question 4</Text>
+                        <Text style={styles.tabBarInfoText}>Lutez-vous pour la paix ou pour la guerre ?</Text>
                     </TouchableOpacity>
                 </View>
             </View>
