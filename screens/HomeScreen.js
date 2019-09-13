@@ -38,7 +38,7 @@ export default function HomeScreen() {
             source={
               __DEV__
                 ? require('../assets/images/IAM_logo.png')
-                : require('../assets/images/robot-prod.png')
+                : require('../assets/images/IAM_logo.png')
             }
             style={styles.welcomeImage}
           />
@@ -87,7 +87,7 @@ function DevelopmentModeNotice() {
   } else {
     return (
       <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
+        IAM, no one is inaccessible ...
       </Text>
     );
   }

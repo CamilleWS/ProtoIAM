@@ -43,7 +43,7 @@ const Perso1Stack = createStackNavigator(
 );
 
 Perso1Stack.navigationOptions = {
-  tabBarLabel: 'Marie Currie',
+  tabBarLabel: 'Marie Curie',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-woman' : 'md-woman'} />
   ),
