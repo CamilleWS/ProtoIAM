@@ -11,6 +11,7 @@ import {
     View
 } from 'react-native';
 
+
 const {width} = Dimensions.get('window');
 
 export default class Persona1 extends Component {
@@ -25,7 +26,7 @@ export default class Persona1 extends Component {
                     <TouchableOpacity
                         onPress={() => {
                             this.props.navigation.navigate('VideoModal', {
-                                video: require('../assets/videos/zelda_ghibli.mp4')
+                                video: require('../assets/videos/marie_curie/video1.mp4')
                             });
                         }}>
                         <Text style={styles.tabBarInfoText}>Pouvez-vous vous présenter ?</Text>
@@ -35,7 +36,7 @@ export default class Persona1 extends Component {
                     <TouchableOpacity
                       onPress={() => {
                           this.props.navigation.navigate('VideoModal', {
-                              video: require('../assets/videos/pexels.mp4')
+                              video: require('../assets/videos/marie_curie/video2.mp4')
                           });
                       }}>
                         <Text style={styles.tabBarInfoText}>Sur quels sujets avez-vous travaillée ?</Text>
@@ -45,7 +46,7 @@ export default class Persona1 extends Component {
                     <TouchableOpacity
                     onPress={() => {
                         this.props.navigation.navigate('VideoModal', {
-                            video: require('../assets/videos/zelda_ghibli.mp4')
+                            video: require('../assets/videos/marie_curie/video3.mp4')
                         });
                     }}>
                         <Text style={styles.tabBarInfoText}>Comment êtes-vous décédée ?</Text>
@@ -55,7 +56,7 @@ export default class Persona1 extends Component {
                     <TouchableOpacity
                     onPress={() => {
                         this.props.navigation.navigate('VideoModal', {
-                            video: require('../assets/videos/pexels.mp4')
+                            video: require('../assets/videos/marie_curie/video4.mp4')
                         });
                     }}>
                         <Text style={styles.tabBarInfoText}>Où êtes-vous enterrée ?</Text>

@@ -34,17 +34,7 @@ export default class Persona2 extends Component {
                     <TouchableOpacity
                         onPress={() => {
                             this.props.navigation.navigate('VideoModal', {
-                                video: require('../assets/videos/zelda_ghibli.mp4')
-                            });
-                        }}>
-                        <Text style={styles.tabBarInfoText}>Combien aviez-vous d’enfants ?</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.tabBarInfoContainer}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.props.navigation.navigate('VideoModal', {
-                                video: require('../assets/videos/pexels.mp4')
+                                video: require('../assets/videos/ramses/video1.mov')
                             });
                         }}>
                         <Text style={styles.tabBarInfoText}>Quand êtes-vous née ?</Text>
@@ -54,7 +44,17 @@ export default class Persona2 extends Component {
                     <TouchableOpacity
                         onPress={() => {
                             this.props.navigation.navigate('VideoModal', {
-                                video: require('../assets/videos/zelda_ghibli.mp4')
+                                video: require('../assets/videos/ramses/video2.mov')
+                            });
+                        }}>
+                        <Text style={styles.tabBarInfoText}>Parlez-moi de votre famille.</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.tabBarInfoContainer}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.navigate('VideoModal', {
+                                video: require('../assets/videos/ramses/video3.mov')
                             });
                         }}>
                         <Text style={styles.tabBarInfoText}>Qui était votre reine ?</Text>
@@ -64,7 +64,7 @@ export default class Persona2 extends Component {
                     <TouchableOpacity
                         onPress={() => {
                             this.props.navigation.navigate('VideoModal', {
-                                video: require('../assets/videos/pexels.mp4')
+                                video: require('../assets/videos/ramses/video4.mov')
                             });
                         }}>
                         <Text style={styles.tabBarInfoText}>Luttiez-vous pour la paix ou pour la guerre ?</Text>
