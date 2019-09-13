@@ -23,42 +23,8 @@ const {width} = Dimensions.get('window');
 export default class Persona2 extends Component {
 
     state = {
-        mute: false,
-        play: false,
-        playbackObject: [],
-        modalVisible: false,
     }
 
-    _handleVideoRef = component => {
-        this.setState({playbackObject: component})
-    }
-
-
-    stopVideo = () => {
-        (this.state.playbackObject).stopAsync();
-    }
-
-    handleVolume = () => {
-        this.setState({mute: !this.state.mute});
-        if (this.state.mute) {
-            (this.state.playbackObject).setVolumeAsync(1);
-        } else {
-            (this.state.playbackObject).setVolumeAsync(0);
-        }
-    }
-
-    handlePlayAndPause = () => {
-        this.setState({play: !this.state.play})
-        if (this.state.play) {
-            (this.state.playbackObject).pauseAsync();
-        } else {
-            (this.state.playbackObject).playAsync();
-        }
-    }
-
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
-    }
 
 
     render() {
@@ -71,7 +37,7 @@ export default class Persona2 extends Component {
                                 video: require('../assets/videos/zelda_ghibli.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Tu avais combien d’enfants ?</Text>
+                        <Text style={styles.tabBarInfoText}>Combien aviez-vous d’enfants ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -81,7 +47,7 @@ export default class Persona2 extends Component {
                                 video: require('../assets/videos/pexels.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Tu es née quand ?</Text>
+                        <Text style={styles.tabBarInfoText}>Quand êtes-vous née ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -91,7 +57,7 @@ export default class Persona2 extends Component {
                                 video: require('../assets/videos/zelda_ghibli.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Qui était ta reine ?</Text>
+                        <Text style={styles.tabBarInfoText}>Qui était votre reine ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -101,7 +67,7 @@ export default class Persona2 extends Component {
                                 video: require('../assets/videos/pexels.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Lutez-vous pour la paix ou pour la guerre ?</Text>
+                        <Text style={styles.tabBarInfoText}>Luttiez-vous pour la paix ou pour la guerre ?</Text>
                     </TouchableOpacity>
                 </View>
             </View>

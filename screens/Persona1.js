@@ -5,18 +5,11 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
-    AppRegistry,
     Text,
     Dimensions,
     TouchableOpacity,
-    Modal,
-    Alert,
-    TouchableHighlight,
     View
 } from 'react-native';
-import {Video} from 'expo-av'
-
-import {MaterialIcons, Octicons} from '@expo/vector-icons';
 
 const {width} = Dimensions.get('window');
 
@@ -25,8 +18,6 @@ export default class Persona1 extends Component {
     state = {
 
     };
-
-
     render() {
         return (
             <View style={styles.container}>
@@ -37,7 +28,7 @@ export default class Persona1 extends Component {
                                 video: require('../assets/videos/zelda_ghibli.mp4')
                             });
                         }}>
-                        <Text style={styles.tabBarInfoText}>Peux tu te presenter ?</Text>
+                        <Text style={styles.tabBarInfoText}>Pouvez-vous vous présenter ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -47,7 +38,7 @@ export default class Persona1 extends Component {
                               video: require('../assets/videos/pexels.mp4')
                           });
                       }}>
-                        <Text style={styles.tabBarInfoText}>Sur quels sujets as-tu travaillée ?</Text>
+                        <Text style={styles.tabBarInfoText}>Sur quels sujets avez-vous travaillée ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -57,7 +48,7 @@ export default class Persona1 extends Component {
                             video: require('../assets/videos/zelda_ghibli.mp4')
                         });
                     }}>
-                        <Text style={styles.tabBarInfoText}>Tu es morte comment ?</Text>
+                        <Text style={styles.tabBarInfoText}>Comment êtes-vous décédée ?</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -67,7 +58,7 @@ export default class Persona1 extends Component {
                             video: require('../assets/videos/pexels.mp4')
                         });
                     }}>
-                        <Text style={styles.tabBarInfoText}>Tu es enterrée où ?</Text>
+                        <Text style={styles.tabBarInfoText}>Où êtes-vous enterrée ?</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -76,7 +67,7 @@ export default class Persona1 extends Component {
 }
 
 Persona1.navigationOptions = {
-    title: 'Marie Currie',
+    title: 'Marie Curie',
 };
 
 const styles = StyleSheet.create({
