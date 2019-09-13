@@ -52,7 +52,7 @@ export default class Persona2 extends Component {
             this.setState({
                 inputColor: '#7D5FFF'
             });
-        } else if (text.match(/(ne|naissance)/gi)) {
+        } else if (text.match(/(ne|naissance|presenter|presentez|presente|etesvous|estu)/gi)) {
             this.props.navigation.navigate('VideoModal', {
                 video: require('../assets/videos/ramses/video1.mov')
             });

@@ -26,9 +26,9 @@ export default class Persona1 extends Component {
         text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         text = text.replace(/[-_?!. ]/gi, '');
 
-        if (text.match(/(presenter|presentez|presente|etesvous|estu)/gi)) {
+        if (text.match(/(enterre|entere|tombe)/gi)) {
             this.props.navigation.navigate('VideoModal', {
-                video: require('../assets/videos/marie_curie/video1.mp4')
+                video: require('../assets/videos/marie_curie/video4.mp4')
             });
             this.setState({
                 inputColor: '#7D5FFF'
@@ -47,9 +47,9 @@ export default class Persona1 extends Component {
             this.setState({
                 inputColor: '#7D5FFF'
             });
-        } else if (text.match(/(enterre|entere|tombe)/gi)) {
+        } else if (text.match(/(presenter|presentez|presente|etesvous|estu)/gi)) {
             this.props.navigation.navigate('VideoModal', {
-                video: require('../assets/videos/marie_curie/video4.mp4')
+                video: require('../assets/videos/marie_curie/video1.mp4')
             });
             this.setState({
                 inputColor: '#7D5FFF'
