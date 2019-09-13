@@ -44,6 +44,7 @@ const Perso1Stack = createStackNavigator(
 );
 
 Perso1Stack.navigationOptions = {
+
     tabBarLabel: 'Marie Curie',
     tabBarIcon: ({focused, tintColor}) => (
         <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-woman' : 'md-woman'}/>
