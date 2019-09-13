@@ -1,6 +1,6 @@
 import React from 'react';
-import {Platform} from 'react-native';
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
+import { Platform } from 'react-native';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -44,7 +44,7 @@ const Perso1Stack = createStackNavigator(
 );
 
 Perso1Stack.navigationOptions = {
-    tabBarLabel: 'Perso 1',
+    tabBarLabel: 'Marie Curie',
     tabBarIcon: ({focused, tintColor}) => (
         <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-woman' : 'md-woman'}/>
     ),
@@ -60,7 +60,7 @@ const Perso2Stack = createStackNavigator(
 );
 
 Perso2Stack.navigationOptions = {
-    tabBarLabel: 'Perso 2',
+    tabBarLabel: 'Ramses II',
     tabBarIcon: ({focused, tintColor}) => (
         <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-man' : 'md-man'}/>
     ),
