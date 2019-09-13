@@ -2,19 +2,34 @@ import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
   Image,
-  Platform,
+  Platform, SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {BackGround} from '../assets/videos/walk.mp4';
+
+import {
+  Video
+} from 'expo-av';
 
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
+
+
+      <View>
+      <Video
+          source={require('../assets/videos/walk.mp4')}
+          shouldPlay
+          style={styles.video}
+      />
+      </View>
+
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
@@ -93,7 +108,16 @@ function handleHelpPress() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+  //  backgroundColor: '#fff',
+  },
+  video: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    zIndex:-1,
+    backgroundColor:'white'
   },
   developmentModeText: {
     marginBottom: 20,
