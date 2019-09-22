@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default class Persona1 extends Component {
 
@@ -26,14 +26,14 @@ export default class Persona1 extends Component {
         text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         text = text.replace(/[-_?!. ]/gi, '');
 
-        if (text.match(/(enterre|entere|tombe)/gi)) {
+        if (text.match(/(enterre|entere|tombe|sepulture)/gi)) {
             this.props.navigation.navigate('VideoModal', {
                 video: require('../assets/videos/marie_curie/video4.mp4')
             });
             this.setState({
                 inputColor: '#7D5FFF'
             });
-        } else if (text.match(/(sujet|travail)/gi)) {
+        } else if (text.match(/(sujet|travail|travaux)/gi)) {
             this.props.navigation.navigate('VideoModal', {
                 video: require('../assets/videos/marie_curie/video2.mp4')
             });
@@ -66,7 +66,7 @@ export default class Persona1 extends Component {
             <View style={styles.container}>
                 <TextInput placeholder={"Cliquez ici pour poser une question"} style={[styles.questionInput, {borderColor: this.state.inputColor}]} onSubmitEditing={this.onQuestionSubmit}/>
                 {this.state.inputColor === '#e74c3c' && <Text style={styles.invalidQuestionText}>Aucun résultat</Text>}
-                <Text style={styles.questionHeaderText}>Idées de question</Text>
+                <Text style={styles.questionHeaderText}>Essayez-moi avec ces questions.</Text>
                 <View style={styles.tabBarInfoContainer}>
                     {/*<TouchableOpacity*/}
                     {/*    onPress={() => {*/}
@@ -74,7 +74,7 @@ export default class Persona1 extends Component {
                     {/*            video: require('../assets/videos/marie_curie/video1.mp4')*/}
                     {/*        });*/}
                     {/*    }}>*/}
-                    <Text style={styles.tabBarInfoText}>Pouvez-vous vous présenter ?</Text>
+                    <Text style={styles.tabBarInfoText}>Qui êtes-vous ?</Text>
                     {/*</TouchableOpacity>*/}
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -84,7 +84,7 @@ export default class Persona1 extends Component {
                     {/*          video: require('../assets/videos/marie_curie/video2.mp4')*/}
                     {/*      });*/}
                     {/*  }}>*/}
-                    <Text style={styles.tabBarInfoText}>Sur quels sujets avez-vous travaillée ?</Text>
+                    <Text style={styles.tabBarInfoText}>Quels sont vos travaux ?</Text>
                     {/*</TouchableOpacity>*/}
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -94,7 +94,7 @@ export default class Persona1 extends Component {
                     {/*        video: require('../assets/videos/marie_curie/video3.mp4')*/}
                     {/*    });*/}
                     {/*}}>*/}
-                    <Text style={styles.tabBarInfoText}>Comment êtes-vous décédée ?</Text>
+                    <Text style={styles.tabBarInfoText}>Comment êtes-vous morte ?</Text>
                     {/*</TouchableOpacity>*/}
                 </View>
                 <View style={styles.tabBarInfoContainer}>
@@ -104,7 +104,7 @@ export default class Persona1 extends Component {
                     {/*        video: require('../assets/videos/marie_curie/video4.mp4')*/}
                     {/*    });*/}
                     {/*}}>*/}
-                    <Text style={styles.tabBarInfoText}>Où êtes-vous enterrée ?</Text>
+                    <Text style={styles.tabBarInfoText}>Où se situe votre sépulture ?</Text>
                     {/*</TouchableOpacity>*/}
                 </View>
             </View>

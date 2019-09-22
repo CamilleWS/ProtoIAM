@@ -71,7 +71,7 @@ export default class Persona2 extends Component {
             <View style={styles.container}>
                 <TextInput placeholder={"Cliquez ici pour poser une question"} style={[styles.questionInput, {borderColor: this.state.inputColor}]} onSubmitEditing={this.onQuestionSubmit}/>
                 {this.state.inputColor === '#e74c3c' && <Text style={styles.invalidQuestionText}>Aucun résultat</Text>}
-                <Text style={styles.questionHeaderText}>Idées de question</Text>
+                <Text style={styles.questionHeaderText}>Essayez-moi avec ces questions.</Text>
                 <View style={styles.tabBarInfoContainer}>
                     {/*<TouchableOpacity*/}
                     {/*    onPress={() => {*/}
@@ -79,7 +79,7 @@ export default class Persona2 extends Component {
                     {/*            video: require('../assets/videos/ramses/video1.mov')*/}
                     {/*        });*/}
                     {/*    }}>*/}
-                    <Text style={styles.tabBarInfoText}>Quand êtes-vous née ?</Text>
+                    <Text style={styles.tabBarInfoText}>Présentez-vous.</Text>
                     {/*</TouchableOpacity>*/}
                 </View>
                 <View style={styles.tabBarInfoContainer}>
