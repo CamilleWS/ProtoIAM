@@ -30,7 +30,7 @@ const recordingOptions = {
     // android not currently in use. Not getting results from speech to text with .m4a
     // but parameters are required
     android: {
-        extension: '.m4a',
+        extension: '.flac',
         outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
         audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
         sampleRate: 44100,
@@ -49,7 +49,7 @@ const recordingOptions = {
     },
 };
 const config = {
-     ENCODING:'LINEAR16',
+     ENCODING:'FLAC',
     SAMPLE_RATE_HERTZ: 41000,
      LANGUAGE: 'fr-FR',
      CLOUD_FUNCTION_URL: "https://speech.googleapis.com/v1/speech:recognize?key=AIzaSyCfCay3CdYQskvfs7YOec6rdcWi06eJnrY"
@@ -98,12 +98,27 @@ class SpeechToText extends React.Component {
    getTranscription = async () => {
        this.setState({ isFetching: true });
        try {
-         console.log("Yolo: ", this.recording)
            const info = await FileSystem.getInfoAsync(this.recording.getURI());
            option = {encoding:FileSystem.EncodingType.Base64}
            const content = await FileSystem.readAsStringAsync(this.recording.getURI(), option);
+    const truc = await this.recording.createNewLoadedSoundAsync()
+    console.log("°°°°°°°°°°°°°°°°°  ", truc.sound, "  °°°°°°°°°°°°°")
+    try {
+      truc.sound.setVolumeAsync(1.0)
+     truc.sound.playAsync()
+  } catch (error) {
+  console.log("°°°°°°°°°°°°°°°°°ERROR°°°°°°°°°°°°°")
+// An error occurred!
+}
 
+
+//            const soundObject = new Audio.Sound();
+// soundObject.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
+// await soundObject.loadAsync(source, initialStatus, downloadFirst);
+
+           console.log(this.recording.getURI())
            const uri = info.uri;
+
            test = {
                config: {
                    encoding: 'LINEAR16',
@@ -111,24 +126,10 @@ class SpeechToText extends React.Component {
                    languageCode: 'fr-FR',
                },
                audio: {
-                   content: audioBase64,
+                   content: content,
                }
            }
-           const formData = new FormData();
-
-           formData.append('file', {
-                  uri,
-                  content,
-               audio:  {
-                 uri : uri,
-                 content : content,
-               },
-               config :  config,
-               type: 'audio/x-wav',
-               name: 'speech2text',
-
-           });
-           console.log("cout : ", test)
+          // console.log("cout : ", test)
            const response = await fetch(config.CLOUD_FUNCTION_URL, {
                method: 'POST',
                body: JSON.stringify(test)
@@ -168,7 +169,6 @@ class SpeechToText extends React.Component {
            console.log(error);
            this.stopRecording();
        }
-console.log("_________ ", recording , "____________")
        this.recording = recording;
 
    }
