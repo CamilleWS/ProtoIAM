@@ -15,6 +15,8 @@ import {
     View, TextInput
 } from 'react-native';
 import {Video} from 'expo-av'
+import {test} from '../scripts/leonard_question_analyse'
+
 
 import {MaterialIcons, Octicons} from '@expo/vector-icons';
 
@@ -30,8 +32,9 @@ export default class Persona3 extends Component {
         let text = event.nativeEvent.text;
         text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         text = text.replace(/[-_?!. ]/gi, '');
-
+        console.log(test("a"))
         if (text.match(/(paix|guerre)/gi)) {
+
             this.props.navigation.navigate('VideoModal', {
                 video: require('../assets/videos/ramses/video4.mov')
             });
