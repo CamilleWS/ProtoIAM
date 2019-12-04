@@ -6,6 +6,7 @@ import {
     ScrollView,
     StyleSheet,
     Text,
+    Button,
     Dimensions,
     TouchableOpacity,
     View,
@@ -107,6 +108,14 @@ export default class Persona1 extends Component {
                     <Text style={styles.tabBarInfoText}>Où se situe votre sépulture ?</Text>
                     {/*</TouchableOpacity>*/}
                 </View>
+                <View style={styles.tabBarInfoContainer}>
+                  <Button
+                  title="coucou"
+                     onPress={() => {
+                       this.props.navigation.navigate('SpeechToText', {});
+                     }}
+                   />
+             </View>
             </View>
         );
     }
