@@ -101,12 +101,9 @@ class SpeechToText extends React.Component {
          console.log("Yolo: ", this.recording)
            const info = await FileSystem.getInfoAsync(this.recording.getURI());
            option = {encoding:FileSystem.EncodingType.Base64}
-           const audioBase64 = await FileSystem.readAsStringAsync(this.recording.getURI(), option);
+           const content = await FileSystem.readAsStringAsync(this.recording.getURI(), option);
 
-             // console.log("_____>>>>>>>>>>>> ", audioBase64, " <<<<<<<<<<<_____");
-          // console.log(`FILE INFO: ${JSON.stringify(info)}`);
            const uri = info.uri;
-           const formData = new FormData();
            test = {
                config: {
                    encoding: 'LINEAR16',
@@ -117,11 +114,19 @@ class SpeechToText extends React.Component {
                    content: audioBase64,
                }
            }
-           formData.append('audio', {
-               uri: uri,
-               content: audioBase64,
+           const formData = new FormData();
+
+           formData.append('file', {
+                  uri,
+                  content,
+               audio:  {
+                 uri : uri,
+                 content : content,
+               },
+               config :  config,
                type: 'audio/x-wav',
-               name: 'speech2text'
+               name: 'speech2text',
+
            });
            console.log("cout : ", test)
            const response = await fetch(config.CLOUD_FUNCTION_URL, {
