@@ -103,19 +103,30 @@ class SpeechToText extends React.Component {
            option = {encoding:FileSystem.EncodingType.Base64}
            const audioBase64 = await FileSystem.readAsStringAsync(this.recording.getURI(), option);
 
-             console.log("_____>>>>>>>>>>>> ", audioBase64, " <<<<<<<<<<<_____");
+             // console.log("_____>>>>>>>>>>>> ", audioBase64, " <<<<<<<<<<<_____");
           // console.log(`FILE INFO: ${JSON.stringify(info)}`);
            const uri = info.uri;
            const formData = new FormData();
-           formData.append('file', {
+           test = {
+               config: {
+                   encoding: 'LINEAR16',
+                  sampleRateHertz: 16000,
+                   languageCode: 'fr-FR',
+               },
+               audio: {
+                   content: audioBase64,
+               }
+           }
+           formData.append('audio', {
                uri: uri,
                content: audioBase64,
                type: 'audio/x-wav',
                name: 'speech2text'
            });
+           console.log("cout : ", test)
            const response = await fetch(config.CLOUD_FUNCTION_URL, {
                method: 'POST',
-               body: formData
+               body: JSON.stringify(test)
            });
            console.log(response);
            const data = await response.json();
