@@ -51,7 +51,8 @@ const recordingOptions = {
 const config = {
      ENCODING:'LINEAR16',
     SAMPLE_RATE_HERTZ: 41000,
-     LANGUAGE: 'fr-FR'
+     LANGUAGE: 'fr-FR',
+     CLOUD_FUNCTION_URL: "https://speech.googleapis.com/v1/speech:recognize?key=AIzaSyCfCay3CdYQskvfs7YOec6rdcWi06eJnrY"
 };
 
 class SpeechToText extends React.Component {
@@ -99,8 +100,8 @@ class SpeechToText extends React.Component {
        try {
          console.log("Yolo: ", this.recording)
            const info = await FileSystem.getInfoAsync(this.recording.getURI());
-             console.log("1___<  staysActiveInBackground  >___ coucou");
-           console.log(`FILE INFO: ${JSON.stringify(info)}`);
+             console.log(info);
+          // console.log(`FILE INFO: ${JSON.stringify(info)}`);
            const uri = info.uri;
            const formData = new FormData();
            formData.append('file', {
@@ -112,6 +113,7 @@ class SpeechToText extends React.Component {
                method: 'POST',
                body: formData
            });
+           console.log(response);
            const data = await response.json();
            console.log(data);
            this.setState({ query: data.transcript });
