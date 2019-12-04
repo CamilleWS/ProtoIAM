@@ -2,6 +2,7 @@
   {
     "id": "ramesses",
     "name": "Ramses II",
-    "backgroundImage": "egypt"
+    "backgroundImage": "egypt",
+    "mainColor": "#DAA570"
   }
 ]
