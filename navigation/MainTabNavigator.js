@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import Persona1 from '../screens/Persona1';
 import Persona2 from '../screens/Persona2';
+import CharacterScreen from "../screens/CharacterScreen";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
@@ -55,9 +56,9 @@ Perso1Stack.path = '';
 
 const Perso2Stack = createStackNavigator(
     {
-        Perso2: Persona2,
+        Perso2: CharacterScreen,
     },
-    config
+    config,
 );
 
 Perso2Stack.navigationOptions = {
@@ -67,12 +68,14 @@ Perso2Stack.navigationOptions = {
     ),
 };
 
+Perso2Stack.screenProps = { id: "ramesses" };
+
 Perso2Stack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
         Perso1Stack,
-        Perso2Stack,
+        Perso2: { screen: props => <CharacterScreen {...props} {...{id: "ramesses"}} /> },
     },
     {
         tabBarOptions: {
