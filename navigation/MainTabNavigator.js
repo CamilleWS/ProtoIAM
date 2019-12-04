@@ -78,7 +78,7 @@ const Perso3Stack = createStackNavigator(
 );
 
 Perso3Stack.navigationOptions = {
-    tabBarLabel: 'Leonard de Vince',
+    tabBarLabel: 'Leonard de Vinci',
     tabBarIcon: ({focused, tintColor}) => (
         <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-man' : 'md-man'}/>
     ),
