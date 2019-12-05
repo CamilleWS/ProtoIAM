@@ -75,6 +75,8 @@ export function checkQuestion(text)
                 let regexp = new RegExp(regexStr)
                 if (text.match(regexp))
                     goodKeyWord += 1
+                }
+
             }
             if (goodKeyWord == keyWords[i][j].length)
                 return (videoPath[i])
