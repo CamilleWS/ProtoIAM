@@ -66,13 +66,12 @@ export function checkQuestion(text)
         for (let j = 0; j < keyWords[i].length; j++) {
             let goodKeyWord = 0;
             for (let k = 0; k < keyWords[i][j].length; k++) {
-                goodKeyWord += 1
-                let regexStr = "/("
-                regexStr += keyWords[i][j][k]
-                regexStr += ")/gi"
-                let regexp = new RegExp(regexStr)
-                if (text.match(regexp))
+                let regexStr = keyWords[i][j][k]
+                let regexp = new RegExp(regexStr, "gi")
+                if (text.match(regexp)) {
                     goodKeyWord += 1
+                }
+
             }
             if (goodKeyWord == keyWords[i][j].length)
                 return (videoPath[i])
