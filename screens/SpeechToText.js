@@ -31,8 +31,8 @@ const recordingOptions = {
     // but parameters are required
     android: {
         extension: '.flac',
-        outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
-        audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
+        outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_WB,
+        audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_WB,
         sampleRate: 44100,
         numberOfChannels: 2,
         bitRate: 128000,
@@ -111,17 +111,12 @@ class SpeechToText extends React.Component {
 // An error occurred!
 }
 
-
-//            const soundObject = new Audio.Sound();
-// soundObject.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
-// await soundObject.loadAsync(source, initialStatus, downloadFirst);
-
            console.log(this.recording.getURI())
            const uri = info.uri;
 
            test = {
                config: {
-                   encoding: 'LINEAR16',
+                   encoding: 'AMR_WB',
                   sampleRateHertz: 16000,
                    languageCode: 'fr-FR',
                },
