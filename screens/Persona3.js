@@ -12,10 +12,12 @@ import {
     Modal,
     Alert,
     TouchableHighlight,
-    View, TextInput
+    View, TextInput,
+    FlatList
 } from 'react-native';
 import {Video} from 'expo-av'
 import {checkQuestion} from '../scripts/leonard_question_analyse'
+import {questionLeonard} from '../scripts/leonard_question_analyse'
 
 
 import {MaterialIcons, Octicons} from '@expo/vector-icons';
@@ -46,53 +48,31 @@ export default class Persona3 extends Component {
             });
         }
     };
-
     render() {
+
         return (
             <View style={styles.container}>
                 <TextInput placeholder={"Cliquez ici pour poser une question"} style={[styles.questionInput, {borderColor: this.state.inputColor}]} onSubmitEditing={this.onQuestionSubmit}/>
                 {this.state.inputColor === '#e74c3c' && <Text style={styles.invalidQuestionText}>Aucun résultat</Text>}
-                <Text style={styles.questionHeaderText}>Essayez-moi avec ces questions.</Text>
-                <View style={styles.tabBarInfoContainer}>
-                    {/*<TouchableOpacity*/}
-                    {/*    onPress={() => {*/}
-                    {/*        this.props.navigation.navigate('VideoModal', {*/}
-                    {/*            video: require('../assets/videos/ramses/video1.mov')*/}
-                    {/*        });*/}
-                    {/*    }}>*/}
-                    <Text style={styles.tabBarInfoText}>Présentez-vous.</Text>
-                    {/*</TouchableOpacity>*/}
-                </View>
-                <View style={styles.tabBarInfoContainer}>
-                    {/*<TouchableOpacity*/}
-                    {/*    onPress={() => {*/}
-                    {/*        this.props.navigation.navigate('VideoModal', {*/}
-                    {/*            video: require('../assets/videos/ramses/video2.mov')*/}
-                    {/*        });*/}
-                    {/*    }}>*/}
-                    <Text style={styles.tabBarInfoText}>Parlez-moi de votre famille.</Text>
-                    {/*</TouchableOpacity>*/}
-                </View>
-                <View style={styles.tabBarInfoContainer}>
-                    {/*<TouchableOpacity*/}
-                    {/*    onPress={() => {*/}
-                    {/*        this.props.navigation.navigate('VideoModal', {*/}
-                    {/*            video: require('../assets/videos/ramses/video3.mov')*/}
-                    {/*        });*/}
-                    {/*    }}>*/}
-                    <Text style={styles.tabBarInfoText}>Qui était votre reine ?</Text>
-                    {/*</TouchableOpacity>*/}
-                </View>
-                <View style={styles.tabBarInfoContainer}>
-                    {/*<TouchableOpacity*/}
-                    {/*    onPress={() => {*/}
-                    {/*        this.props.navigation.navigate('VideoModal', {*/}
-                    {/*            video: require('../assets/videos/ramses/video4.mov')*/}
-                    {/*        });*/}
-                    {/*    }}>*/}
-                    <Text style={styles.tabBarInfoText}>Luttiez-vous pour la paix ou pour la guerre ?</Text>
-                    {/*</TouchableOpacity>*/}
-                </View>
+                <FlatList
+                  data = {questionLeonard()}
+                  renderItem= {({item, index}) => {
+                      return (
+                          <View key={index} style={styles.tabBarInfoContainer}>
+                              {/*<TouchableOpacity*/}
+                              {/*    onPress={() => {*/}
+                              {/*        this.props.navigation.navigate('VideoModal', {*/}
+                              {/*            video: require('../assets/videos/ramses/video2.mov')*/}
+                              {/*        });*/}
+                              {/*    }}>*/}
+                              <Text style={styles.tabBarInfoText}>{item}</Text>
+                              {/*</TouchableOpacity>*/}
+                          </View>)
+                  }
+                  }
+                  keyExtractor = {item => item}
+
+                />
             </View>
         );
     }

@@ -1,9 +1,39 @@
 
+let questions = [
+    "Qui es-tu ?",
+    "Qui est Mona Lisa ?",
+    "Parle moi de tes plus belles inventions ?",
+    "Parle moi de la Joconde.",
+    "Parle moi de la Cène.",
+    "Parle moi de ta passion pour la médecine ?",
+    "Parle moi de ta relation avec François Premier.",
+    "As tu eu des assistants ?",
+    "Où se trouve la Joconde ?",
+    "Où se trouve la Cène?",
+    "Où es tu enterré ?",
+    "Pillais-tu vraiment des morgues pour étudier des cadavres ?"
+]
+
+let answers = [
+    "Je suis Léonard de Vinci et je suis né le 15 avril 1452 sur les hauteurs du village de Vinci en Toscane. Je suis le fils illégitime d’une mère servante et paysane et d’un père notaire, aisé et reconnu. Je suis connu pour mes talents d’artiste, d’architecte et de scientifique.",
+    "La théorie la plus répandue est que Mona Lisa serait la représentation de la Florentine Lisa Gherardini, épouse de Francesco del Giocondo.",
+    "Je suis particulièrement fier de mes œuvres 'La Joconde' et 'La Cene'",
+    "La Joconde, ou Portrait de Mona Lisa, est un tableau que j’ai réalisé entre 1503 et 1506 ou entre 1513 et 1516, je ne me souviens plus vraiment.",
+    "La Cène est une peinture murale que j’ai réalisée de 1495 à 1498 pour le réfectoire du couvent Dominicain de Santa Maria delle Grazie à Milan.",
+    "J’ai commencé à m’initier à l'anatomie du corps lors de mon apprentissage avec Andrea del Verrocchio, mon maître. Comme artiste, je suis rapidement devenu un expert de l’anatomie topographique, notamment après mes nombreuses études des muscles, des tendons et d'autres caractéristiques anatomiques visibles",
+    "François premier fut mon dernier mécène. Il reconnut ma valeur et m’invita à résider dans le splendide château du Clos Lucé, où je passa le reste de ma vie.",
+    "J’ai eu plusieurs assistants, mais le plus connu reste Salai. D’ailleurs, certains pensent que Salai est le modèle qui m’a servi à réaliser La Joconde !",
+    "La Joconde se trouve actuellement au Louvre.",
+    "La Cène est exposée à l’Église Santa Maria delle Grazie de Milan.",
+    "Je repose à la Chapelle Saint-Hubert à Amboise.",
+    "Oui, mais bien que cela soit mal vue cela m’a permis d’étudier en profondeur l’anatomie du corps humain afin d’en comprendre les mécanismes."
+]
+
 export function checkQuestion(text)
 {
 
     let keyWords = [
-        [["qui", "estu"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"]],
+        [["qui", "estu"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
         [["qui", "etait", "monalisa"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"]],
         [["œuvres"], ["oeuvres"], ["inventions"], ["fier"]],
         [["quand", "joconde"], ["quand", "monalisa"], ["parle", "moi", "joconde"], ["parle", "moi", "monalisa"]],
@@ -12,40 +42,12 @@ export function checkQuestion(text)
         [["dernier", "mecene"], ["francois", "premier"], ["françois", "premier"]],
         [["assistant"], ["salai"]],
         [["ou", "joconde"], ["ou", "monalisa"]],
-        [["ou", "cene"]],
+        [["ou", "cene"]],﻿
         [["ou", "enterre"], ["ou", "tombe"]],
         [["piller", "cadavre"], ["pillais", "cadavre"], ["etudier", "cadavre"], ["morgue"]]
     ]
 
-    let answers = [
-        "Je suis Léonard de Vinci et je suis né le 15 avril 1452 sur les hauteurs du village de Vinci en Toscane. Je suis le fils illégitime d’une mère servante et paysane et d’un père notaire, aisé et reconnu. Je suis connu pour mes talents d’artiste, d’architecte et de scientifique.",
-        "La théorie la plus répandue est que Mona Lisa serait la représentation de la Florentine Lisa Gherardini, épouse de Francesco del Giocondo.",
-        "Je suis particulièrement fier de mes œuvres 'La Joconde' et 'La Cene'",
-        "La Joconde, ou Portrait de Mona Lisa, est un tableau que j’ai réalisé entre 1503 et 1506 ou entre 1513 et 1516, je ne me souviens plus vraiment.",
-        "La Cène est une peinture murale que j’ai réalisée de 1495 à 1498 pour le réfectoire du couvent Dominicain de Santa Maria delle Grazie à Milan.",
-        "J’ai commencé à m’initier à l'anatomie du corps lors de mon apprentissage avec Andrea del Verrocchio, mon maître. Comme artiste, je suis rapidement devenu un expert de l’anatomie topographique, notamment après mes nombreuses études des muscles, des tendons et d'autres caractéristiques anatomiques visibles",
-        "François premier fut mon dernier mécène. Il reconnut ma valeur et m’invita à résider dans le splendide château du Clos Lucé, où je passa le reste de ma vie.",
-        "J’ai eu plusieurs assistants, mais le plus connu reste Salai. D’ailleurs, certains pensent que Salai est le modèle qui m’a servi à réaliser La Joconde !",
-        "La Joconde se trouve actuellement au Louvre.",
-        "La Cène est exposée à l’Église Santa Maria delle Grazie de Milan.",
-        "Je repose à la Chapelle Saint-Hubert à Amboise.",
-        "Oui, mais bien que cela soit mal vue cela m’a permis d’étudier en profondeur l’anatomie du corps humain afin d’en comprendre les mécanismes."
-    ]
 
-    let questions = [
-        "Qui es-tu ?",
-        "Qui est Mona Lisa ?",
-        "Parle moi de tes plus belles inventions ?",
-        "Parle moi de la Joconde.",
-        "Parle moi de la Cène.",
-        "Parle moi de ta passion pour la médecine ?",
-        "Parle moi de ta relation avec François Premier.",
-        "As tu eu des assistants ?",
-        "Où se trouve la Joconde ?",
-        "Où se trouve la Cène?",
-        "Où es tu enterré ?",
-        "Pillais-tu vraiment des morgues pour étudier des cadavres ?"
-    ]
 
     let videoPath = [
         require("../assets/videos/leonard_de_vinci/presentation-2.mov"),
@@ -78,4 +80,15 @@ export function checkQuestion(text)
         }
     }
     return (null)
+}
+
+
+export function questionLeonardByIndex (index)
+{
+    return questions[index]
+}
+
+export function questionLeonard ()
+{
+    return questions
 }
