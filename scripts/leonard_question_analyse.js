@@ -11,7 +11,8 @@ let questions = [
     "Où se trouve la Joconde ?",
     "Où se trouve la Cène?",
     "Où es tu enterré ?",
-    "Pillais-tu vraiment des morgues pour étudier des cadavres ?"
+    "Pillais-tu vraiment des morgues pour étudier des cadavres ?",
+    "Quand es-tu décédé ?"
 ]
 
 let answers = [
@@ -26,17 +27,37 @@ let answers = [
     "La Joconde se trouve actuellement au Louvre.",
     "La Cène est exposée à l’Église Santa Maria delle Grazie de Milan.",
     "Je repose à la Chapelle Saint-Hubert à Amboise.",
-    "Oui, mais bien que cela soit mal vue cela m’a permis d’étudier en profondeur l’anatomie du corps humain afin d’en comprendre les mécanismes."
+    "Oui, mais bien que cela soit mal vue cela m’a permis d’étudier en profondeur l’anatomie du corps humain afin d’en comprendre les mécanismes.",
+    "Je suis décédé le 2 mai 1519."
 ]
 
 export function checkQuestion(text)
 {
 
     let keyWords = [
-        [["qui", "estu"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
-        [["qui", "etait", "monalisa"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"]],
-        [["œuvres"], ["oeuvres"], ["inventions"], ["fier"]],
-        [["quand", "joconde"], ["quand", "monalisa"], ["parle", "moi", "joconde"], ["parle", "moi", "monalisa"]],
+        [["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
+        [["qui", "etait", "monalisa"], ["qui", "etait", "mona"], ["qui", "etait", "lisa"], ["parle", "de", "lisa"], ["parle", "de", "mona"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"]],
+        [["œuvres"], ["oeuvres"], ["inventions"], ["creations"], ["fier"], ["astu", "fais"], ["tu", "as", "fais"]],
+
+        [
+            ["quand", "joconde"], ["quand", "monalisa"], ["parle", "moi", "joconde"], ["parle", "moi", "monalisa"],
+            ["la", "plus", "recente", "oeuvre"], ["la", "plus", "recente", "œuvre"],
+            ["meilleure", "œuvre"], ["meilleure", "oeuvre"],
+            ["connue", "œuvre"], ["connue", "oeuvre"],
+            ["populaire", "œuvre"], ["connue", "oeuvre"],
+
+            ["la", "plus", "recente", "creation"], ["derner", "creation"],
+            ["meilleure", "creation"], ["meilleure", "creation"],
+            ["connue", "creation"], ["connue", "creation"],
+            ["populaire", "creation"], ["connue", "oeuvre"],
+
+            ["la", "plus", "recente", "invention"], ["dernier", "invention"],
+            ["meilleure", "invention"],
+            ["connue", "invention"],
+            ["populaire", "invention"]
+
+        ],
+
         [["pourquoi", "cene"], ["quand", "cene"], ["raison", "cène"], ["parle", "moi", "cene"], ["explique", "cene"]],
         [["hobby"], ["passion"], ["medecine"], ["anatomie"], ["corps", "humain"], ["muscles"], ["tendons"], ["anatomique"]],
         [["dernier", "mecene"], ["francois", "premier"], ["françois", "premier"]],
@@ -44,7 +65,8 @@ export function checkQuestion(text)
         [["ou", "joconde"], ["ou", "monalisa"]],
         [["ou", "cene"]],﻿
         [["ou", "enterre"], ["ou", "tombe"]],
-        [["piller", "cadavre"], ["pillais", "cadavre"], ["etudier", "cadavre"], ["morgue"]]
+        [["piller", "cadavre"], ["pillais", "cadavre"], ["etudier", "cadavre"], ["morgue"]],
+        [["estu", "decede"], ["estu", "mort"], ["tu", "mort"], ["vous", "mort"], ["etesvous", "mort"]]
     ]
 
 
@@ -61,7 +83,9 @@ export function checkQuestion(text)
         require("../assets/videos/leonard_de_vinci/lieu-expo-joconde.mov"),
         require("../assets/videos/leonard_de_vinci/lieu-expo-cene.mov"),
         require("../assets/videos/leonard_de_vinci/lieu-enterrement.mov"),
-        require("../assets/videos/leonard_de_vinci/question-dissection.mov")
+        require("../assets/videos/leonard_de_vinci/question-dissection.mov"),
+        require("../assets/videos/leonard_de_vinci/date-deces.mov")
+
     ]
 
     for (let i = 0; i < questions.length; i++) {
