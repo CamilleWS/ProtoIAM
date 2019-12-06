@@ -2,11 +2,13 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 //Data
 import characters from '../assets/characters/characters.json';
 import SpeechToText from '../components/SpeechToText'
 import Tips from '../components/Tips'
+import Talk from '../components/Talk'
 
 class CharacterScreen extends Component {
 
@@ -78,6 +80,7 @@ class CharacterScreen extends Component {
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} />
                     <Text>Head of Character</Text>
+                    <Talk></Talk>
                 </View>
                 <View style={styles.bottomSheet}>
                     <ScrollView   ref={ref => this.scrollView = ref}
@@ -149,4 +152,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CharacterScreen;
+export default connect ()(CharacterScreen);
