@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 //Data
 import characters from '../assets/characters/characters.json';
+import SpeechToText from '../components/SpeechToText'
 
 class CharacterScreen extends Component {
 
@@ -49,7 +50,7 @@ class CharacterScreen extends Component {
                         )}
                     </ScrollView>
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                        <View style={styles.recordButton}/>
+                    <SpeechToText></SpeechToText>
                     </View>
                 </View>
             </ImageBackground>
@@ -92,12 +93,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 25,
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    recordButton: {
-        width: 48,
-        height: 48,
-        borderRadius: 24,
-        backgroundColor: 'rgba(0,0,0,0.21)'
     },
     chatMessage: {
         width: '65%',
