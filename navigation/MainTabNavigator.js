@@ -9,7 +9,7 @@ import Persona2 from '../screens/Persona2';
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
-    default: {},
+    default: {headerMode : "hiden" },
 });
 
 const HomeStack = createStackNavigator(
