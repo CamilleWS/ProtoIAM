@@ -9,23 +9,11 @@ import {
     View,
     Button,
     navigation,
-    Dimensions
+    Dimensions,
+    Animated,
+    Easing
 } from 'react-native';
 
-
-// var Square = React.createClass({
-// render: function() {
-//     return (
-//         <View style={styles.square} />
-//     )
-// }
-// });
-//
-// square: {
-//     width: 100;
-//     height: 100;
-//     backgroundColor: 'red'
-// }
 
 
 class HomeScreen extends Component {
@@ -44,7 +32,32 @@ class HomeScreen extends Component {
     {
         alert("ramses");
     }
+
+    constructor () {
+      super()
+      this.spinValue = new Animated.Value(0)
+    }
+
+    componentDidMount () {
+      this.spin()
+    }
+    spin () {
+      this.spinValue.setValue(0)
+      Animated.timing(
+        this.spinValue,
+        {
+          toValue: 1,
+          duration: 4000,
+          easing: Easing.linear
+        }
+      ).start(() => this.spin())
+    }
+
     render() {
+        const spin = this.spinValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: ['0deg', '360deg']
+        })
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.images}>
@@ -59,7 +72,19 @@ class HomeScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentCircle}>
-                    <View style={styles.circle}>
+                  <Animated.Image
+                    style={{ width: 150, height: 150, transform: [{rotate: spin}]}}
+                      source={require('../assets/images/circle.png')}
+                  />
+                </View>
+                <View style={styles.contentCircle}>
+                  <Animated.Image
+                    style={{ width: 200, height: 200, transform: [{rotate: spin}]}}
+                      source={require('../assets/images/circle.png')}
+                  />
+                </View>
+                <View style={styles.contentCircle}>
+                    <View style={{width: 90, height: 90, borderRadius: 90/2, backgroundColor: 'red'}}>
                     </View>
                 </View>
             </View>
@@ -72,38 +97,41 @@ HomeScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-    square: {
-        width: 100,
-        height: 100,
-        backgroundColor: 'red'
+    // square: {
+    //     width: 100,
+    //     height: 100,
+    //     backgroundColor: 'red'
+    // },
+    // container: {
+    //     // flex: 1,
+    //     justifyContent: 'center',
+    //     alignItems: 'center'
+    // },
+    mainContainer: {
+        flex: 1,
+        alignItems: 'center',
+        // justifyContent: 'space-around',
+        backgroundColor: '#7D5FFF',
     },
     images: {
-        flex: 1,
+        // flex: 2,
         flexDirection: "row",
-        alignItems: 'center',
+        // alignItems: 'inherit',
         justifyContent: 'space-around',
         paddingTop: 20,
         backgroundColor: '#7D5FFF'
-    },
-    mainContainer: {
-        flex: 1,
-        backgroundColor: '#7D5FFF',
-    },
-    contentCircle: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingTop: 150
-    },
-    circle: {
-        width: 100,
-        height: 100,
-        borderRadius: 100/2,
-        backgroundColor: 'red'
     },
     image: {
         width: 100,
         height: 100,
     },
+    contentCircle: {
+        justifyContent: 'center',
+        // alignItems: 'center',
+        position: 'absolute',
+        paddingTop: 300,
+    },
+
     logo: {
         width: 375,
         height: 200,
