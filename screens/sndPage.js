@@ -36,10 +36,13 @@ class HomeScreen extends Component {
     constructor () {
       super()
       this.spinValue = new Animated.Value(0)
+      this.spinrValue = new Animated.Value(0)
     }
+
 
     componentDidMount () {
       this.spin()
+      this.spinr()
     }
     spin () {
       this.spinValue.setValue(0)
@@ -47,10 +50,21 @@ class HomeScreen extends Component {
         this.spinValue,
         {
           toValue: 1,
-          duration: 3000,
+          duration: 4000,
           easing: Easing.linear
         }
       ).start(() => this.spin())
+    }
+    spinr () {
+      this.spinrValue.setValue(0)
+      Animated.timing(
+        this.spinrValue,
+        {
+          toValue: 1,
+          duration: 2000,
+          easing: Easing.linear
+        }
+    ).start(() => this.spinr())
     }
 
     render() {
@@ -61,6 +75,10 @@ class HomeScreen extends Component {
         const spin1 = this.spinValue.interpolate({
           inputRange: [0, 1],
           outputRange: ['360deg', '0deg']
+        })
+        const spin2 = this.spinrValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: ['0deg', '360deg']
         })
         return (
             <View style={styles.mainContainer}>
@@ -90,7 +108,7 @@ class HomeScreen extends Component {
                       </View>
                       <View style={{paddingTop: 16}}>
                           <Animated.Image
-                            style={{ width: 175, height: 175, transform: [{rotate: spin}]}}
+                            style={{ width: 175, height: 175, transform: [{rotate: spin2}]}}
                               source={require('../assets/images/circle1.png')}
                           />
                       </View>
