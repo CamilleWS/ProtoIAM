@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import Persona1 from '../screens/Persona1';
 import Persona2 from '../screens/Persona2';
 import CharacterScreen from "../screens/CharacterScreen";
+import Talk from '../screens/Talk';
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
@@ -72,10 +73,28 @@ Perso2Stack.screenProps = { id: "ramesses" };
 
 Perso2Stack.path = '';
 
+const TalkStack = createStackNavigator(
+    {
+        Talking: Talk,
+    },
+    config
+);
+
+TalkStack.navigationOptions = {
+    tabBarLabel: 'Talk',
+    tabBarIcon: ({focused, tintColor}) => (
+        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-man' : 'md-man'}/>
+    ),
+};
+
+TalkStack.path = '';
+
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
         Perso1Stack,
         Perso2: { screen: props => <CharacterScreen {...props} {...{id: "ramesses"}} /> },
+        Perso2Stack,
+        TalkStack,
     },
     {
         tabBarOptions: {
