@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 //Data
 import characters from '../assets/characters/characters.json';
 import SpeechToText from '../components/SpeechToText'
+import Tips from '../components/Tips'
 
 class CharacterScreen extends Component {
 
@@ -39,6 +40,7 @@ class CharacterScreen extends Component {
                 imageStyle={{resizeMode: 'cover'}}
                 style={[styles.background, {backgroundColor: mainColor}]}>
                 <View style={styles.characterContent}>
+                    <Tips mainColor={mainColor} />
                     <Text>Head of Character</Text>
                 </View>
                 <View style={styles.bottomSheet}>
