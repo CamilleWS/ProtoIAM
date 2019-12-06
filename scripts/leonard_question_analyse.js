@@ -100,7 +100,7 @@ export function checkQuestion(text)
 
             }
             if (goodKeyWord == keyWords[i][j].length)
-                return (videoPath[i])
+                return ([videoPath[i], videoPath[0]])
         }
     }
     return (null)
