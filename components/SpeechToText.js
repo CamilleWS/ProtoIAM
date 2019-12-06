@@ -74,7 +74,6 @@ class SpeechToText extends React.Component {
    }
 
    deleteRecordingFile = async () => {
-       console.log("Deleting file");
        try {
            const info = await FileSystem.getInfoAsync(this.recording.getURI());
            await FileSystem.deleteAsync(info.uri)
@@ -84,7 +83,6 @@ class SpeechToText extends React.Component {
    }
 
    getTranscription = async () => {
-     console.log("---> Transcript");
        this.setState({ isFetching: true });
        try {
            const info = await FileSystem.getInfoAsync(this.recording.getURI());
@@ -105,21 +103,18 @@ class SpeechToText extends React.Component {
                method: 'POST',
                body: JSON.stringify(test)
            });
-           console.log(response);
            const data = await response.json();
            console.log(data);
            this.setState({ query: data.transcript });
        } catch(error) {
            console.log('There was an error reading file', error);
            this.stopRecording();
-             console.log("---> handleOnPressOut");
            this.resetRecording();
        }
        this.setState({ isFetching: false });
    }
 
    startRecording = async () => {
-     console.log("---> Start");
 
        this.setState({ isRecording: true });
        await Audio.setAudioModeAsync({
@@ -139,7 +134,6 @@ class SpeechToText extends React.Component {
        } catch (error) {
            console.log(error);
            this.stopRecording();
-             console.log("---> Error");
        }
        this.recording = recording;
 
@@ -150,9 +144,7 @@ class SpeechToText extends React.Component {
        this.setState({ isRecording: false });
        try {
            await this.recording.stopAndUnloadAsync();
-             console.log("---> stopRecording -> okay");
        } catch (error) {
-         console.log("---> stopRecording -> error");
          console.log(error)
            // Do nothing -- we are already unloaded.
        }
@@ -169,7 +161,6 @@ class SpeechToText extends React.Component {
 
    handleOnPressOut = () => {
        this.stopRecording();
-         console.log("---> handleOnPressOut");
        this.getTranscription();
    }
 
@@ -180,22 +171,20 @@ class SpeechToText extends React.Component {
    render() {
        const { isRecording, query, isFetching } = this.state;
        return (
-               <View>
-               <TouchableOpacity
-                   style={styles.button}
-                   onPressIn={this.handleOnPressIn}
-                   onPressOut={this.handleOnPressOut}
-               >
-                <Text>Hold for Voice Search</Text>
-               </TouchableOpacity>
-                   {isRecording &&
-                       <FadeInView>
-                           <FontAwesome name="microphone" size={32} color="#48C9B0" />
-                       </FadeInView>
-                   }
-                   {!isRecording &&
-                       <FontAwesome name="microphone" size={32} color="#48C9B0" />
-                   }
+               <View style={styles.recordButton}>
+                 <TouchableOpacity
+                     onPressIn={this.handleOnPressIn}
+                     onPressOut={this.handleOnPressOut}
+                 >
+                 {isRecording &&
+                     <FadeInView>
+                         <FontAwesome name="microphone" size={38} color="#FFFFFF" style={styles.recordIcon} />
+                     </FadeInView>
+                 }
+                 {!isRecording &&
+                     <FontAwesome name="microphone" size={38} color="#FFFFFF" style={styles.recordIcon}/>
+                 }
+                 </TouchableOpacity>
                </View>
        );
    }
@@ -207,14 +196,16 @@ const styles = StyleSheet.create({
        backgroundColor: '#fff',
        alignItems: 'center',
    },
-   button: {
-       backgroundColor: '#48C9B0',
-       paddingVertical: 20,
-       width: '90%',
-       alignItems: 'center',
-       borderRadius: 5,
-       marginTop: 20,
-   }
+    recordButton: {
+        width: 55,
+        height: 55,
+        borderRadius: 30,
+        backgroundColor: 'rgba(0,0,0,0.21)'
+    },
+    recordIcon: {
+      marginTop: 8,
+      marginLeft:15
+    },
 });
 
 
