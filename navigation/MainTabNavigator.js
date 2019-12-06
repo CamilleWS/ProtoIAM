@@ -5,7 +5,6 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import Persona1 from '../screens/Persona1';
-import Persona2 from '../screens/Persona2';
 import CharacterScreen from "../screens/CharacterScreen";
 import Talk from '../screens/Talk';
 
@@ -55,24 +54,6 @@ Perso1Stack.navigationOptions = {
 
 Perso1Stack.path = '';
 
-const Perso2Stack = createStackNavigator(
-    {
-        Perso2: CharacterScreen,
-    },
-    config,
-);
-
-Perso2Stack.navigationOptions = {
-    tabBarLabel: 'Ramses II',
-    tabBarIcon: ({focused, tintColor}) => (
-        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-man' : 'md-man'}/>
-    ),
-};
-
-Perso2Stack.screenProps = { id: "ramesses" };
-
-Perso2Stack.path = '';
-
 const TalkStack = createStackNavigator(
     {
         Talking: Talk,
@@ -93,7 +74,6 @@ const tabNavigator = createBottomTabNavigator({
         HomeStack,
         Perso1Stack,
         Perso2: { screen: props => <CharacterScreen {...props} {...{id: "ramesses"}} /> },
-        Perso2Stack,
         TalkStack,
     },
     {
