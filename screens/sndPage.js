@@ -47,7 +47,7 @@ class HomeScreen extends Component {
         this.spinValue,
         {
           toValue: 1,
-          duration: 4000,
+          duration: 3000,
           easing: Easing.linear
         }
       ).start(() => this.spin())
@@ -57,6 +57,10 @@ class HomeScreen extends Component {
         const spin = this.spinValue.interpolate({
           inputRange: [0, 1],
           outputRange: ['0deg', '360deg']
+        })
+        const spin1 = this.spinValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: ['360deg', '0deg']
         })
         return (
             <View style={styles.mainContainer}>
@@ -72,20 +76,27 @@ class HomeScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentCircle}>
-                  <Animated.Image
-                    style={{ width: 150, height: 150, transform: [{rotate: spin}]}}
-                      source={require('../assets/images/circle.png')}
-                  />
-                </View>
-                <View style={styles.contentCircle}>
-                  <Animated.Image
-                    style={{ width: 200, height: 200, transform: [{rotate: spin}]}}
-                      source={require('../assets/images/circle.png')}
-                  />
-                </View>
-                <View style={styles.contentCircle}>
-                    <View style={{width: 90, height: 90, borderRadius: 90/2, backgroundColor: 'red'}}>
-                    </View>
+                        <View style={{zIndex: 999}}>
+                            <Animated.Image
+                              style={{ width: 225, height: 225, transform: [{rotate: spin}]}}
+                                source={require('../assets/images/circle3.png')}
+                            />
+                        </View>
+                      <View style={{paddingTop: 16}}>
+                          <Animated.Image
+                            style={{ width: 200, height: 200, transform: [{rotate: spin1}]}}
+                              source={require('../assets/images/circle2.png')}
+                          />
+                      </View>
+                      <View style={{paddingTop: 16}}>
+                          <Animated.Image
+                            style={{ width: 175, height: 175, transform: [{rotate: spin}]}}
+                              source={require('../assets/images/circle1.png')}
+                          />
+                      </View>
+                      <View style={{zIndex: 999, paddingTop: 62}}>
+                      <Image source={require('../assets/images/IAM_logo.png')} style = {{width: 50, height: 50,}} />
+                      </View>
                 </View>
             </View>
         )
@@ -97,39 +108,29 @@ HomeScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-    // square: {
-    //     width: 100,
-    //     height: 100,
-    //     backgroundColor: 'red'
-    // },
-    // container: {
-    //     // flex: 1,
-    //     justifyContent: 'center',
-    //     alignItems: 'center'
-    // },
     mainContainer: {
         flex: 1,
         alignItems: 'center',
-        // justifyContent: 'space-around',
-        backgroundColor: '#7D5FFF',
+        backgroundColor: '#DFD8FF',
     },
     images: {
-        // flex: 2,
         flexDirection: "row",
-        // alignItems: 'inherit',
         justifyContent: 'space-around',
         paddingTop: 20,
-        backgroundColor: '#7D5FFF'
+        backgroundColor: '#DFD8FF'
     },
     image: {
         width: 100,
         height: 100,
     },
     contentCircle: {
+        // flex:1,
+        width: 200,
+        height: 200,
         justifyContent: 'center',
-        // alignItems: 'center',
+        alignItems: 'center',
         position: 'absolute',
-        paddingTop: 300,
+        paddingTop: 400,
     },
 
     logo: {
