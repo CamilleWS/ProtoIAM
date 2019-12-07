@@ -117,19 +117,19 @@ class HomeScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentCircle}>
-                        <View style={{zIndex: 999}}>
+                        <View style={{zIndex: 999, opacity: 0.5}}>
                             <Animated.Image
                               style={{ width: 225, height: 225, transform: [{rotate: spin}]}}
                                 source={require('../assets/images/circle3.png')}
                             />
                         </View>
-                      <View style={{paddingTop: 16}}>
+                      <View style={{paddingTop: 16, opacity: 0.5}}>
                           <Animated.Image
                             style={{ width: 200, height: 200, transform: [{rotate: spin1}]}}
                               source={require('../assets/images/circle2.png')}
                           />
                       </View>
-                      <View style={{paddingTop: 16}}>
+                      <View style={{paddingTop: 16, opacity: 0.5}}>
                           <Animated.Image
                             style={{ width: 175, height: 175, transform: [{rotate: spin2}]}}
                               source={require('../assets/images/circle1.png')}
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         height: 250,
     },
     image: {
-        marginTop:50,
+        marginTop:100,
         width: 100,
         height: 100,
         borderBottomLeftRadius: 20,
@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         paddingTop: 400,
-        opacity: 0.5,
     },
 
     logo: {
