@@ -13,6 +13,7 @@ import {
     Animated,
     Easing
 } from 'react-native';
+import {Video} from 'expo-av'
 
 
 
@@ -52,7 +53,7 @@ class HomeScreen extends Component {
         }
       ).start(() => this.spin())
     }
-
+//  video: require('../assets/videos/ramses/video2.mov')
     render() {
         const spin = this.spinValue.interpolate({
           inputRange: [0, 1],
@@ -62,13 +63,35 @@ class HomeScreen extends Component {
             <View style={styles.mainContainer}>
                 <View style={styles.images}>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
-                        <Image source={require('../assets/images/robot-dev.png')} style = {styles.image} />
+                    <Video
+                        source={require('../assets/videos/presentation/leonard_standing.mov')}
+                        isMuted={false}
+                        resizeMode="cover"
+                        shouldPlay={true}
+                        isLooping={true}
+                        style = {styles.image}
+                    />
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun2 }>
-                        <Image source={require('../assets/images/robot-dev.png')} style = {styles.image} />
+
+                    <Video
+                        source={require('../assets/videos/presentation/marieCurie_standing.mov')}
+                        isMuted={false}
+                        resizeMode="cover"
+                        shouldPlay={true}
+                        isLooping={true}
+                        style = {styles.image}
+                    />
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun3 }>
-                        <Image source={require('../assets/images/robot-dev.png')} style = {styles.image} />
+                    <Video
+                        source={require('../assets/videos/presentation/ramses_standing.mov')}
+                        isMuted={false}
+                        resizeMode="cover"
+                        shouldPlay={true}
+                        isLooping={true}
+                        style = {styles.image}
+                    />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentCircle}>
@@ -119,7 +142,10 @@ const styles = StyleSheet.create({
         // alignItems: 'inherit',
         justifyContent: 'space-around',
         paddingTop: 20,
-        backgroundColor: '#7D5FFF'
+        backgroundColor: '#7D5FFF',
+        width: 400,
+        height: 300,
+        //backgroundColor: 'red'
     },
     image: {
         width: 100,
