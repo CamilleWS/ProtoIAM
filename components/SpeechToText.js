@@ -104,8 +104,14 @@ class SpeechToText extends React.Component {
                body: JSON.stringify(test)
            });
            const data = await response.json();
-           console.log(data);
-           this.setState({ query: data.transcript });
+           console.log(data)
+           transcription = data.results[0].alternatives[0].transcript
+          // console.log("Transcription:",  transcription);//results
+
+           this.sendData(transcription);
+
+
+          // this.setState({ query: transcription });
        } catch(error) {
            console.log('There was an error reading file', error);
            this.stopRecording();
@@ -167,6 +173,10 @@ class SpeechToText extends React.Component {
    handlQueryChange = (query) => {
        this.setState({ query });
    }
+
+   sendData = (transcription) => {
+         this.props.parentCallback(transcription);
+    };
 
    render() {
        const { isRecording, query, isFetching } = this.state;

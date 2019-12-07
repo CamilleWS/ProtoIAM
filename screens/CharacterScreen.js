@@ -9,6 +9,29 @@ import SpeechToText from '../components/SpeechToText'
 
 class CharacterScreen extends Component {
 
+      constructor(props) {
+        super(props)
+
+      //  this.handler = this.handler.bind(this);
+
+        this.state = {
+            transcript: "",
+            allTranscripts: []
+        };
+      };
+      callbackFunction = (childData) => {
+            this.setState({transcript: childData})
+            this.setState(prevState => ({
+                allTranscripts: [...prevState.allTranscripts, childData]
+            }));
+
+          this.state.allTranscripts.map(function(item){
+            console.log(item);
+          });
+
+      };
+
+
     render() {
 
         const config = characters.filter(el => el.id === this.props.id);
@@ -32,6 +55,24 @@ class CharacterScreen extends Component {
                 message: "Je suis né en -1304 avant JC."
             },
         ];
+        chat = []
+        i = 0;
+        this.state.allTranscripts.map(function(item){
+          console.log(item);
+
+            let newChatElemUser = {
+                    myself: true,
+                    message: item
+              }
+            let newChatElemPerso = {
+                  myself: false,
+                  message: "Salutations ! Je suis Ramses II. Tu peux me poser toutes les questions que tu veux."
+              }
+
+            chat.push(newChatElemUser);
+            chat.push(newChatElemPerso);
+
+        });
 
         return (
             <ImageBackground
@@ -50,7 +91,7 @@ class CharacterScreen extends Component {
                         )}
                     </ScrollView>
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                    <SpeechToText></SpeechToText>
+                    <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
                     </View>
                 </View>
             </ImageBackground>
