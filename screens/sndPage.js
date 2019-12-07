@@ -159,13 +159,16 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         paddingTop: 20,
         backgroundColor: '#DFD8FF',
-        width: 400,
-        height: 300,
-        //backgroundColor: 'red'
+        width: 350,
+        height: 250,
     },
     image: {
+        marginTop:50,
         width: 100,
         height: 100,
+        borderBottomLeftRadius: 20,
+        borderTopRightRadius: 20,
+        backgroundColor: '#DFD8FF',
     },
     contentCircle: {
         // flex:1,
@@ -175,6 +178,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         paddingTop: 400,
+        opacity: 0.5,
     },
 
     logo: {
