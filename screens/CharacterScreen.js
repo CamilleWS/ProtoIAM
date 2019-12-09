@@ -13,8 +13,6 @@ class CharacterScreen extends Component {
       constructor(props) {
         super(props)
 
-      //  this.handler = this.handler.bind(this);
-
         this.state = {
             transcript: "",
             allTranscripts: []
@@ -26,9 +24,6 @@ class CharacterScreen extends Component {
                 allTranscripts: [...prevState.allTranscripts, childData]
             }));
 
-          this.state.allTranscripts.map(function(item){
-            console.log(item);
-          });
 
       };
 
@@ -38,40 +33,40 @@ class CharacterScreen extends Component {
         const config = characters.filter(el => el.id === this.props.id);
 
         let { name, backgroundImage, mainColor } = config[0];
-        let chat = [
-            {
-                myself: true,
-                message: "Bonjour, je peux te poser une question ?"
-            },
-            {
-                myself: false,
-                message: "Salutations ! Je suis Ramses II. Tu peux me poser toutes les questions que tu veux."
-            },
-            {
-                myself: true,
-                message: "Quel est votre date de naissance ?"
-            },
-            {
-                myself: false,
-                message: "Je suis né en -1304 avant JC."
-            },
-        ];
-        chat = []
+        // let chat = [
+        //     {
+        //         myself: true,
+        //         message: "Bonjour, je peux te poser une question ?"
+        //     },
+        //     {
+        //         myself: false,
+        //         message: "Salutations ! Je suis Ramses II. Tu peux me poser toutes les questions que tu veux."
+        //     },
+        //     {
+        //         myself: true,
+        //         message: "Quel est votre date de naissance ?"
+        //     },
+        //     {
+        //         myself: false,
+        //         message: "Je suis né en -1304 avant JC."
+        //     },
+        // ];
+        let chat = []
         i = 0;
         this.state.allTranscripts.map(function(item){
-          console.log(item);
 
             let newChatElemUser = {
                     myself: true,
                     message: item
-              }
+                  }
+            chat.push(newChatElemUser);
+
             let newChatElemPerso = {
                   myself: false,
                   message: "Salutations ! Je suis Ramses II. Tu peux me poser toutes les questions que tu veux."
-              }
-
-            chat.push(newChatElemUser);
+                }
             chat.push(newChatElemPerso);
+
 
         });
 
@@ -85,7 +80,11 @@ class CharacterScreen extends Component {
                     <Text>Head of Character</Text>
                 </View>
                 <View style={styles.bottomSheet}>
-                    <ScrollView style={styles.chatContent}>
+                    <ScrollView   ref={ref => this.scrollView = ref}
+                                  style={styles.chatContent}
+                                  onContentSizeChange={(contentWidth, contentHeight)=>{
+                                      this.scrollView.scrollToEnd({animated: true});
+                                  }}>
                         {chat.map((message, index) =>
                             <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: mainColor, alignSelf: 'flex-end'} : {}]}>
                                 <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
