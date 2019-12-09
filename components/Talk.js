@@ -55,10 +55,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return ({
-        isTalkIcon: state.isTalkIcon,
-        inputText: state.inputText,
-        inputTextIcon: state.inputTextIcon,
-        conversationTextIcon: state.conversationTextIcon
+        isTalkIcon: state.perso.isTalkIcon,
+        inputText: state.perso.inputText,
+        inputTextIcon: state.perso.inputTextIcon,
+        conversationTextIcon: state.perso.conversationTextIcon
     });
 }
 
