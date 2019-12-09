@@ -31,63 +31,142 @@ let answers = [
     "Je suis décédé le 2 mai 1519."
 ]
 
+let liaisons = [
+    "Ensuite",
+    "Pour aller plus en profondeur",
+    "Plus Précisement",
+    "Pour être plus précis",
+    "Et donc",
+    "Et bien",
+    "Biensur",
+    "Evidement",
+    "Bien Evidement",
+    "Alors"
+]
+
+// let test = [ ["lol", "xd"] ]
+
+let linkPath = [
+    [
+        require("../assets/videos/leonard_de_vinci/liaisons/alors.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/liaisons/bien-evidemment.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/liaisons/bien-sur.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/liaisons/eh-donc.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/liaisons/ensuite.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/liaisons/evidemment.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/liaisons/plus-precisement.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/liaisons/pour-aller-plus-en-profondeur.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/liaisons/pour-etre-plus-recis.mov")
+    ]
+]
+
+let videoPath = [
+    [
+        require("../assets/videos/leonard_de_vinci/presentation-2.mov"),
+        require("../assets/videos/leonard_de_vinci/presentation-1.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/qui-est-la-joconde.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/oeuvres-plus-de-succes.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/presentation-joconde.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/presentation-la-cene.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/passion-medecine.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/relation-francois1er.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/assistants.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/lieu-expo-joconde.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/lieu-expo-cene.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/lieu-enterrement.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/question-dissection.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/date-deces.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),
+        require("../assets/videos/leonard_de_vinci/je_n_est_pas_la_reponse.mp4")
+    ]
+
+]
+
+
+let keyWords = [
+    [["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
+    [["qui", "etait", "monalisa"], ["qui", "etait", "mona"], ["qui", "etait", "lisa"], ["parle", "de", "lisa"], ["parle", "de", "mona"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"]],
+    [["œuvres"], ["oeuvres"], ["inventions"], ["creations"], ["fier"], ["astu", "fais"], ["tu", "as", "fais"]],
+
+    [
+        ["quand", "joconde"], ["quand", "monalisa"], ["parle", "moi", "joconde"], ["parle", "moi", "monalisa"],
+        ["la", "plus", "recente", "oeuvre"], ["la", "plus", "recente", "œuvre"],
+        ["meilleure", "œuvre"], ["meilleure", "oeuvre"],
+        ["connue", "œuvre"], ["connue", "oeuvre"],
+        ["populaire", "œuvre"], ["connue", "oeuvre"],
+
+        ["la", "plus", "recente", "creation"], ["derner", "creation"],
+        ["meilleure", "creation"], ["meilleure", "creation"],
+        ["connue", "creation"], ["connue", "creation"],
+        ["populaire", "creation"], ["connue", "oeuvre"],
+
+        ["la", "plus", "recente", "invention"], ["dernier", "invention"],
+        ["meilleure", "invention"],
+        ["connue", "invention"],
+        ["populaire", "invention"]
+
+    ],
+
+    [["pourquoi", "cene"], ["quand", "cene"], ["raison", "cène"], ["parle", "moi", "cene"], ["explique", "cene"]],
+    [["hobby"], ["passion"], ["medecine"], ["anatomie"], ["corps", "humain"], ["muscles"], ["tendons"], ["anatomique"]],
+    [["dernier", "mecene"], ["francois", "premier"], ["françois", "premier"]],
+    [["assistant"], ["salai"]],
+    [["ou", "joconde"], ["ou", "monalisa"]],
+    [["ou", "cene"]],﻿
+    [["ou", "enterre"], ["ou", "tombe"]],
+    [["piller", "cadavre"], ["pillais", "cadavre"], ["etudier", "cadavre"], ["morgue"]],
+    [["estu", "decede"], ["estu", "mort"], ["tu", "mort"], ["vous", "mort"], ["etesvous", "mort"]]
+]
+
+import * as Random from 'expo-random';
+
 export function checkQuestion(text)
 {
+    let variante = Math.floor(Math.random() * Math.floor(videoPath[videoPath.length - 1].length))
 
-    let keyWords = [
-        [["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
-        [["qui", "etait", "monalisa"], ["qui", "etait", "mona"], ["qui", "etait", "lisa"], ["parle", "de", "lisa"], ["parle", "de", "mona"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"]],
-        [["œuvres"], ["oeuvres"], ["inventions"], ["creations"], ["fier"], ["astu", "fais"], ["tu", "as", "fais"]],
-
-        [
-            ["quand", "joconde"], ["quand", "monalisa"], ["parle", "moi", "joconde"], ["parle", "moi", "monalisa"],
-            ["la", "plus", "recente", "oeuvre"], ["la", "plus", "recente", "œuvre"],
-            ["meilleure", "œuvre"], ["meilleure", "oeuvre"],
-            ["connue", "œuvre"], ["connue", "oeuvre"],
-            ["populaire", "œuvre"], ["connue", "oeuvre"],
-
-            ["la", "plus", "recente", "creation"], ["derner", "creation"],
-            ["meilleure", "creation"], ["meilleure", "creation"],
-            ["connue", "creation"], ["connue", "creation"],
-            ["populaire", "creation"], ["connue", "oeuvre"],
-
-            ["la", "plus", "recente", "invention"], ["dernier", "invention"],
-            ["meilleure", "invention"],
-            ["connue", "invention"],
-            ["populaire", "invention"]
-
-        ],
-
-        [["pourquoi", "cene"], ["quand", "cene"], ["raison", "cène"], ["parle", "moi", "cene"], ["explique", "cene"]],
-        [["hobby"], ["passion"], ["medecine"], ["anatomie"], ["corps", "humain"], ["muscles"], ["tendons"], ["anatomique"]],
-        [["dernier", "mecene"], ["francois", "premier"], ["françois", "premier"]],
-        [["assistant"], ["salai"]],
-        [["ou", "joconde"], ["ou", "monalisa"]],
-        [["ou", "cene"]],﻿
-        [["ou", "enterre"], ["ou", "tombe"]],
-        [["piller", "cadavre"], ["pillais", "cadavre"], ["etudier", "cadavre"], ["morgue"]],
-        [["estu", "decede"], ["estu", "mort"], ["tu", "mort"], ["vous", "mort"], ["etesvous", "mort"]]
-    ]
-
-
-
-    let videoPath = [
-        require("../assets/videos/leonard_de_vinci/presentation-2.mov"),
-        require("../assets/videos/leonard_de_vinci/qui-est-la-joconde.mov"),
-        require("../assets/videos/leonard_de_vinci/oeuvres-plus-de-succes.mov"),
-        require("../assets/videos/leonard_de_vinci/presentation-joconde.mov"),
-        require("../assets/videos/leonard_de_vinci/presentation-la-cene.mov"),
-        require("../assets/videos/leonard_de_vinci/passion-medecine.mov"),
-        require("../assets/videos/leonard_de_vinci/relation-francois1er.mov"),
-        require("../assets/videos/leonard_de_vinci/assistants.mov"),
-        require("../assets/videos/leonard_de_vinci/lieu-expo-joconde.mov"),
-        require("../assets/videos/leonard_de_vinci/lieu-expo-cene.mov"),
-        require("../assets/videos/leonard_de_vinci/lieu-enterrement.mov"),
-        require("../assets/videos/leonard_de_vinci/question-dissection.mov"),
-        require("../assets/videos/leonard_de_vinci/date-deces.mov")
-
-    ]
-
+    let ret = videoPath[videoPath.length - 1][variante];
     for (let i = 0; i < questions.length; i++) {
         for (let j = 0; j < keyWords[i].length; j++) {
             let goodKeyWord = 0;
@@ -99,11 +178,19 @@ export function checkQuestion(text)
                 }
 
             }
-            if (goodKeyWord == keyWords[i][j].length)
-                return ([videoPath[i], videoPath[0]])
+            if (goodKeyWord == keyWords[i][j].length) {
+                let source = videoPath;
+                let variante_liaison =  Math.floor(Math.random() * Math.floor(liaisons.length))
+                variante = Math.floor(Math.random() * Math.floor(source[i].length))
+                // console.log(variante)
+                // console.log(i)
+                //
+                // console.log(source[i][variante])
+                return (source[i][variante])
+            }
         }
     }
-    return (null)
+    return ([ret])
 }
 
 

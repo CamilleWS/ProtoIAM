@@ -23,7 +23,6 @@ import {questionLeonard} from '../scripts/leonard_question_analyse'
 import {MaterialIcons, Octicons} from '@expo/vector-icons';
 
 const {width} = Dimensions.get('window');
-
 export default class Persona3 extends Component {
 
     state = {
