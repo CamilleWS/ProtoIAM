@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#DFD8FF',
+        backgroundColor: '#FFFFFF',
     },
     images: {
         flexDirection: "row",
