@@ -156,7 +156,7 @@ let keyWords = [
     [["ou", "joconde"], ["ou", "monalisa"]],
     [["ou", "cene"]],﻿
     [["ou", "enterre"], ["ou", "tombe"]],
-    [["piller", "cadavre"], ["pillais", "cadavre"], ["etudier", "cadavre"], ["morgue"]],
+    [["piller", "cadavre"], ["pillais", "cadavre"], ["etudi", "cadavre"], ["morgue"]],
     [["estu", "decede"], ["estu", "mort"], ["tu", "mort"], ["vous", "mort"], ["etesvous", "mort"]]
 ]
 
