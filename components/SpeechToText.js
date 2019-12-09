@@ -15,12 +15,16 @@ import {
     Alert,
     TouchableHighlight,
     SafeAreaView,
-    View, ActivityIndicator
+    View,
+    ActivityIndicator,
+    Vibration
 } from 'react-native';
 import {Audio} from 'expo-av'
 import * as Permissions from 'expo-permissions';
 import * as FileSystem from 'expo-file-system';
 import FadeInView from "../components/FadeInView";
+
+const PATTERN = [ 200, 200] ;
 
 const recordingOptions = {
     android: {
@@ -143,6 +147,8 @@ class SpeechToText extends React.Component {
        }
        this.recording = recording;
 
+      Vibration.vibrate(PATTERN, false) ;
+
    }
 
    stopRecording = async () => {
@@ -150,6 +156,8 @@ class SpeechToText extends React.Component {
        this.setState({ isRecording: false });
        try {
            await this.recording.stopAndUnloadAsync();
+
+          Vibration.vibrate(PATTERN, false) ;
        } catch (error) {
          console.log(error)
            // Do nothing -- we are already unloaded.
