@@ -36,13 +36,14 @@ class HomeScreen extends Component {
     constructor () {
       super()
       this.spinValue = new Animated.Value(0)
-      this.spinrValue = new Animated.Value(0)
+      this.spinmValue = new Animated.Value(0)
+      this.spineValue = new Animated.Value(0)
     }
-
 
     componentDidMount () {
       this.spin()
-      this.spinr()
+      this.spinm()
+      this.spine()
     }
     spin () {
       this.spinValue.setValue(0)
@@ -50,21 +51,32 @@ class HomeScreen extends Component {
         this.spinValue,
         {
           toValue: 1,
-          duration: 4000,
+          duration: 2000,
           easing: Easing.linear
         }
       ).start(() => this.spin())
     }
-    spinr () {
-      this.spinrValue.setValue(0)
+    spinm () {
+      this.spinmValue.setValue(0)
       Animated.timing(
-        this.spinrValue,
+        this.spinmValue,
         {
           toValue: 1,
-          duration: 2000,
+          duration: 4000,
           easing: Easing.linear
         }
-    ).start(() => this.spinr())
+    ).start(() => this.spinm())
+    }
+    spine () {
+      this.spineValue.setValue(0)
+      Animated.timing(
+        this.spineValue,
+        {
+          toValue: 1,
+          duration: 3000,
+          easing: Easing.linear
+        }
+    ).start(() => this.spine())
     }
 
     render() {
@@ -72,11 +84,11 @@ class HomeScreen extends Component {
           inputRange: [0, 1],
           outputRange: ['0deg', '360deg']
         })
-        const spin1 = this.spinValue.interpolate({
+        const spin1 = this.spinmValue.interpolate({
           inputRange: [0, 1],
           outputRange: ['360deg', '0deg']
         })
-        const spin2 = this.spinrValue.interpolate({
+        const spin2 = this.spineValue.interpolate({
           inputRange: [0, 1],
           outputRange: ['0deg', '360deg']
         })
@@ -96,23 +108,23 @@ class HomeScreen extends Component {
                 <View style={styles.contentCircle}>
                         <View style={{zIndex: 999}}>
                             <Animated.Image
-                              style={{ width: 225, height: 225, transform: [{rotate: spin}]}}
+                              style={{ width: 200, height: 200, transform: [{rotate: spin2}]}}
                                 source={require('../assets/images/circle3.png')}
                             />
                         </View>
-                      <View style={{paddingTop: 16}}>
+                      <View /*style={{paddingTop: 16}}*/>
                           <Animated.Image
                             style={{ width: 200, height: 200, transform: [{rotate: spin1}]}}
                               source={require('../assets/images/circle2.png')}
                           />
                       </View>
-                      <View style={{paddingTop: 16}}>
+                      <View /*style={{paddingTop: 16}}*/>
                           <Animated.Image
-                            style={{ width: 175, height: 175, transform: [{rotate: spin2}]}}
+                            style={{ width: 200, height: 200, transform: [{rotate: spin}]}}
                               source={require('../assets/images/circle1.png')}
                           />
                       </View>
-                      <View style={{zIndex: 999, paddingTop: 62}}>
+                      <View style={{zIndex: 999, paddingTop: 76}}>
                       <Image source={require('../assets/images/IAM_logo.png')} style = {{width: 50, height: 50,}} />
                       </View>
                 </View>
