@@ -158,7 +158,7 @@ let keyWords = [
     [["ou", "cene"]],﻿
     [["ou", "enterre"], ["ou", "tombe"]],
     [["piller", "cadavre"], ["pillais", "cadavre"], ["etudi", "cadavre"], ["morgue"]],
-    [["estu", "decede"], ["estu", "mort"], ["tu", "mort"], ["vous", "mort"], ["etesvous", "mort"]]
+    [["estu", "decede"], ["estu", "mort"], ["quand", "tu", "mort"], ["quand", "vous", "mort"], ["annee", "vous", "mort"], ["annee", "tu", "mort"], ["etesvous", "mort"]]
 ]
 
 import * as Random from 'expo-random';
