@@ -13,6 +13,7 @@ import {
     Animated,
     Easing
 } from 'react-native';
+import {Video} from 'expo-av'
 
 
 
@@ -96,17 +97,39 @@ class HomeScreen extends Component {
             <View style={styles.mainContainer}>
                 <View style={styles.images}>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
-                        <Image source={require('../assets/images/robot-dev.png')} style = {styles.image} />
+                    <Video
+                        source={require('../assets/videos/presentation/leonard_standing.mov')}
+                        isMuted={false}
+                        resizeMode="cover"
+                        shouldPlay={true}
+                        isLooping={true}
+                        style = {styles.image}
+                    />
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun2 }>
-                        <Image source={require('../assets/images/robot-dev.png')} style = {styles.image} />
+
+                    <Video
+                        source={require('../assets/videos/presentation/marieCurie_standing.mov')}
+                        isMuted={false}
+                        resizeMode="cover"
+                        shouldPlay={true}
+                        isLooping={true}
+                        style = {styles.image}
+                    />
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun3 }>
-                        <Image source={require('../assets/images/robot-dev.png')} style = {styles.image} />
+                    <Video
+                        source={require('../assets/videos/presentation/ramses_standing.mov')}
+                        isMuted={false}
+                        resizeMode="cover"
+                        shouldPlay={true}
+                        isLooping={true}
+                        style = {styles.image}
+                    />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentCircle}>
-                        <View style={{zIndex: 999}}>
+                        <View style={{zIndex: 999, opacity: 0.5}}>
                             <Animated.Image
                               style={{ width: 200, height: 200, transform: [{rotate: spin2}]}}
                                 source={require('../assets/images/circle3.png')}
@@ -147,11 +170,17 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: 'space-around',
         paddingTop: 20,
-        backgroundColor: '#DFD8FF'
+        backgroundColor: '#DFD8FF',
+        width: 350,
+        height: 250,
     },
     image: {
+        marginTop:100,
         width: 100,
         height: 100,
+        borderBottomLeftRadius: 20,
+        borderTopRightRadius: 20,
+        backgroundColor: '#DFD8FF',
     },
     contentCircle: {
         // flex:1,
