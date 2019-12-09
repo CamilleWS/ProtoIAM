@@ -23,9 +23,9 @@ import {Audio} from 'expo-av'
 import * as Permissions from 'expo-permissions';
 import * as FileSystem from 'expo-file-system';
 import FadeInView from "../components/FadeInView";
-import {RippleLoader} from 'react-native-indicator';
+import {RippleLoader, TextLoader} from 'react-native-indicator';
 
-const PATTERN = [ 200, 200] ;
+const PATTERN = [ 50, 50];
 
 const recordingOptions = {
     android: {
@@ -198,7 +198,11 @@ class SpeechToText extends React.Component {
                  {isRecording &&
 
                   <View style={styles.recordIconRipple}>
+                     <View style={styles.recordText}>
+                       <TextLoader text="Maintenez appuyé pour parler " />
+                     </View>
                      <RippleLoader  size={150} strokeWidth={20} color={'#8A2BE2'}/>
+
                   </View>
                  }
                  {!isRecording &&
@@ -224,12 +228,18 @@ const styles = StyleSheet.create({
     },
     recordIconRipple: {
         alignItems:'center',
-        marginVertical: -50,
+        marginVertical: -70,
     },
     recordIcon: {
       marginTop: 8,
-      marginLeft:15
+      marginLeft:15,
     },
+    recordText: {
+      marginLeft: 70,
+      marginTop:0,
+      width:200,
+
+    }
 });
 
 
