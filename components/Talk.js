@@ -24,20 +24,20 @@ class Talk extends React.Component {
     render() {
         return (
             <ActionButton buttonColor="rgba(231,76,60,1)" position={"right"}>
-                <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={this.changeConversationText}>
-                    <MaterialCommunityIcons name={this.props.conversationTextIcon}/>
+                <ActionButton.Item radiua={200} buttonColor='#9b59b6' title="New Task" onPress={this.changeConversationText}>
+                    <MaterialCommunityIcons name={this.props.conversationTextIcon} style={styles.actionButtonIcon}/>
                 </ActionButton.Item>
                 { this.props.inputText == 1 ?
                     <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={this.changeInputText}>
-                        <FontAwesome name={this.props.inputTextIcon}/>
+                        <FontAwesome name={this.props.inputTextIcon} style={styles.actionButtonIcon}/>
                     </ActionButton.Item>
                 :
                     <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={this.changeInputText}>
-                        <Ionicons name={this.props.inputTextIcon}/>
+                        <Ionicons name={this.props.inputTextIcon} style={styles.actionButtonIcon}/>
                     </ActionButton.Item>
                 }
                 <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={this.changeIsTalk}>
-                    <Entypo name={this.props.isTalkIcon}/>
+                    <Entypo name={this.props.isTalkIcon} style={styles.actionButtonIcon}/>
                 </ActionButton.Item>
             </ActionButton>
         );
