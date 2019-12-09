@@ -157,7 +157,7 @@ let keyWords = [
     [["ou", "joconde"], ["ou", "monalisa"]],
     [["ou", "cene"]],﻿
     [["ou", "enterre"], ["ou", "tombe"]],
-    [["piller", "cadavre"], ["pillais", "cadavre"], ["etudier", "cadavre"], ["morgue"]],
+    [["piller", "cadavre"], ["pillais", "cadavre"], ["etudi", "cadavre"], ["morgue"]],
     [["estu", "decede"], ["estu", "mort"], ["tu", "mort"], ["vous", "mort"], ["etesvous", "mort"]]
 ]
 
@@ -167,7 +167,6 @@ export function checkLeonardQuestion(text)
 {
     text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     text = text.replace(/[-_?!. ]/gi, '');
-    console.log(text);
     let variante = Math.floor(Math.random() * Math.floor(videoPath[videoPath.length - 1].length))
 
     let ret = videoPath[videoPath.length - 1][variante];
@@ -186,15 +185,10 @@ export function checkLeonardQuestion(text)
                 let source = videoPath;
                 let variante_liaison =  Math.floor(Math.random() * Math.floor(liaisons.length))
                 variante = Math.floor(Math.random() * Math.floor(source[i].length))
-                // console.log(variante)
-                // console.log(i)
-                //
-                console.log(source[i][variante])
                 return (source[i][variante])
             }
         }
     }
-    console.log(ret)
     return (ret)
 }
 
@@ -216,12 +210,10 @@ export function getLeonardAnswerStr(text)
 
             }
             if (goodKeyWord == keyWords[i][j].length) {
-                console.log(answers[i])
                 return (answers[i])
             }
         }
     }
-    console.log(ret)
     return (ret)
 }
 
