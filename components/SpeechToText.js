@@ -23,6 +23,7 @@ import {Audio} from 'expo-av'
 import * as Permissions from 'expo-permissions';
 import * as FileSystem from 'expo-file-system';
 import FadeInView from "../components/FadeInView";
+import {RippleLoader} from 'react-native-indicator';
 
 const PATTERN = [ 200, 200] ;
 
@@ -195,9 +196,10 @@ class SpeechToText extends React.Component {
                      onPressOut={this.handleOnPressOut}
                  >
                  {isRecording &&
-                     <FadeInView>
-                         <FontAwesome name="microphone" size={38} color="#FFFFFF" style={styles.recordIcon} />
-                     </FadeInView>
+
+                  <View style={styles.recordIconRipple}>
+                     <RippleLoader  size={150} strokeWidth={20} color={'#8A2BE2'}/>
+                  </View>
                  }
                  {!isRecording &&
                      <FontAwesome name="microphone" size={38} color="#FFFFFF" style={styles.recordIcon}/>
@@ -219,6 +221,10 @@ const styles = StyleSheet.create({
         height: 55,
         borderRadius: 30,
         backgroundColor: 'rgba(0,0,0,0.21)'
+    },
+    recordIconRipple: {
+        alignItems:'center',
+        marginVertical: -50,
     },
     recordIcon: {
       marginTop: 8,
