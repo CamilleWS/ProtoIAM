@@ -10,7 +10,7 @@ import Persona3 from '../screens/Persona3';
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
-    default: {},
+    default: {headerMode : "hiden" },
 });
 
 const HomeStack = createStackNavigator(
