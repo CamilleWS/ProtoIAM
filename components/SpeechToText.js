@@ -15,12 +15,17 @@ import {
     Alert,
     TouchableHighlight,
     SafeAreaView,
-    View, ActivityIndicator
+    View,
+    ActivityIndicator,
+    Vibration
 } from 'react-native';
 import {Audio} from 'expo-av'
 import * as Permissions from 'expo-permissions';
 import * as FileSystem from 'expo-file-system';
 import FadeInView from "../components/FadeInView";
+import {RippleLoader} from 'react-native-indicator';
+
+const PATTERN = [ 200, 200] ;
 
 const recordingOptions = {
     android: {
@@ -143,6 +148,8 @@ class SpeechToText extends React.Component {
        }
        this.recording = recording;
 
+      Vibration.vibrate(PATTERN, false) ;
+
    }
 
    stopRecording = async () => {
@@ -150,6 +157,8 @@ class SpeechToText extends React.Component {
        this.setState({ isRecording: false });
        try {
            await this.recording.stopAndUnloadAsync();
+
+          Vibration.vibrate(PATTERN, false) ;
        } catch (error) {
          console.log(error)
            // Do nothing -- we are already unloaded.
@@ -187,9 +196,10 @@ class SpeechToText extends React.Component {
                      onPressOut={this.handleOnPressOut}
                  >
                  {isRecording &&
-                     <FadeInView>
-                         <FontAwesome name="microphone" size={38} color="#FFFFFF" style={styles.recordIcon} />
-                     </FadeInView>
+
+                  <View style={styles.recordIconRipple}>
+                     <RippleLoader  size={150} strokeWidth={20} color={'#8A2BE2'}/>
+                  </View>
                  }
                  {!isRecording &&
                      <FontAwesome name="microphone" size={38} color="#FFFFFF" style={styles.recordIcon}/>
@@ -211,6 +221,10 @@ const styles = StyleSheet.create({
         height: 55,
         borderRadius: 30,
         backgroundColor: 'rgba(0,0,0,0.21)'
+    },
+    recordIconRipple: {
+        alignItems:'center',
+        marginVertical: -50,
     },
     recordIcon: {
       marginTop: 8,
