@@ -60,9 +60,11 @@ export default class App extends React.Component {
                     enableMomentum={true}
                     lockScrollWhileSnapping={false}
                     autoplayInterval={6000}
+                    layout={'tinder'}
+                    layoutCardOffset={9}
                 />
             <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-                    <TouchableOpacity activOpactity={0.5} style={styles.startButton}>
+                    <TouchableOpacity activOpactity={0.5} style={styles.startButton} onPress={()=>this.props.navigation.navigate("Persona1", {})}>
                         <View style={{backgroundColor: "white"}}>
                             <Text style={styles.startText}>Start experience</Text>
                         </View>
