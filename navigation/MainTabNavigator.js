@@ -92,9 +92,8 @@ Perso3Stack.path = '';
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
         secondPage,
-        Perso1Stack,
-        CharacterScreen,
-        Perso3Stack,
+        // Perso1Stack,
+        // Perso3Stack,
     },
     {
         tabBarOptions: {

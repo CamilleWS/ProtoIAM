@@ -4,5 +4,19 @@
     "name": "Ramses II",
     "backgroundImage": "egypt",
     "mainColor": "#DAA570"
-  }
+    },
+
+    {
+      "id": "marie_curie",
+      "name": "Marie Curie",
+      "backgroundImage": "egypt",
+      "mainColor": "#DAA570"
+    },
+
+    {
+      "id": "leonard_de_vinci",
+      "name": "Leonard de Vinci",
+      "backgroundImage": "egypt",
+      "mainColor": "#DAA570"
+    }
 ]
