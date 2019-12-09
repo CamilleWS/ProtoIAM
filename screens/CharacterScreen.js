@@ -1,6 +1,6 @@
 //Imports
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -15,19 +15,20 @@ class CharacterScreen extends Component {
 
       constructor(props) {
         super(props)
+        this.searchInput = React.createRef();
 
         this.state = {
             transcript: "",
-            allTranscripts: []
+            allTranscripts: [],
+            text: ''
         };
       };
       callbackFunction = (childData) => {
+            console.log("euh wtf ", childData);
             this.setState({transcript: childData})
             this.setState(prevState => ({
                 allTranscripts: [...prevState.allTranscripts, childData]
             }));
-
-
       };
 
 
@@ -69,8 +70,6 @@ class CharacterScreen extends Component {
                   message: getLeonardAnswerStr(item)
                 }
             chat.push(newChatElemPerso);
-
-
         });
 
         return (
@@ -95,10 +94,16 @@ class CharacterScreen extends Component {
                             </View>
                         )}
                     </ScrollView>
-                    <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                    <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                    </View>
                 </View>
+                <KeyboardAvoidingView
+                behavior="padding"
+                style={{position: 'absolute', bottom: 0, width: '100%'}}
+                keyboardVerticalOffset={Platform.select({ios: 80, android: 0})}>
+                <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
+                <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
+                </View>
+                </KeyboardAvoidingView>
             </ImageBackground>
         )
     }
@@ -126,7 +131,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        paddingBottom: 75
     },
     chatContent: {
         flexGrow: 1,
@@ -135,10 +141,12 @@ const styles = StyleSheet.create({
     actionSheet: {
         width: '100%',
         height: 75,
+        bottom: 0,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection:'row',
     },
     chatMessage: {
         width: '65%',
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingVertical: 7,
         paddingHorizontal: 11,
-        margin: 5
+        margin: 5,
     },
     chatMessageText: {
         fontSize: 17
