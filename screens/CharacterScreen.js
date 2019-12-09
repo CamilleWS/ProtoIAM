@@ -32,7 +32,6 @@ class CharacterScreen extends Component {
 
       };
 
-
     render() {
 
         const config = characters.filter(el => el.id === this.props.id);
@@ -67,6 +66,7 @@ class CharacterScreen extends Component {
                     <CharacterVideo video={this.state.actualVideo}> </CharacterVideo>
                     <Talk></Talk>
                 </View>
+            {this.props.conversationText ?
                 <View style={styles.bottomSheet}>
                     <ScrollView   ref={ref => this.scrollView = ref}
                                   style={styles.chatContent}
@@ -79,10 +79,22 @@ class CharacterScreen extends Component {
                             </View>
                         )}
                     </ScrollView>
-                    <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                    <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                    </View>
+                    { this.props.inputText == 1 ?
+                        <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
+                            <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                        </View>
+                        :
+                        null
+                    }
                 </View>
+            :
+                this.props.inputText == 1 ?
+                    <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
+                        <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                    </View>
+                    :
+                    null
+            }
             </ImageBackground>
         )
     }
@@ -137,4 +149,11 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect ()(CharacterScreen);
+const mapStateToProps = (state) => {
+    return ({
+        isTalk: state.isTalk,
+        conversationText: state.conversationText,
+        inputText: state.inputText
+    });
+}
+export default connect (mapStateToProps)(CharacterScreen);
