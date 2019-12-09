@@ -5,6 +5,7 @@ import MainTabNavigator from './MainTabNavigator';
 import VideoModal from "../screens/VideoModal";
 import sndPage from "../screens/sndPage";
 import Persona1 from "../screens/Persona1";
+import CharacterScreen from "../screens/CharacterScreen";
 
 export default createAppContainer(
     createStackNavigator({
@@ -19,6 +20,9 @@ export default createAppContainer(
         },
         sndPage: {
             screen: sndPage
+        },
+        CharacterScreen: {
+            screen: CharacterScreen
         }
     },
     {
