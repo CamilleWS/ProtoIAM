@@ -28,7 +28,27 @@ export default class VideoModal extends Component {
         play: true,
         playbackObject: [],
         modalVisible: false,
+        indexVideoPlayed: 0,
     }
+
+    _onPlaybackStatusUpdate = async (playbackStatus, video) => {
+        if (playbackStatus.didJustFinish) {
+            await this.setState({indexVideoPlayed: (this.state.indexVideoPlayed + 1)});
+            console.log(this.state.indexVideoPlayed);
+            if (this.state.indexVideoPlayed >= video.length) {
+                console.log("no more video to play");
+                this.stopVideo();
+                this.props.navigation.goBack();
+                return;
+            }
+            console.log("oui");
+            await this.state.playbackObject.unloadAsync();
+            console.log("unloaded");
+            await this.state.playbackObject.loadAsync(video[this.state.indexVideoPlayed]);
+            console.log("loaded");
+            this.state.playbackObject.playFromPositionAsync(0);
+        }
+    };
 
     _handleVideoRef = component => {
         this.setState({playbackObject: component})
@@ -63,12 +83,13 @@ export default class VideoModal extends Component {
             <SafeAreaView style={styles.container}>
                 <View>
                     <Video
-                        source={this.props.navigation.state.params.video}
+                        source={this.props.navigation.state.params.video[0]}
                         ref={this._handleVideoRef}
                         isMuted={this.state.mute}
                         resizeMode="cover"
                         shouldPlay={this.state.play}
                         style={{width: width, height: 300, backgroundColor: 'black'}}
+                        onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus, this.props.navigation.state.params.video)}
                     />
                     <View style={styles.controlBar}>
                         <MaterialIcons

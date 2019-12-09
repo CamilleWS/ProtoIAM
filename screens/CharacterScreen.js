@@ -30,7 +30,6 @@ class CharacterScreen extends Component {
 
       };
 
-
     render() {
 
         const config = characters.filter(el => el.id === this.props.id);
@@ -83,6 +82,7 @@ class CharacterScreen extends Component {
                     <Text>Head of Character</Text>
                     <Talk></Talk>
                 </View>
+            {this.props.conversationText ?
                 <View style={styles.bottomSheet}>
                     <ScrollView   ref={ref => this.scrollView = ref}
                                   style={styles.chatContent}
@@ -96,9 +96,14 @@ class CharacterScreen extends Component {
                         )}
                     </ScrollView>
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                    <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                        <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
                     </View>
                 </View>
+            :
+            <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
+                        <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+            </View>
+            }
             </ImageBackground>
         )
     }
@@ -153,4 +158,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect ()(CharacterScreen);
+const mapStateToProps = (state) => {
+    return ({
+        isTalk: state.isTalk,
+        conversationText: state.conversationText
+    });
+}
+export default connect (mapStateToProps)(CharacterScreen);
