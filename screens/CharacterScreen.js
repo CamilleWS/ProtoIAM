@@ -9,6 +9,7 @@ import characters from '../assets/characters/characters.json';
 import SpeechToText from '../components/SpeechToText'
 import Tips from '../components/Tips'
 import Talk from '../components/Talk'
+import {getLeonardAnswerStr} from '../scripts/scriptLeonard'
 
 class CharacterScreen extends Component {
 
@@ -65,7 +66,7 @@ class CharacterScreen extends Component {
 
             let newChatElemPerso = {
                   myself: false,
-                  message: "Salutations ! Je suis Ramses II. Tu peux me poser toutes les questions que tu veux."
+                  message: getLeonardAnswerStr(item)
                 }
             chat.push(newChatElemPerso);
 

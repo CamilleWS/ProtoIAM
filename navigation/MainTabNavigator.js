@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import Persona1 from '../screens/Persona1';
 import CharacterScreen from "../screens/CharacterScreen";
+import Persona3 from '../screens/Persona3';
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
@@ -53,16 +54,36 @@ Perso1Stack.navigationOptions = {
 
 Perso1Stack.path = '';
 
+const Perso3Stack = createStackNavigator(
+    {
+        Perso3: Persona3,
+    },
+    config
+);
+
+Perso3Stack.navigationOptions = {
+    tabBarLabel: 'Leonard de Vinci',
+    tabBarIcon: ({focused, tintColor}) => (
+        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-man' : 'md-man'}/>
+    ),
+};
+
+Perso3Stack.path = '';
+
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
         Perso1Stack,
         Perso2: { screen: props => <CharacterScreen {...props} {...{id: "ramesses"}} /> },
+        Perso3Stack,
     },
     {
         tabBarOptions: {
             activeTintColor: '#7D5FFF',
         }
     });
+
+
+
 
 tabNavigator.path = '';
 
