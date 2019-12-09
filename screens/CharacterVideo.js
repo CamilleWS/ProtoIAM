@@ -83,32 +83,16 @@ export default class CharacterVideo extends Component {
             this.state.shouldGoIdle = true;
         }
         return (
-            <View>
-                <Video
-                    source={this.props.video == undefined ? require("../assets/videos/presentation/leonard_standing.mov") : this.props.video}
-                    ref={this._handleVideoRef}
-                    isMuted={this.state.mute}
-                    resizeMode="cover"
-                    shouldPlay={this.state.play}
-                    isLooping={this.state.loop}
-                    style={{width: width, height: 300, backgroundColor: 'black'}}
-                    onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus)}
-                />
-                <View style={styles.controlBar}>
-                    <MaterialIcons
-                        name={this.state.mute ? "volume-mute" : "volume-up"}
-                        size={45}
-                        color="white"
-                        onPress={this.handleVolume}
-                    />
-                    <MaterialIcons
-                        name={this.state.play ? "pause" : "play-arrow"}
-                        size={45}
-                        color="white"
-                        onPress={this.handlePlayAndPause}
-                    />
-                </View>
-            </View>
+            <Video
+                source={this.props.video == undefined ? require("../assets/videos/presentation/leonard_standing.mov") : this.props.video}
+                ref={this._handleVideoRef}
+                isMuted={this.state.mute}
+                resizeMode="cover"
+                shouldPlay={this.state.play}
+                isLooping={this.state.loop}
+                style={{width: width, height: 300, backgroundColor: 'black'}}
+                onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus)}
+            />
         );
     }
 }
