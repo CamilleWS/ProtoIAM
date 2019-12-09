@@ -93,7 +93,7 @@ const tabNavigator = createBottomTabNavigator({
         HomeStack,
         secondPage,
         Perso1Stack,
-        Perso2: { screen: props => <CharacterScreen {...props} {...{id: "ramesses"}} /> },
+        CharacterScreen,
         Perso3Stack,
     },
     {

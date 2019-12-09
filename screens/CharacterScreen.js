@@ -56,7 +56,9 @@ class CharacterScreen extends Component {
 
     render() {
 
-        const config = characters.filter(el => el.id === this.props.id);
+        let characterId = this.props.navigation.state.params.characterId
+
+        const config = characters.filter(el => el.id === characterId);
 
         let { name, backgroundImage, mainColor } = config[0];
 
@@ -104,10 +106,6 @@ class CharacterScreen extends Component {
     }
 
 }
-
-CharacterScreen.propTypes = {
-    id: PropTypes.string.isRequired
-};
 
 const styles = StyleSheet.create({
     background: {

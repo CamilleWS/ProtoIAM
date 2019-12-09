@@ -22,6 +22,7 @@ class HomeScreen extends Component {
     callFun = () =>
     {
         alert("Leonard");
+        this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
     }
     callFun2 = () =>
     {
