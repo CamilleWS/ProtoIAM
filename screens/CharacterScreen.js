@@ -95,14 +95,21 @@ class CharacterScreen extends Component {
                             </View>
                         )}
                     </ScrollView>
+                    { this.props.inputText == 1 ?
+                        <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
+                            <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                        </View>
+                        :
+                        null
+                    }
+                </View>
+            :
+                this.props.inputText == 1 ?
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
                         <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
                     </View>
-                </View>
-            :
-            <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                        <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-            </View>
+                    :
+                    null
             }
             </ImageBackground>
         )
@@ -161,7 +168,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return ({
         isTalk: state.isTalk,
-        conversationText: state.conversationText
+        conversationText: state.conversationText,
+        inputText: state.inputText
     });
 }
 export default connect (mapStateToProps)(CharacterScreen);
