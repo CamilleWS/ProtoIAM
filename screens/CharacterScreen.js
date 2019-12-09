@@ -22,39 +22,43 @@ class CharacterScreen extends Component {
             allTranscripts: [],
             actualVideo: undefined,
         };
+        this.addMessageToChat = this.addMessageToChat.bind(this);
       };
+
       callbackFunction = (childData) => {
             this.setState({transcript: childData})
             this.setState(prevState => ({
                 allTranscripts: [...prevState.allTranscripts, childData]
             }));
+            this.setState({actualVideo: checkLeonardQuestion(childData)})
 
+            this.state.allTranscripts.map((item) => {
 
+                let newChatElemUser = {
+                        myself: true,
+                        message: item
+                      }
+                this.addMessageToChat(newChatElemUser);
+
+                let newChatElemPerso = {
+                      myself: false,
+                      message: getLeonardAnswerStr(item)
+                    }
+                this.addMessageToChat(newChatElemPerso);
+
+            });
       };
+
+    addMessageToChat(value) {
+        const action = {type: 'ADD_MESSAGE', value};
+        this.props.dispatch(action);
+    }
 
     render() {
 
         const config = characters.filter(el => el.id === this.props.id);
 
         let { name, backgroundImage, mainColor } = config[0];
-        let chat = []
-        i = 0;
-        this.state.allTranscripts.map(function(item){
-
-            let newChatElemUser = {
-                    myself: true,
-                    message: item
-                  }
-            chat.push(newChatElemUser);
-
-            let newChatElemPerso = {
-                  myself: false,
-                  message: getLeonardAnswerStr(item)
-                }
-            chat.push(newChatElemPerso);
-
-
-        });
 
         return (
             <ImageBackground
@@ -73,7 +77,7 @@ class CharacterScreen extends Component {
                                   onContentSizeChange={(contentWidth, contentHeight)=>{
                                       this.scrollView.scrollToEnd({animated: true});
                                   }}>
-                        {chat.map((message, index) =>
+                        {this.props.chat.map((message, index) =>
                             <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: mainColor, alignSelf: 'flex-end'} : {}]}>
                                 <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
                             </View>
@@ -151,9 +155,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return ({
-        isTalk: state.isTalk,
-        conversationText: state.conversationText,
-        inputText: state.inputText
+        isTalk: state.perso.isTalk,
+        conversationText: state.perso.conversationText,
+        inputText: state.perso.inputText,
+        chat: state.message.chat
     });
 }
 export default connect (mapStateToProps)(CharacterScreen);
