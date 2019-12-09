@@ -5,12 +5,14 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import Persona1 from '../screens/Persona1';
-import CharacterScreen from "../screens/CharacterScreen";
+import Persona2 from '../screens/Persona2';
 import Persona3 from '../screens/Persona3';
+import sndPage from '../screens/sndPage';
+import CharacterScreen from "../screens/CharacterScreen";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
-    default: {},
+    default: {headerMode : "hiden" },
 });
 
 const HomeStack = createStackNavigator(
@@ -36,6 +38,23 @@ HomeStack.navigationOptions = {
 };
 
 HomeStack.path = '';
+
+const secondPage = createStackNavigator(
+    {
+        snd: sndPage,
+    },
+    config
+);
+
+secondPage.navigationOptions = {
+
+    tabBarLabel: '2nd Page',
+    tabBarIcon: ({focused, tintColor}) => (
+        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-aperture' : 'md-aperture'}/>
+    ),
+};
+
+secondPage.path = '';
 
 const Perso1Stack = createStackNavigator(
     {
@@ -72,6 +91,7 @@ Perso3Stack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
+        secondPage,
         Perso1Stack,
         Perso2: { screen: props => <CharacterScreen {...props} {...{id: "ramesses"}} /> },
         Perso3Stack,

@@ -9,7 +9,8 @@ import characters from '../assets/characters/characters.json';
 import SpeechToText from '../components/SpeechToText'
 import Tips from '../components/Tips'
 import Talk from '../components/Talk'
-import {getLeonardAnswerStr} from '../scripts/scriptLeonard'
+import CharacterVideo from '../screens/CharacterVideo'
+import {getLeonardAnswerStr, checkLeonardQuestion} from '../scripts/scriptLeonard'
 
 class CharacterScreen extends Component {
 
@@ -18,7 +19,8 @@ class CharacterScreen extends Component {
 
         this.state = {
             transcript: "",
-            allTranscripts: []
+            allTranscripts: [],
+            actualVideo: undefined,
         };
         this.addMessageToChat = this.addMessageToChat.bind(this);
       };
@@ -28,21 +30,22 @@ class CharacterScreen extends Component {
             this.setState(prevState => ({
                 allTranscripts: [...prevState.allTranscripts, childData]
             }));
+            this.setState({actualVideo: checkLeonardQuestion(childData)})
 
             this.state.allTranscripts.map((item) => {
-    
+
                 let newChatElemUser = {
                         myself: true,
                         message: item
                       }
                 this.addMessageToChat(newChatElemUser);
-    
+
                 let newChatElemPerso = {
                       myself: false,
                       message: getLeonardAnswerStr(item)
                     }
                 this.addMessageToChat(newChatElemPerso);
-    
+
             });
       };
 
@@ -56,24 +59,6 @@ class CharacterScreen extends Component {
         const config = characters.filter(el => el.id === this.props.id);
 
         let { name, backgroundImage, mainColor } = config[0];
-        // let chat = [
-        //     {
-        //         myself: true,
-        //         message: "Bonjour, je peux te poser une question ?"
-        //     },
-        //     {
-        //         myself: false,
-        //         message: "Salutations ! Je suis Ramses II. Tu peux me poser toutes les questions que tu veux."
-        //     },
-        //     {
-        //         myself: true,
-        //         message: "Quel est votre date de naissance ?"
-        //     },
-        //     {
-        //         myself: false,
-        //         message: "Je suis né en -1304 avant JC."
-        //     },
-        // ];
 
         return (
             <ImageBackground
@@ -82,7 +67,7 @@ class CharacterScreen extends Component {
                 style={[styles.background, {backgroundColor: mainColor}]}>
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} />
-                    <Text>Head of Character</Text>
+                    <CharacterVideo video={this.state.actualVideo}> </CharacterVideo>
                     <Talk></Talk>
                 </View>
             {this.props.conversationText ?
