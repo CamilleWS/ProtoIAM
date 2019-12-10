@@ -14,8 +14,6 @@ import {
     Easing
 } from 'react-native';
 import {Video, Audio} from 'expo-av'
-import soundfile from '../assets/videos/tuto_page2.mp3'
-import Sound from 'react-sound'
 
 
 // const playbackObject = await AudioSound.createAsync(
@@ -28,30 +26,46 @@ class HomeScreen extends Component {
 // const playbackObject = new Audio.Sound();
     callFun = () =>
     {
-        alert("Leonard");
+        this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
     }
     callFun2 = () =>
     {
         // this.props.navigation.navigate('Persona1', {"nothing"});
-        this.props.navigation.navigate('Persona1', {});
+        this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
         // alert("marie");
     }
     callFun3 = () =>
     {
-        alert("ramses");
+        this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
+    }
+
+    run_tuto = async () => {
+        const soundObject = new Audio.Sound();
+        try {
+            await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
+            await soundObject.playAsync();
+            // Your sound is playing!
+        } catch (error) {
+            // An error occurred!
+        }
     }
 
     constructor () {
       super()
-      this.spinValue = new Animated.Value(0)
-      this.spinmValue = new Animated.Value(0)
-      this.spineValue = new Animated.Value(0)
+      this.spinValue = new Animated.Value(0);
+      this.spinmValue = new Animated.Value(0);
+      this.spineValue = new Animated.Value(0);
+        this.run_tuto()
     }
 
     componentDidMount () {
-      this.spin()
-      this.spinm()
-      this.spine()
+      this.spin();
+      this.spinm();
+      this.spine();
+
+
+
+
     }
     spin () {
       this.spinValue.setValue(0)
@@ -113,7 +127,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
                     <Video
                         source={require('../assets/videos/presentation/leonard_standing.mov')}
-                        isMuted={false}
+                        isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
                         isLooping={true}
@@ -123,8 +137,8 @@ class HomeScreen extends Component {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun2 }>
 
                     <Video
-                        source={require('../assets/videos/presentation/marieCurie_standing.mov')}
-                        isMuted={false}
+                        source={require('../assets/videos/presentation/marie_curie_standing.mov')}
+                        isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
                         isLooping={true}
@@ -134,7 +148,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun3 }>
                     <Video
                         source={require('../assets/videos/presentation/ramses_standing.mov')}
-                        isMuted={false}
+                        isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
                         isLooping={true}
@@ -178,7 +192,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#DFD8FF',
+        backgroundColor: '#FFFFFF',
     },
     images: {
         flexDirection: "row",
