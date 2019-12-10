@@ -2,6 +2,8 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import PropTypes from 'prop-types';
+import { LinearGradient } from 'expo-linear-gradient';
+import BottomSheet from 'reanimated-bottom-sheet'
 import { connect } from 'react-redux';
 
 //Data
@@ -21,6 +23,7 @@ class CharacterScreen extends Component {
         this.searchInput = React.createRef();
 
         this.state = {
+            mainColor: '',
             transcript: "",
             allTranscripts: [],
             text: '',
@@ -80,6 +83,24 @@ class CharacterScreen extends Component {
         this.props.dispatch(action);
     }
 
+    renderBottomSheetHeader = () =>
+        (
+            <View style={styles.header}>
+                <View style={[styles.panelHandle, {backgroundColor: this.state.mainColor}]}/>
+            </View>
+        );
+
+    renderBottomSheetContent = () =>
+        (
+            <View style={styles.chatContent}>
+                {this.props.chat.map((message, index) =>
+                    <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: this.state.mainColor, alignSelf: 'flex-end'} : {}]}>
+                        <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
+                    </View>
+                )}
+            </View>
+        );
+
     render() {
 
         let characterId = this.props.navigation.state.params.characterId
@@ -87,6 +108,9 @@ class CharacterScreen extends Component {
         const config = characters.filter(el => el.id === characterId);
 
         let { name, backgroundImage, mainColor } = config[0];
+
+        if (this.state.mainColor === '')
+            this.setState({mainColor});
 
         return (
             <ImageBackground
@@ -98,35 +122,31 @@ class CharacterScreen extends Component {
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                     <Talk></Talk>
                 </View>
-                {this.props.conversationText ?
-                    <View style={styles.bottomSheet}>
-                        <ScrollView   ref={ref => this.scrollView = ref}
-                                      style={styles.chatContent}
-                                      onContentSizeChange={(contentWidth, contentHeight)=>{
-                                          this.scrollView.scrollToEnd({animated: true});
-                                      }}>
-                            {this.props.chat.map((message, index) =>
-                                <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: mainColor, alignSelf: 'flex-end'} : {}]}>
-                                    <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
-                                </View>
-                            )}
-                        </ScrollView>
-                    </View>
-                : <View style={{width: '100%',height: 80}}></View>
-                }
+                <BottomSheet
+                    ref={(ref) => this._bottomSheet = ref }
+                    snapPoints={['90%', '40%']}
+                    // callbackNode={this._bottomSheetPosition}
+                    renderContent={this.renderBottomSheetContent}
+                    renderHeader={this.renderBottomSheetHeader}
+                    initialSnap={1}
+                    springConfig={{toss: 0.8, mass: 0.52}}
+                    keyboardShouldPersistTaps="handled"
+                />
                 <KeyboardAvoidingView
-                behavior="padding"
-                style={{position: 'absolute', bottom: 0, width: '100%'}}
-                keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}>
-                <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                {this.props.inputText == 1 ?
-                    <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
-                :
-                    <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                }
-                </View>
+                    behavior="padding"
+                    style={{position: 'absolute', bottom: 0, width: '100%', zIndex: 999}}
+                    keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}>
+                    <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
+                        {this.props.inputText == 1 ?
+                            <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
+                         :
+                            <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                        }
+                    </View>
                 </KeyboardAvoidingView>
-
+                {/*<View style={[styles.actionSheet, {backgroundColor: this.state.mainColor}]}>*/}
+                {/*    <View style={styles.recordButton}/>*/}
+                {/*</View>*/}
             </ImageBackground>
         )
     }
@@ -142,20 +162,21 @@ const styles = StyleSheet.create({
     characterContent: {
         flexGrow: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingBottom: '40%'
     },
-    bottomSheet:  {
-        width: '100%',
-        height: '40%',
-        backgroundColor: 'white',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
-        overflow: 'hidden',
-        paddingBottom: 75
-    },
+    // bottomSheet:  {
+    //     width: '100%',
+    //     height: '40%',
+    //     backgroundColor: 'white',
+    //     borderTopLeftRadius: 25,
+    //     borderTopRightRadius: 25,
+    //     overflow: 'hidden'
+    // },
     chatContent: {
-        flexGrow: 1,
-        paddingTop: 15
+        backgroundColor: 'white',
+        paddingTop: 15,
+        height: '100%'
     },
     actionSheet: {
         width: '100%',
@@ -165,7 +186,18 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection:'row',
+        elevation: 2,
+        shadowColor: 'black',
+        shadowOpacity: 0.22,
+        shadowOffset: { width: 0, height: 0 },
+        shadowRadius: 5,
+        flexDirection:'row'
+    },
+    recordButton: {
+        width: 48,
+        height: 48,
+        borderRadius: 24,
+        backgroundColor: 'rgba(0,0,0,0.21)'
     },
     chatMessage: {
         width: '65%',
@@ -173,11 +205,26 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingVertical: 7,
         paddingHorizontal: 11,
-        margin: 5,
+        margin: 5
     },
     chatMessageText: {
         fontSize: 17
-    }
+    },
+    header: {
+        backgroundColor: '#ffffff',
+        shadowColor: '#000000',
+        paddingTop: 10,
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        alignItems: 'center'
+    },
+    panelHandle: {
+        width: 55,
+        height: 5,
+        borderRadius: 2,
+        backgroundColor: '#DBDBDB',
+        marginBottom: 10,
+    },
 });
 
 const mapStateToProps = (state) => {
