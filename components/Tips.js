@@ -26,21 +26,14 @@ const DATA = [
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Quels sont vos travaux ?',
+    title: 'Parle moi de la Cène.',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Comment êtes-vous morte ?',
+    title: 'Quand es-tu décédé ?',
   },
 ];
 
-function Item({ title }) {
-  return (
-    <TouchableOpacity style={styles.tabBarInfoContainer}>
-      <Text style={styles.title}>{title}</Text>
-    </TouchableOpacity>
-  );
-}
 
 
 class Tips extends React.Component{
@@ -50,7 +43,13 @@ class Tips extends React.Component{
          this.state = {
              isModalVisible: false,
          }
+         this.tipsBtn = this.tipsBtn.bind(this);
      }
+
+     tipsBtn = (tips) => {
+       this.setState({ isModalVisible: !this.state.isModalVisible });
+       this.props.parentCallback(tips);
+     };
 
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -91,9 +90,9 @@ class Tips extends React.Component{
                 <FlatList
                 data={DATA}
                 renderItem={({ item }) => (
-                    <Item
-                    title={item.title}
-                    />
+                    <TouchableOpacity style={styles.tabBarInfoContainer} onPress={() => this.tipsBtn(item.title)}>
+                      <Text style={styles.title}>{item.title}</Text>
+                    </TouchableOpacity>
                     )}
                     keyExtractor={item => item.id}
                     />

@@ -12,7 +12,7 @@ import CharacterScreen from "../screens/CharacterScreen";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
-    default: {headerMode : "hiden" },
+    default: {headerMode: 'hidden'},
 });
 
 const HomeStack = createStackNavigator(
@@ -100,9 +100,6 @@ const tabNavigator = createBottomTabNavigator({
             activeTintColor: '#7D5FFF',
         }
     });
-
-
-
 
 tabNavigator.path = '';
 
