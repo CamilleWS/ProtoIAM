@@ -155,7 +155,11 @@ class CharacterScreen extends Component {
                     keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}>
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
                         <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                        
+                        {this.props.inputText == 1 ?
+                            <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
+                         :
+                            <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                        }
                     </View>
                 </KeyboardAvoidingView>
                 {/*<View style={[styles.actionSheet, {backgroundColor: this.state.mainColor}]}>*/}
