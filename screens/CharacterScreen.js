@@ -138,6 +138,7 @@ class CharacterScreen extends Component {
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                     <Talk></Talk>
                 </View>
+                <View style={{height: 75, width: "100%" }}></View>
                 <BottomSheet
                     ref={(ref) => this._bottomSheet = ref }
                     snapPoints={['90%', '40%']}
@@ -153,11 +154,8 @@ class CharacterScreen extends Component {
                     style={{position: 'absolute', bottom: 0, width: '100%', zIndex: 999}}
                     keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}>
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                        {this.props.inputText == 1 ?
-                            <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
-                         :
-                            <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                        }
+                        <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                        
                     </View>
                 </KeyboardAvoidingView>
                 {/*<View style={[styles.actionSheet, {backgroundColor: this.state.mainColor}]}>*/}
