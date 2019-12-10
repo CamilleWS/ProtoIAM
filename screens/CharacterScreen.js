@@ -95,7 +95,7 @@ class CharacterScreen extends Component {
                 imageStyle={{resizeMode: 'cover'}}
                 style={[styles.background, {backgroundColor: mainColor}]}>
                 <View style={styles.characterContent}>
-                    <Tips mainColor={mainColor} />
+                    <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} />
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                     <Talk></Talk>
                 </View>
@@ -113,7 +113,7 @@ class CharacterScreen extends Component {
                             )}
                         </ScrollView>
                     </View>
-                : <View style={{width: '100%',height: '30%'}}></View>
+                : <View style={{width: '100%',height: 80}}></View>
                 }
                 <KeyboardAvoidingView
                 behavior="padding"
