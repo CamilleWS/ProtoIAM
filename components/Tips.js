@@ -113,10 +113,11 @@ const styles = StyleSheet.create({
        right: '5%',
        alignItems: 'center',
        justifyContent: 'center',
-       position: 'absolute'
+       position: 'absolute',
+       zIndex: 2900000,
    },
     actionSheet: {
-        top: '20%',
+        top: '15%',
         right: '5%',
         width: 50,
         height: 50,

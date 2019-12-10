@@ -1,13 +1,18 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import ActionButton from 'react-native-circular-action-menu';
-import { Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 
 class Talk extends React.Component {
 
     changeIsTalk = () => {
         const action = {type: 'IS_TALKING'};
+        this.props.dispatch(action);
+    }
+
+    changeConversationText = () => {
+        const action = {type: 'CONVERSATION_TEXT'};
         this.props.dispatch(action);
     }
 
@@ -18,15 +23,21 @@ class Talk extends React.Component {
 
     render() {
         return (
-            <ActionButton buttonColor="rgba(231,76,60,1)" position={"right"}>
-                <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => {}}>
-                    <AntDesign focused={"black"} name="questioncircle"/>
+            <ActionButton buttonColor="rgba(231,76,60,1)" position={"right"} style={{top: '0%', position: 'absolute'}}>
+                <ActionButton.Item radiua={200} buttonColor='#9b59b6' title="New Task" onPress={this.changeConversationText}>
+                    <MaterialCommunityIcons name={this.props.conversationTextIcon} style={styles.actionButtonIcon}/>
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={this.changeInputText}>
-                    <MaterialCommunityIcons name={this.props.inputTextIcon}/>
-                </ActionButton.Item>
+                { this.props.inputText == 1 ?
+                    <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={this.changeInputText}>
+                        <FontAwesome name={this.props.inputTextIcon} style={styles.actionButtonIcon}/>
+                    </ActionButton.Item>
+                :
+                    <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={this.changeInputText}>
+                        <Ionicons name={this.props.inputTextIcon} style={styles.actionButtonIcon}/>
+                    </ActionButton.Item>
+                }
                 <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={this.changeIsTalk}>
-                    <Entypo name={this.props.isTalkIcon}/>
+                    <Entypo name={this.props.isTalkIcon} style={styles.actionButtonIcon}/>
                 </ActionButton.Item>
             </ActionButton>
         );
@@ -44,8 +55,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return ({
-        isTalkIcon: state.isTalkIcon,
-        inputTextIcon: state.inputTextIcon
+        isTalkIcon: state.perso.isTalkIcon,
+        inputText: state.perso.inputText,
+        inputTextIcon: state.perso.inputTextIcon,
+        conversationTextIcon: state.perso.conversationTextIcon
     });
 }
 

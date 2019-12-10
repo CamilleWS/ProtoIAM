@@ -1,4 +1,12 @@
 import { createStore } from 'redux';
-import togglePerso from './Reducers/persoReducer'
+import reducer from './Reducers/index'
 
-export default createStore(togglePerso)
+// import { combineReducers } from 'redux'
+import togglePerso from './Reducers/persoReducer'
+// import toggleMessage from './Reducers/messageReducer'
+
+// const combine =  combineReducers({
+//     perso: togglePerso,
+//     toggleMessage
+// })
+export default createStore(reducer)

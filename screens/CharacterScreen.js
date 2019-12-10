@@ -9,7 +9,8 @@ import characters from '../assets/characters/characters.json';
 import SpeechToText from '../components/SpeechToText'
 import Tips from '../components/Tips'
 import Talk from '../components/Talk'
-import {getLeonardAnswerStr} from '../scripts/scriptLeonard'
+import CharacterVideo from '../screens/CharacterVideo'
+import {getLeonardAnswerStr, checkLeonardQuestion} from '../scripts/scriptLeonard'
 
 class CharacterScreen extends Component {
 
@@ -20,57 +21,47 @@ class CharacterScreen extends Component {
         this.state = {
             transcript: "",
             allTranscripts: [],
-            text: ''
+            text: '',
+            actualVideo: undefined,
         };
-      };
-      callbackFunction = (childData) => {
-            console.log("euh wtf ", childData);
-            this.setState({transcript: childData})
-            this.setState(prevState => ({
-                allTranscripts: [...prevState.allTranscripts, childData]
-            }));
+        this.addMessageToChat = this.addMessageToChat.bind(this);
       };
 
+      callbackFunction = async (childData) => {
+            await this.setState({transcript: childData})
+            await this.setState(prevState => ({
+                allTranscripts: [...prevState.allTranscripts, childData]
+            }));
+            await this.setState({actualVideo: checkLeonardQuestion(childData)})
+
+            this.state.allTranscripts.map((item) => {
+
+                let newChatElemUser = {
+                        myself: true,
+                        message: item
+                      }
+                this.addMessageToChat(newChatElemUser);
+
+                let newChatElemPerso = {
+                      myself: false,
+                      message: getLeonardAnswerStr(item)
+                    }
+                this.addMessageToChat(newChatElemPerso);
+
+            });
+      };
+
+    addMessageToChat(value) {
+        const action = {type: 'ADD_MESSAGE', value};
+        this.props.dispatch(action);
+        console.log("adding to chat")
+    }
 
     render() {
 
         const config = characters.filter(el => el.id === this.props.id);
 
         let { name, backgroundImage, mainColor } = config[0];
-        // let chat = [
-        //     {
-        //         myself: true,
-        //         message: "Bonjour, je peux te poser une question ?"
-        //     },
-        //     {
-        //         myself: false,
-        //         message: "Salutations ! Je suis Ramses II. Tu peux me poser toutes les questions que tu veux."
-        //     },
-        //     {
-        //         myself: true,
-        //         message: "Quel est votre date de naissance ?"
-        //     },
-        //     {
-        //         myself: false,
-        //         message: "Je suis né en -1304 avant JC."
-        //     },
-        // ];
-        let chat = []
-        i = 0;
-        this.state.allTranscripts.map(function(item){
-
-            let newChatElemUser = {
-                    myself: true,
-                    message: item
-                  }
-            chat.push(newChatElemUser);
-
-            let newChatElemPerso = {
-                  myself: false,
-                  message: getLeonardAnswerStr(item)
-                }
-            chat.push(newChatElemPerso);
-        });
 
         return (
             <ImageBackground
@@ -79,31 +70,38 @@ class CharacterScreen extends Component {
                 style={[styles.background, {backgroundColor: mainColor}]}>
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} />
-                    <Text>Head of Character</Text>
+                    <CharacterVideo video={this.state.actualVideo}> </CharacterVideo>
                     <Talk></Talk>
                 </View>
-                <View style={styles.bottomSheet}>
-                    <ScrollView   ref={ref => this.scrollView = ref}
-                                  style={styles.chatContent}
-                                  onContentSizeChange={(contentWidth, contentHeight)=>{
-                                      this.scrollView.scrollToEnd({animated: true});
-                                  }}>
-                        {chat.map((message, index) =>
-                            <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: mainColor, alignSelf: 'flex-end'} : {}]}>
-                                <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
-                            </View>
-                        )}
-                    </ScrollView>
-                </View>
+                {this.props.conversationText ?
+                    <View style={styles.bottomSheet}>
+                        <ScrollView   ref={ref => this.scrollView = ref}
+                                      style={styles.chatContent}
+                                      onContentSizeChange={(contentWidth, contentHeight)=>{
+                                          this.scrollView.scrollToEnd({animated: true});
+                                      }}>
+                            {this.props.chat.map((message, index) =>
+                                <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: mainColor, alignSelf: 'flex-end'} : {}]}>
+                                    <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
+                                </View>
+                            )}
+                        </ScrollView>
+                    </View>
+                : <View style={{width: '100%',height: '30%'}}></View>
+                }
                 <KeyboardAvoidingView
                 behavior="padding"
                 style={{position: 'absolute', bottom: 0, width: '100%'}}
                 keyboardVerticalOffset={Platform.select({ios: 80, android: 0})}>
                 <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
+                {
+                    this.props.inputText == 1 ?
+                    <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/> :
+                    <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                }
                 </View>
                 </KeyboardAvoidingView>
+
             </ImageBackground>
         )
     }
@@ -161,4 +159,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect ()(CharacterScreen);
+const mapStateToProps = (state) => {
+    return ({
+        isTalk: state.perso.isTalk,
+        conversationText: state.perso.conversationText,
+        inputText: state.perso.inputText,
+        chat: state.message.chat
+    });
+}
+export default connect (mapStateToProps)(CharacterScreen);

@@ -21,37 +21,36 @@ import {MaterialIcons, Octicons} from '@expo/vector-icons';
 
 const {width} = Dimensions.get('window');
 
-export default class VideoModal extends Component {
+export default class CharacterVideo extends Component {
 
     state = {
         mute: false,
         play: true,
+        loop: true,
         playbackObject: [],
-        modalVisible: false,
-        indexVideoPlayed: 0,
+        shouldGoIdle: false,
     }
 
-    _onPlaybackStatusUpdate = async (playbackStatus, video) => {
+    _onPlaybackStatusUpdate = async (playbackStatus) => {
         if (playbackStatus.didJustFinish) {
-            await this.setState({indexVideoPlayed: (this.state.indexVideoPlayed + 1)});
-            console.log(this.state.indexVideoPlayed);
-            if (this.state.indexVideoPlayed >= video.length) {
-                console.log("no more video to play");
-                this.stopVideo();
-                this.props.navigation.goBack();
-                return;
+            if (this.state.shouldGoIdle) {
+                await this.setState({shouldGoIdle: false});
+                await this.state.playbackObject.unloadAsync();
+                await this.state.playbackObject.loadAsync(require("../assets/videos/presentation/leonard_standing.mov"));
+                this.state.playbackObject.playFromPositionAsync(0);
             }
-            console.log("oui");
-            await this.state.playbackObject.unloadAsync();
-            console.log("unloaded");
-            await this.state.playbackObject.loadAsync(video[this.state.indexVideoPlayed]);
-            console.log("loaded");
-            this.state.playbackObject.playFromPositionAsync(0);
         }
     };
 
     _handleVideoRef = component => {
         this.setState({playbackObject: component})
+    }
+
+    changeVideo = async () => {
+        await this.state.playbackObject.unloadAsync();
+        await this.state.playbackObject.loadAsync(video[this.state.indexVideoPlayed]);
+        this.state.playbackObject.playFromPositionAsync(0);
+        this.setState({shouldGoIdle: true});
     }
 
     stopVideo = () => {
@@ -79,51 +78,40 @@ export default class VideoModal extends Component {
     };
 
     render() {
+        if (this.props.video != undefined) {
+            this.state.loop = false;
+            this.state.shouldGoIdle = true;
+        }
         return (
-            <SafeAreaView style={styles.container}>
-                <View>
-                    <Video
-                        source={this.props.navigation.state.params.video[0]}
-                        ref={this._handleVideoRef}
-                        isMuted={this.state.mute}
-                        resizeMode="cover"
-                        shouldPlay={this.state.play}
-                        style={{width: width, height: 300, backgroundColor: 'black'}}
-                        onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus, this.props.navigation.state.params.video)}
+            <View>
+                <Video
+                    source={this.props.video == undefined ? require("../assets/videos/presentation/leonard_standing.mov") : this.props.video}
+                    ref={this._handleVideoRef}
+                    isMuted={this.state.mute}
+                    resizeMode="cover"
+                    shouldPlay={this.state.play}
+                    isLooping={this.state.loop}
+                    style={{width: width, height: 300, backgroundColor: 'black'}}
+                    onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus)}
+                />
+                <View style={styles.controlBar}>
+                    <MaterialIcons
+                        name={this.state.mute ? "volume-mute" : "volume-up"}
+                        size={45}
+                        color="white"
+                        onPress={this.handleVolume}
                     />
-                    <View style={styles.controlBar}>
-                        <MaterialIcons
-                            name={this.state.mute ? "volume-mute" : "volume-up"}
-                            size={45}
-                            color="white"
-                            onPress={this.handleVolume}
-                        />
-                        <MaterialIcons
-                            name={this.state.play ? "pause" : "play-arrow"}
-                            size={45}
-                            color="white"
-                            onPress={this.handlePlayAndPause}
-                        />
-                    </View>
+                    <MaterialIcons
+                        name={this.state.play ? "pause" : "play-arrow"}
+                        size={45}
+                        color="white"
+                        onPress={this.handlePlayAndPause}
+                    />
                 </View>
-                <View style={styles.tabBarInfoContainer}>
-                    <Text
-                        style={styles.tabBarInfoText}
-                        onPress={() => {
-                            this.stopVideo();
-                            this.props.navigation.goBack();
-                        }}>
-                        Close
-                    </Text>
-                </View>
-            </SafeAreaView>
+            </View>
         );
     }
 }
-
-VideoModal.navigationOptions = {
-    title: 'Vidéo',
-};
 
 const styles = StyleSheet.create({
     container: {
