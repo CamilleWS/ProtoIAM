@@ -78,7 +78,6 @@ class CharacterScreen extends Component {
     addMessageToChat(value) {
         const action = {type: 'ADD_MESSAGE', value};
         this.props.dispatch(action);
-        console.log("adding to chat")
     }
 
     render() {
