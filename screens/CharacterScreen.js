@@ -11,6 +11,8 @@ import Tips from '../components/Tips'
 import Talk from '../components/Talk'
 import CharacterVideo from '../screens/CharacterVideo'
 import {getLeonardAnswerStr, checkLeonardQuestion} from '../scripts/scriptLeonard'
+import {getMarieCurieAnswerStr, checkMarieCurieQuestion} from '../scripts/scriptMarieCurie'
+import {getRamsesAnswerStr, checkRamsesQuestion} from '../scripts/scriptRamses'
 
 class CharacterScreen extends Component {
 
@@ -27,12 +29,34 @@ class CharacterScreen extends Component {
         this.addMessageToChat = this.addMessageToChat.bind(this);
       };
 
+      getCharacterAnswerStr = (characterId, item) =>
+      {
+            if (characterId == "leonard_de_vinci")
+                return (getLeonardAnswerStr(item))
+            else if (characterId == "marie_curie")
+                return (getMarieCurieAnswerStr(item))
+            else if (characterId == "ramesses")
+                return (getRamsesAnswerStr(item))
+            return ("Error")
+      }
+
+      checkCharacterQuestion = (characterId, item) =>
+      {
+            if (characterId == "leonard_de_vinci")
+                return (checkLeonardQuestion(item))
+            else if (characterId == "marie_curie")
+                return (checkMarieCurieQuestion(item))
+            else if (characterId == "ramesses")
+                return (checkRamsesQuestion(item))
+            return ("Error")
+      }
+
       callbackFunction = async (childData) => {
             await this.setState({transcript: childData})
             await this.setState(prevState => ({
                 allTranscripts: [...prevState.allTranscripts, childData]
             }));
-            await this.setState({actualVideo: checkLeonardQuestion(childData)})
+            await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
 
             this.state.allTranscripts.map((item) => {
 
@@ -44,7 +68,7 @@ class CharacterScreen extends Component {
 
                 let newChatElemPerso = {
                       myself: false,
-                      message: getLeonardAnswerStr(item)
+                      message: this.getCharacterAnswerStr(this.props.navigation.state.params.characterId, item)
                     }
                 this.addMessageToChat(newChatElemPerso);
 
@@ -59,7 +83,9 @@ class CharacterScreen extends Component {
 
     render() {
 
-        const config = characters.filter(el => el.id === this.props.id);
+        let characterId = this.props.navigation.state.params.characterId
+
+        const config = characters.filter(el => el.id === characterId);
 
         let { name, backgroundImage, mainColor } = config[0];
 
@@ -70,7 +96,7 @@ class CharacterScreen extends Component {
                 style={[styles.background, {backgroundColor: mainColor}]}>
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} />
-                    <CharacterVideo video={this.state.actualVideo}> </CharacterVideo>
+                    <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                     <Talk></Talk>
                 </View>
                 {this.props.conversationText ?
@@ -107,10 +133,6 @@ class CharacterScreen extends Component {
     }
 
 }
-
-CharacterScreen.propTypes = {
-    id: PropTypes.string.isRequired
-};
 
 const styles = StyleSheet.create({
     background: {

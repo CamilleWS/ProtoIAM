@@ -92,9 +92,8 @@ Perso3Stack.path = '';
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
         secondPage,
-        Perso1Stack,
-        Perso2: { screen: props => <CharacterScreen {...props} {...{id: "ramesses"}} /> },
-        Perso3Stack,
+        // Perso1Stack,
+        // Perso3Stack,
     },
     {
         tabBarOptions: {

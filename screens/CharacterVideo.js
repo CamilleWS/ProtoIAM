@@ -23,6 +23,18 @@ const {width} = Dimensions.get('window');
 
 export default class CharacterVideo extends Component {
 
+
+
+    constructor(props) {
+      super(props)
+
+      this.standingVideos = {
+          "ramesses": require("../assets/videos/presentation/ramses_standing.mov"),
+          "marie_curie": require("../assets/videos/presentation/marie_curie_standing.mov"),
+          "leonard_de_vinci": require("../assets/videos/presentation/leonard_standing.mov"),
+      };
+    };
+
     state = {
         mute: false,
         play: true,
@@ -31,12 +43,12 @@ export default class CharacterVideo extends Component {
         shouldGoIdle: false,
     }
 
-    _onPlaybackStatusUpdate = async (playbackStatus) => {
+    _onPlaybackStatusUpdate = async (playbackStatus, characterId) => {
         if (playbackStatus.didJustFinish) {
             if (this.state.shouldGoIdle) {
                 await this.setState({shouldGoIdle: false});
                 await this.state.playbackObject.unloadAsync();
-                await this.state.playbackObject.loadAsync(require("../assets/videos/presentation/leonard_standing.mov"));
+                await this.state.playbackObject.loadAsync(this.standingVideos[characterId]);
                 this.state.playbackObject.playFromPositionAsync(0);
             }
         }
@@ -83,32 +95,16 @@ export default class CharacterVideo extends Component {
             this.state.shouldGoIdle = true;
         }
         return (
-            <View>
-                <Video
-                    source={this.props.video == undefined ? require("../assets/videos/presentation/leonard_standing.mov") : this.props.video}
-                    ref={this._handleVideoRef}
-                    isMuted={this.state.mute}
-                    resizeMode="cover"
-                    shouldPlay={this.state.play}
-                    isLooping={this.state.loop}
-                    style={{width: width, height: 300, backgroundColor: 'black'}}
-                    onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus)}
-                />
-                <View style={styles.controlBar}>
-                    <MaterialIcons
-                        name={this.state.mute ? "volume-mute" : "volume-up"}
-                        size={45}
-                        color="white"
-                        onPress={this.handleVolume}
-                    />
-                    <MaterialIcons
-                        name={this.state.play ? "pause" : "play-arrow"}
-                        size={45}
-                        color="white"
-                        onPress={this.handlePlayAndPause}
-                    />
-                </View>
-            </View>
+            <Video
+                source={this.props.video == undefined ? this.standingVideos[this.props.characterId] : this.props.video}
+                ref={this._handleVideoRef}
+                isMuted={this.state.mute}
+                resizeMode="cover"
+                shouldPlay={this.state.play}
+                isLooping={this.state.loop}
+                style={{width: width, height: 300, backgroundColor: 'black'}}
+                onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus, this.props.characterId)}
+            />
         );
     }
 }

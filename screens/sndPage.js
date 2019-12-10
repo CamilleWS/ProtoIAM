@@ -21,17 +21,17 @@ class HomeScreen extends Component {
 
     callFun = () =>
     {
-        alert("Leonard");
+        this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
     }
     callFun2 = () =>
     {
         // this.props.navigation.navigate('Persona1', {"nothing"});
-        this.props.navigation.navigate('Persona1', {});
+        this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
         // alert("marie");
     }
     callFun3 = () =>
     {
-        alert("ramses");
+        this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
     }
 
     constructor () {
@@ -109,7 +109,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun2 }>
 
                     <Video
-                        source={require('../assets/videos/presentation/marieCurie_standing.mov')}
+                        source={require('../assets/videos/presentation/marie_curie_standing.mov')}
                         isMuted={false}
                         resizeMode="cover"
                         shouldPlay={true}
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#DFD8FF',
+        backgroundColor: '#FFFFFF',
     },
     images: {
         flexDirection: "row",

@@ -120,7 +120,7 @@ let videoPath = [
     ],
     [
         require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),
-        require("../assets/videos/leonard_de_vinci/je_n_est_pas_la_reponse.mp4")
+        require("../assets/videos/leonard_de_vinci/je_n_ai_pas_la_reponse.mp4")
     ]
 
 ]
@@ -128,7 +128,7 @@ let videoPath = [
 
 let keyWords = [
     [["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["quand", "ne", "tu"], ["quand", "ne", "vous"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
-    [["qui", "etait", "monalisa"], ["qui", "etait", "mona"], ["qui", "etait", "lisa"], ["parle", "de", "lisa"], ["parle", "de", "mona"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"]],
+    [["qui", "etait", "monalisa"], ["qui", "etait", "mona"], ["qui", "etait", "lisa"], ["parle", "de", "lisa"], ["parle", "de", "mona"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"], ["qui", "est", "joconde"], ["qui", "etait", "joconde"]],
     [["œuvres"], ["oeuvres"], ["inventions"], ["creations"], ["fier"], ["astu", "fais"], ["tu", "as", "fais"]],
 
     [
