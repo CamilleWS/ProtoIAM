@@ -13,10 +13,13 @@ import CharacterVideo from '../screens/CharacterVideo'
 import {getLeonardAnswerStr, checkLeonardQuestion} from '../scripts/scriptLeonard'
 import {getMarieCurieAnswerStr, checkMarieCurieQuestion} from '../scripts/scriptMarieCurie'
 import {getRamsesAnswerStr, checkRamsesQuestion} from '../scripts/scriptRamses'
+import {Audio} from "expo-av";
 
 class CharacterScreen extends Component {
 
-      constructor(props) {
+
+
+    constructor(props) {
         super(props)
         this.searchInput = React.createRef();
 
@@ -27,7 +30,20 @@ class CharacterScreen extends Component {
             actualVideo: undefined,
         };
         this.addMessageToChat = this.addMessageToChat.bind(this);
-      };
+    };
+    run_tuto = async () => {
+        const soundObject = new Audio.Sound();
+        try {
+            await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
+            await soundObject.playAsync();
+            // Your sound is playing!
+        } catch (error) {
+            // An error occurred!
+        }
+    };
+    componentDidMount() {
+        this.run_tuto();
+    };
 
       getCharacterAnswerStr = (characterId, item) =>
       {

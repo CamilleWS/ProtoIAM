@@ -45,6 +45,7 @@ const recordingOptions = {
         linearPCMBitDepth: 16,
         linearPCMIsBigEndian: false,
         linearPCMIsFloat: false,
+        //plateform -> linear16 pour IOS ( 2 request différentes )
     },
 };
 
@@ -93,25 +94,38 @@ class SpeechToText extends React.Component {
            const info = await FileSystem.getInfoAsync(this.recording.getURI());
            option = {encoding:FileSystem.EncodingType.Base64}
            const content = await FileSystem.readAsStringAsync(this.recording.getURI(), option);
-
-           test = {
-               config: {
-                  encoding: 'AMR_WB',
-                  sampleRateHertz: 16000,
-                  languageCode: 'fr-FR',
-               },
-               audio: {
-                   content: content,
-               }
-           }
+            let test = {};
+            if ( Platform.OS === 'ios') {
+                test = {
+                    config: {
+                        encoding: 'LINEAR16',
+                        sampleRateHertz: 16000,
+                        languageCode: 'fr-FR',
+                    },
+                    audio: {
+                        content: content,
+                    }
+                };
+            } else {
+                test = {
+                    config: {
+                        encoding: 'AMR_WB',
+                        sampleRateHertz: 16000,
+                        languageCode: 'fr-FR',
+                    },
+                    audio: {
+                        content: content,
+                    }
+                };
+            }
            const response = await fetch(CLOUD_FUNCTION_URL, {
                method: 'POST',
                body: JSON.stringify(test)
            });
            const data = await response.json();
-           console.log(data)
-           transcription = data.results[0].alternatives[0].transcript
-          // console.log("Transcription:",  transcription);//results
+           console.log(data);
+           transcription = data.results[0].alternatives[0].transcript;
+           console.log("Transcription:",  transcription);//results
 
            this.sendData(transcription);
 

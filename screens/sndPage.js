@@ -13,7 +13,7 @@ import {
     Animated,
     Easing
 } from 'react-native';
-import {Video} from 'expo-av'
+import {Video, Audio} from 'expo-av'
 
 
 
@@ -34,17 +34,33 @@ class HomeScreen extends Component {
         this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
     }
 
+    run_tuto = async () => {
+        const soundObject = new Audio.Sound();
+        try {
+            await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
+            await soundObject.playAsync();
+            // Your sound is playing!
+        } catch (error) {
+            // An error occurred!
+        }
+    }
+
     constructor () {
       super()
-      this.spinValue = new Animated.Value(0)
-      this.spinmValue = new Animated.Value(0)
-      this.spineValue = new Animated.Value(0)
+      this.spinValue = new Animated.Value(0);
+      this.spinmValue = new Animated.Value(0);
+      this.spineValue = new Animated.Value(0);
+        this.run_tuto()
     }
 
     componentDidMount () {
-      this.spin()
-      this.spinm()
-      this.spine()
+      this.spin();
+      this.spinm();
+      this.spine();
+
+
+
+
     }
     spin () {
       this.spinValue.setValue(0)
@@ -99,7 +115,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
                     <Video
                         source={require('../assets/videos/presentation/leonard_standing.mov')}
-                        isMuted={false}
+                        isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
                         isLooping={true}
@@ -110,7 +126,7 @@ class HomeScreen extends Component {
 
                     <Video
                         source={require('../assets/videos/presentation/marie_curie_standing.mov')}
-                        isMuted={false}
+                        isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
                         isLooping={true}
@@ -120,7 +136,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun3 }>
                     <Video
                         source={require('../assets/videos/presentation/ramses_standing.mov')}
-                        isMuted={false}
+                        isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
                         isLooping={true}
