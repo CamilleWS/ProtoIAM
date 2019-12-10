@@ -13,12 +13,19 @@ import {
     Animated,
     Easing
 } from 'react-native';
-import {Video} from 'expo-av'
+import {Video, Audio} from 'expo-av'
+import soundfile from '../assets/videos/tuto_page2.mp3'
+import Sound from 'react-sound'
 
 
+// const playbackObject = await AudioSound.createAsync(
+//   { uri: '../assets/videos/tuto_page2.mp3' },
+//   { shouldPlay: true }
+// );
 
 class HomeScreen extends Component {
 
+// const playbackObject = new Audio.Sound();
     callFun = () =>
     {
         alert("Leonard");
@@ -95,6 +102,13 @@ class HomeScreen extends Component {
         })
         return (
             <View style={styles.mainContainer}>
+                <Sound
+                    url={soundfile}
+                    playStatus={Sound.status.PLAYING}
+                    onLoading={this.handleSongLoading}
+                    onPlaying={this.handleSongPlaying}
+                    onFinishedPlaying={this.handleSongFinishedPlaying}
+                />
                 <View style={styles.images}>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
                     <Video
@@ -135,13 +149,13 @@ class HomeScreen extends Component {
                                 source={require('../assets/images/circle3.png')}
                             />
                         </View>
-                      <View /*style={{paddingTop: 16}}*/>
+                      <View>
                           <Animated.Image
                             style={{ width: 200, height: 200, transform: [{rotate: spin1}]}}
                               source={require('../assets/images/circle2.png')}
                           />
                       </View>
-                      <View /*style={{paddingTop: 16}}*/>
+                      <View>
                           <Animated.Image
                             style={{ width: 200, height: 200, transform: [{rotate: spin}]}}
                               source={require('../assets/images/circle1.png')}
