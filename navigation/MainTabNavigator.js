@@ -10,7 +10,7 @@ import CharacterScreen from "../screens/CharacterScreen";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
-    default: {},
+    default: {headerMode: 'hidden'},
 });
 
 const HomeStack = createStackNavigator(
