@@ -24,7 +24,6 @@ export default function App(props) {
     return (
       <Provider store={ Store }>
         <View style={styles.container}>
-          {console.log(Store.getState())}
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <AppNavigator />
         </View>

@@ -23,9 +23,9 @@ import {Audio} from 'expo-av'
 import * as Permissions from 'expo-permissions';
 import * as FileSystem from 'expo-file-system';
 import FadeInView from "../components/FadeInView";
-import {RippleLoader} from 'react-native-indicator';
+import {RippleLoader, TextLoader} from 'react-native-indicator';
 
-const PATTERN = [ 200, 200] ;
+const PATTERN = [ 50, 50];
 
 const recordingOptions = {
     android: {
@@ -45,6 +45,7 @@ const recordingOptions = {
         linearPCMBitDepth: 16,
         linearPCMIsBigEndian: false,
         linearPCMIsFloat: false,
+        //plateform -> linear16 pour IOS ( 2 request différentes )
     },
 };
 
@@ -93,25 +94,38 @@ class SpeechToText extends React.Component {
            const info = await FileSystem.getInfoAsync(this.recording.getURI());
            option = {encoding:FileSystem.EncodingType.Base64}
            const content = await FileSystem.readAsStringAsync(this.recording.getURI(), option);
-
-           test = {
-               config: {
-                  encoding: 'AMR_WB',
-                  sampleRateHertz: 16000,
-                  languageCode: 'fr-FR',
-               },
-               audio: {
-                   content: content,
-               }
-           }
+            let test = {};
+            if ( Platform.OS === 'ios') {
+                test = {
+                    config: {
+                        encoding: 'LINEAR16',
+                        sampleRateHertz: 16000,
+                        languageCode: 'fr-FR',
+                    },
+                    audio: {
+                        content: content,
+                    }
+                };
+            } else {
+                test = {
+                    config: {
+                        encoding: 'AMR_WB',
+                        sampleRateHertz: 16000,
+                        languageCode: 'fr-FR',
+                    },
+                    audio: {
+                        content: content,
+                    }
+                };
+            }
            const response = await fetch(CLOUD_FUNCTION_URL, {
                method: 'POST',
                body: JSON.stringify(test)
            });
            const data = await response.json();
-           console.log(data)
-           transcription = data.results[0].alternatives[0].transcript
-          // console.log("Transcription:",  transcription);//results
+           console.log(data);
+           transcription = data.results[0].alternatives[0].transcript;
+           console.log("Transcription:",  transcription);//results
 
            this.sendData(transcription);
 
@@ -134,7 +148,7 @@ class SpeechToText extends React.Component {
            playsInSilentModeIOS: true,
            shouldDuckAndroid: true,
            interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-           playThroughEarpieceAndroid: true,
+           playThroughEarpieceAndroid: false,
            staysActiveInBackground: true,
        });
        const recording = new Audio.Recording();
@@ -198,7 +212,11 @@ class SpeechToText extends React.Component {
                  {isRecording &&
 
                   <View style={styles.recordIconRipple}>
+                     <View style={styles.recordText}>
+                       <TextLoader text="Maintenez appuyé pour parler " />
+                     </View>
                      <RippleLoader  size={150} strokeWidth={20} color={'#8A2BE2'}/>
+
                   </View>
                  }
                  {!isRecording &&
@@ -224,12 +242,18 @@ const styles = StyleSheet.create({
     },
     recordIconRipple: {
         alignItems:'center',
-        marginVertical: -50,
+        marginVertical: -70,
     },
     recordIcon: {
       marginTop: 8,
-      marginLeft:15
+      marginLeft:15,
     },
+    recordText: {
+      marginLeft: 70,
+      marginTop:0,
+      width:200,
+
+    }
 });
 
 

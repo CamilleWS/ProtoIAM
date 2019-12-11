@@ -9,8 +9,6 @@ export class Answear {
 
 let ret = new Answear()
 
-console.log(ret)
-
 let questions = [
     "Qui es-tu ?",
     "Qui est Mona Lisa ?",
@@ -46,52 +44,6 @@ let answers = [
 let unknwow_answers = [
     "Désolé, je n'ai pas compris votre question."
 ]
-
-let liaisons = [
-    "Ensuite",
-    "Pour aller plus en profondeur",
-    "Plus Précisement",
-    "Pour être plus précis",
-    "Et donc",
-    "Et bien",
-    "Biensur",
-    "Evidement",
-    "Bien Evidement",
-    "Alors"
-]
-
-// let test = [ ["lol", "xd"] ]
-
-let linkPath = [
-    [
-        require("../assets/videos/leonard_de_vinci/liaisons/alors.mov")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/liaisons/bien-evidemment.mov")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/liaisons/bien-sur.mov")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/liaisons/eh-donc.mov")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/liaisons/ensuite.mov")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/liaisons/evidemment.mov")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/liaisons/plus-precisement.mov")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/liaisons/pour-aller-plus-en-profondeur.mov")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/liaisons/pour-etre-plus-recis.mov")
-    ]
-]
-
 
 let videoPath = [
     [
@@ -133,6 +85,10 @@ let videoPath = [
     ],
     [
         require("../assets/videos/leonard_de_vinci/date-deces.mov")
+    ],
+    [
+        require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),
+        require("../assets/videos/leonard_de_vinci/je_n_ai_pas_la_reponse.mp4")
     ]
 
 
@@ -140,12 +96,12 @@ let videoPath = [
 
 let unknow_path = [
         require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),
-        require("../assets/videos/leonard_de_vinci/je_n_est_pas_la_reponse.mp4")
+        require("../assets/videos/leonard_de_vinci/je_n_ai_pas_la_reponse.mp4")
     ]
 
 let keyWords = [
     [["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["quand", "ne", "tu"], ["quand", "ne", "vous"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
-    [["qui", "etait", "monalisa"], ["qui", "etait", "mona"], ["qui", "etait", "lisa"], ["parle", "de", "lisa"], ["parle", "de", "mona"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"]],
+    [["qui", "etait", "monalisa"], ["qui", "etait", "mona"], ["qui", "etait", "lisa"], ["parle", "de", "lisa"], ["parle", "de", "mona"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"], ["qui", "est", "joconde"], ["qui", "etait", "joconde"]],
     [["œuvres"], ["oeuvres"], ["inventions"], ["creations"], ["fier"], ["astu", "fais"], ["tu", "as", "fais"]],
 
     [
@@ -179,29 +135,29 @@ let keyWords = [
     [["estu", "decede"], ["estu", "mort"], ["quand", "tu", "mort"], ["quand", "vous", "mort"], ["annee", "vous", "mort"], ["annee", "tu", "mort"], ["etesvous", "mort"]]
 ]
 
-let already_use = {
-    "presentation" : [0, 0],
-    "qui-est-la-joconde" : [0],
-    "oeuvres-plus-de-succes" : [0],
-    "presentation-joconde" : [0],
-    "presentation-la-cene" : [0],
-    "passion-medecine" : [0],
-    "relation-francois1er" : [0],
-    "passion-medecine" : [0],
-    "assistants" : [0],
-    "lieu-expo-joconde" : [0],
-    "lieu-enterrement" : [0],
-    "question-dissection" : [0],
-    "date-deces" : [0],
-    "unknow" : [0, 0]
-}
+let already_use = [
+    [0, 0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0, 0]
+]
 
 
 import * as Random from 'expo-random';
 
 export function checkLeonardQuestion(text)
 {
-    let variante = Math.floor(Math.random() * Math.floor(already_use["unknow"].length))
+    let variante = Math.floor(Math.random() * Math.floor(already_use[already_use.length - 1].length))
     text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     text = text.replace(/[-_?!. ]/gi, '');
     ret.video_path = unknow_path[variante];
@@ -220,63 +176,62 @@ export function checkLeonardQuestion(text)
 
             }
             if (goodKeyWord == keyWords[i][j].length) {
-                // let variante_liaison =  Math.floor(Math.random() * Math.floor(liaisons.length))
                 let count = 0
-                // console.log(already_use)
-                console.log(i)
-                console.log(variante)
-                // while (already_use[i][variante]) {
-                //     variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
-                //     if (count == 10 + already_use[i].length)
-                //         already_use[i].fill(0)
-                // }
-                // already_use[i][variante] = 1;
-                ret.video_path = videoPath[i];
+                console.log(already_use[i])
+                variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
+                while (already_use[i][variante]) {
+                    variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
+                    if (count == 10 + already_use[i].length)
+                        already_use[i].fill(0)
+                    count += 1
+                }
+                already_use[i][variante] = 1;
+                ret.video_path = videoPath[i][variante];
                 ret.str = answers[i]
                 ret.question = questions[i]
-                return (ret)
+                console.log(ret.question)
+                return (ret.video_path)
             }
         }
     }
     let count = 0
-    while (already_use["unknow"][variante]) {
-        variante = Math.floor(Math.random() * Math.floor(already_use["unknow"].length))
-        if (count == 10 + already_use["unknow"].length)
-            already_use["unknow"].fill(0)
+    while (already_use[already_use.length - 1][variante]) {
+        variante = Math.floor(Math.random() * Math.floor(already_use[already_use.length - 1].length))
+        if (count == 10 + already_use[already_use.length - 1].length)
+            already_use[already_use.length - 1].fill(0)
     }
-    already_use["unknow"][variante] = 1;
+    already_use[already_use.length - 1][variante] = 1;
     for (const key in already_use) {
         var value = already_use[key];
-        console.log(value)
     }
-    return (ret)
+    return (ret.video_path)
 }
 
 
-// export function getLeonardAnswerStr(text)
-// {
-//     // text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-//     // text = text.replace(/[-_?!. ]/gi, '');
-//     //
-//     // let ret = answers[answers.length - 1];
-//     // for (let i = 0; i < questions.length; i++) {
-//     //     for (let j = 0; j < keyWords[i].length; j++) {
-//     //         let goodKeyWord = 0;
-//     //         for (let k = 0; k < keyWords[i][j].length; k++) {
-//     //             let regexStr = keyWords[i][j][k]
-//     //             let regexp = new RegExp(regexStr, "gi")
-//     //             if (text.match(regexp)) {
-//     //                 goodKeyWord += 1
-//     //             }
-//     //
-//     //         }
-//     //         if (goodKeyWord == keyWords[i][j].length) {
-//     //             return (answers[i])
-//     //         }
-//     //     }
-//     // }
-//     return ("")
-// }
+export function getLeonardAnswerStr(text)
+{
+    // text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    // text = text.replace(/[-_?!. ]/gi, '');
+    //
+    // let ret = answers[answers.length - 1];
+    // for (let i = 0; i < questions.length; i++) {
+    //     for (let j = 0; j < keyWords[i].length; j++) {
+    //         let goodKeyWord = 0;
+    //         for (let k = 0; k < keyWords[i][j].length; k++) {
+    //             let regexStr = keyWords[i][j][k]
+    //             let regexp = new RegExp(regexStr, "gi")
+    //             if (text.match(regexp)) {
+    //                 goodKeyWord += 1
+    //             }
+    //
+    //         }
+    //         if (goodKeyWord == keyWords[i][j].length) {
+    //             return (answers[i])
+    //         }
+    //     }
+    // }
+    return (ret.str)
+}
 
 export function questionLeonardByIndex (index)
 {

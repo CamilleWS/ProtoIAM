@@ -12,7 +12,7 @@ import CharacterScreen from "../screens/CharacterScreen";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
-    default: {headerMode : "hiden" },
+    default: {headerMode: 'hidden'},
 });
 
 const HomeStack = createStackNavigator(
@@ -92,18 +92,14 @@ Perso3Stack.path = '';
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
         secondPage,
-        Perso1Stack,
-        Perso2: { screen: props => <CharacterScreen {...props} {...{id: "ramesses"}} /> },
-        Perso3Stack,
+        // Perso1Stack,
+        // Perso3Stack,
     },
     {
         tabBarOptions: {
             activeTintColor: '#7D5FFF',
         }
     });
-
-
-
 
 tabNavigator.path = '';
 

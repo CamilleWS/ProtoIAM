@@ -11,41 +11,65 @@ import {
     navigation,
     Dimensions,
     Animated,
-    Easing
+    Easing, ImageBackground
 } from 'react-native';
-import {Video} from 'expo-av'
+import {Video, Audio, Sound} from 'expo-av'
 
+import { Icon } from 'react-native-elements'
 
+// const playbackObject = await AudioSound.createAsync(
+//   { uri: '../assets/videos/tuto_page2.mp3' },
+//   { shouldPlay: true }
+// );
+
+const soundObject = new Audio.Sound();
 
 class HomeScreen extends Component {
 
+// const playbackObject = new Audio.Sound();
     callFun = () =>
     {
-        alert("Leonard");
+        this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
+        soundObject.stopAsync();
     }
     callFun2 = () =>
     {
         // this.props.navigation.navigate('Persona1', {"nothing"});
-        this.props.navigation.navigate('Persona1', {});
+        this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
+        soundObject.stopAsync();
+
         // alert("marie");
     }
     callFun3 = () =>
     {
-        alert("ramses");
+        this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
+        soundObject.stopAsync();
+    }
+
+    run_tuto = async () => {
+        try {
+            await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
+            await soundObject.playAsync();
+            // Your sound is playing!
+        } catch (error) {
+            // An error occurred!
+        }
     }
 
     constructor () {
       super()
-      this.spinValue = new Animated.Value(0)
-      this.spinmValue = new Animated.Value(0)
-      this.spineValue = new Animated.Value(0)
+      this.spinValue = new Animated.Value(0);
+      this.spinmValue = new Animated.Value(0);
+      this.spineValue = new Animated.Value(0);
+      this.run_tuto()
     }
 
     componentDidMount () {
-      this.spin()
-      this.spinm()
-      this.spine()
+      this.spin();
+      this.spinm();
+      this.spine();
     }
+
     spin () {
       this.spinValue.setValue(0)
       Animated.timing(
@@ -81,6 +105,7 @@ class HomeScreen extends Component {
     }
 
     render() {
+        const { goBack } = this.props.navigation;
         const spin = this.spinValue.interpolate({
           inputRange: [0, 1],
           outputRange: ['0deg', '360deg']
@@ -95,11 +120,17 @@ class HomeScreen extends Component {
         })
         return (
             <View style={styles.mainContainer}>
+                <Icon
+                    raised
+                    name='reply'
+                    type='font-awesome'
+                    color='#8A2BE2'
+                    onPress={() => goBack()} />
                 <View style={styles.images}>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
                     <Video
                         source={require('../assets/videos/presentation/leonard_standing.mov')}
-                        isMuted={false}
+                        isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
                         isLooping={true}
@@ -109,8 +140,8 @@ class HomeScreen extends Component {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun2 }>
 
                     <Video
-                        source={require('../assets/videos/presentation/marieCurie_standing.mov')}
-                        isMuted={false}
+                        source={require('../assets/videos/presentation/marie_curie_standing.mov')}
+                        isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
                         isLooping={true}
@@ -120,7 +151,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun3 }>
                     <Video
                         source={require('../assets/videos/presentation/ramses_standing.mov')}
-                        isMuted={false}
+                        isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
                         isLooping={true}
@@ -135,13 +166,13 @@ class HomeScreen extends Component {
                                 source={require('../assets/images/circle3.png')}
                             />
                         </View>
-                      <View /*style={{paddingTop: 16}}*/>
+                      <View>
                           <Animated.Image
                             style={{ width: 200, height: 200, transform: [{rotate: spin1}]}}
                               source={require('../assets/images/circle2.png')}
                           />
                       </View>
-                      <View /*style={{paddingTop: 16}}*/>
+                      <View>
                           <Animated.Image
                             style={{ width: 200, height: 200, transform: [{rotate: spin}]}}
                               source={require('../assets/images/circle1.png')}
@@ -164,7 +195,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#DFD8FF',
+        backgroundColor: '#FFFFFF',
     },
     images: {
         flexDirection: "row",

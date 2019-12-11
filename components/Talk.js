@@ -23,7 +23,7 @@ class Talk extends React.Component {
 
     render() {
         return (
-            <ActionButton buttonColor="rgba(231,76,60,1)" position={"right"}>
+            <ActionButton buttonColor="rgba(231,76,60,1)" position={"right"} style={{top: '0%', position: 'absolute'}}>
                 <ActionButton.Item radiua={200} buttonColor='#9b59b6' title="New Task" onPress={this.changeConversationText}>
                     <MaterialCommunityIcons name={this.props.conversationTextIcon} style={styles.actionButtonIcon}/>
                 </ActionButton.Item>
