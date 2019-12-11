@@ -28,8 +28,6 @@ class CharacterScreen extends Component {
 
         this.state = {
             mainColor: '',
-            transcript: "",
-            allTranscripts: [],
             text: '',
             actualVideo: undefined,
         };
@@ -86,27 +84,19 @@ class CharacterScreen extends Component {
       }
 
       callbackFunction = async (childData) => {
-            await this.setState({transcript: childData})
-            await this.setState(prevState => ({
-                allTranscripts: [...prevState.allTranscripts, childData]
-            }));
             await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
 
-            this.state.allTranscripts.map((item) => {
-
-                let newChatElemUser = {
-                        myself: true,
-                        message: item
-                      }
-                this.addMessageToChat(newChatElemUser);
-
-                let newChatElemPerso = {
-                      myself: false,
-                      message: this.getCharacterAnswerStr(this.props.navigation.state.params.characterId, item)
+            let newChatElemUser = {
+                    myself: true,
+                    message: childData
                     }
-                this.addMessageToChat(newChatElemPerso);
+            this.addMessageToChat(newChatElemUser);
 
-            });
+            let newChatElemPerso = {
+                    myself: false,
+                    message: this.getCharacterAnswerStr(this.props.navigation.state.params.characterId, childData)
+                }
+            this.addMessageToChat(newChatElemPerso);
       };
 
     addMessageToChat(value) {
@@ -170,11 +160,7 @@ class CharacterScreen extends Component {
                     keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}>
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
                         <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                        {this.props.inputText == 1 ?
-                            <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
-                         :
-                            <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                        }
+                        <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
                     </View>
                 </KeyboardAvoidingView>
                 {/*<View style={[styles.actionSheet, {backgroundColor: this.state.mainColor}]}>*/}

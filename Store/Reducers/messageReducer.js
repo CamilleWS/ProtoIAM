@@ -7,7 +7,6 @@ function toggleMessage(state = initialState, action) {
     switch (action.type) {
         case "ADD_MESSAGE":
             newState = {
-                ...state,
                 chat: [...state.chat, action.value]
             }
             return (newState);
