@@ -177,7 +177,6 @@ export function checkLeonardQuestion(text)
             }
             if (goodKeyWord == keyWords[i][j].length) {
                 let count = 0
-                console.log(already_use[i])
                 variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
                 while (already_use[i][variante]) {
                     variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
@@ -189,7 +188,6 @@ export function checkLeonardQuestion(text)
                 ret.video_path = videoPath[i][variante];
                 ret.str = answers[i]
                 ret.question = questions[i]
-                console.log(ret.question)
                 return (ret.video_path)
             }
         }
