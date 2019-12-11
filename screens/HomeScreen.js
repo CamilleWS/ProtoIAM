@@ -1,69 +1,94 @@
-import * as WebBrowser from 'expo-web-browser';
-import React, {Component} from 'react';
-import {
-    Image,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-    Dimensions
-} from 'react-native';
+import React from 'react';
+import { StyleSheet,Text, Image, View,SafeAreaView, Dimensions, TouchableOpacity} from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import Carousel from 'react-native-snap-carousel';
+import Button from '@material-ui/core/Button';
 
-class HomeScreen extends Component {
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+var indexImage = -1;
 
-    openWebsite = async () => {
-        await WebBrowser.openBrowserAsync(
-            'https://dariusmartin.wixsite.com/iamtech'
-        );
+export default class App extends React.Component {
+
+
+    constructor(props){
+        super(props);
+        this.state = {
+            carouselItems: [
+                {
+                    title:"egypt"
+                },
+                {
+                    title:"vitruve-man"
+                },
+                {
+                    title:"chemist"
+                }
+            ]}
+    }
+
+    onPress = () => {
+        alert("click !");
     };
+
+
+    _renderItem({item,index}){
+         indexImage = indexImage === 3 ? 0 : indexImage += 1;
+        return (
+            <View style={{flexGrow:1,justifyContent:'center'}}>
+            <Image
+                source={indexImage === 0 ? require("../assets/images/egypt.jpg") : indexImage === 1 ? require ("../assets/images/vitruve-man.jpg"): require("../assets/images/chemistry.jpg")}
+                style={{height:"100%", width:"100%", resizeMode:"cover"}}
+            />
+            </View>
+        )
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <SafeAreaView style={styles.contentContainer}>
-                    <View style={{paddingTop: 75}}>
-                        <Image
-                            resizeMode={'contain'}
-                            style={styles.logo}
-                            source={require('../assets/images/iam_bg_variant.png')}
-                        />
-                    </View>
-                    <TouchableOpacity
-                        activeOpacity={0.5}
-                        style={{paddingTop: 25}}
-                        onPress={this.openWebsite}
-                    >
-                        <Text style={styles.webButtonText}>• Accéder au site web •</Text>
+                <Carousel
+                    data={this.state.carouselItems}
+                    renderItem={this._renderItem}
+                    sliderWidth={viewportWidth}
+                    itemWidth={viewportWidth}
+                    slideStyle={{ width: viewportWidth }}
+                    inactiveSlideOpacity={1}
+                    inactiveSlideScale={1}
+                    loop={true}
+                    autoplay={true}
+                    autoplayDelay={0}
+                    enableMomentum={true}
+                    lockScrollWhileSnapping={false}
+                    autoplayInterval={6000}
+                />
+            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+                    <TouchableOpacity activOpactity={0.5} style={styles.startButton}>
+                        <View style={{backgroundColor: "white"}}>
+                            <Text style={styles.startText}>Start experience</Text>
+                        </View>
                     </TouchableOpacity>
-                </SafeAreaView>
             </View>
-        )
+            </View>
+        );
     }
 }
-
-HomeScreen.navigationOptions = {
-    header: null,
-};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#7D5FFF'
-    },
-    contentContainer: {
-        justifyContent: 'center',
+        height:"100%",
         alignItems: 'center',
-        paddingTop: 75
+        justifyContent: 'center'
     },
-    logo: {
-        width: 375,
-        height: 200,
+    startButton: {
+        backgroundColor: "white",
+        paddingHorizontal: 30,
+        paddingVertical: 5,
+        borderRadius: 30
     },
-    webButtonText: {
-        color: 'white',
-        fontWeight: 'bold'
+    startText: {
+        fontSize: 40,
+        fontWeight: '100',
+        color: "black",
     }
 });
-
-export default HomeScreen

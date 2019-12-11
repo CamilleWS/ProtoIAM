@@ -7,10 +7,12 @@ import HomeScreen from '../screens/HomeScreen';
 import Persona1 from '../screens/Persona1';
 import Persona2 from '../screens/Persona2';
 import Persona3 from '../screens/Persona3';
+import sndPage from '../screens/sndPage';
+import CharacterScreen from "../screens/CharacterScreen";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
-    default: {},
+    default: {headerMode : "hiden" },
 });
 
 const HomeStack = createStackNavigator(
@@ -37,6 +39,23 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
+const secondPage = createStackNavigator(
+    {
+        snd: sndPage,
+    },
+    config
+);
+
+secondPage.navigationOptions = {
+
+    tabBarLabel: '2nd Page',
+    tabBarIcon: ({focused, tintColor}) => (
+        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-aperture' : 'md-aperture'}/>
+    ),
+};
+
+secondPage.path = '';
+
 const Perso1Stack = createStackNavigator(
     {
         Perso1: Persona1,
@@ -53,22 +72,6 @@ Perso1Stack.navigationOptions = {
 };
 
 Perso1Stack.path = '';
-
-const Perso2Stack = createStackNavigator(
-    {
-        Perso2: Persona2,
-    },
-    config
-);
-
-Perso2Stack.navigationOptions = {
-    tabBarLabel: 'Ramses II',
-    tabBarIcon: ({focused, tintColor}) => (
-        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-man' : 'md-man'}/>
-    ),
-};
-
-Perso2Stack.path = '';
 
 const Perso3Stack = createStackNavigator(
     {
@@ -88,8 +91,9 @@ Perso3Stack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
+        secondPage,
         Perso1Stack,
-        Perso2Stack,
+        Perso2: { screen: props => <CharacterScreen {...props} {...{id: "ramesses"}} /> },
         Perso3Stack,
     },
     {

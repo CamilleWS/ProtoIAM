@@ -1,4 +1,16 @@
 
+export class Answear {
+  constructor() {
+    this.str = "";
+    this.question = "";
+    this.video_link = "";
+  }
+}
+
+let ret = new Answear()
+
+console.log(ret)
+
 let questions = [
     "Qui es-tu ?",
     "Qui est Mona Lisa ?",
@@ -16,7 +28,7 @@ let questions = [
 ]
 
 let answers = [
-    "Je suis Léonard de Vinci et je suis né le 15 avril 1452 sur les hauteurs du village de Vinci en Toscane. Je suis le fils illégitime d’une mère servante et paysane et d’un père notaire, aisé et reconnu. Je suis connu pour mes talents d’artiste, d’architecte et de scientifique.",
+    "Je suis Léonard de Vinci et je suis né le 15 avril 1452 sur les hauteurs du village de Vinci en Toscane.",
     "La théorie la plus répandue est que Mona Lisa serait la représentation de la Florentine Lisa Gherardini, épouse de Francesco del Giocondo.",
     "Je suis particulièrement fier de mes œuvres 'La Joconde' et 'La Cene'",
     "La Joconde, ou Portrait de Mona Lisa, est un tableau que j’ai réalisé entre 1503 et 1506 ou entre 1513 et 1516, je ne me souviens plus vraiment.",
@@ -28,7 +40,11 @@ let answers = [
     "La Cène est exposée à l’Église Santa Maria delle Grazie de Milan.",
     "Je repose à la Chapelle Saint-Hubert à Amboise.",
     "Oui, mais bien que cela soit mal vue cela m’a permis d’étudier en profondeur l’anatomie du corps humain afin d’en comprendre les mécanismes.",
-    "Je suis décédé le 2 mai 1519."
+    "Je suis décédé le 2 mai 1519.",
+]
+
+let unknwow_answers = [
+    "Désolé, je n'ai pas compris votre question."
 ]
 
 let liaisons = [
@@ -128,7 +144,7 @@ let unknow_path = [
     ]
 
 let keyWords = [
-    [["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
+    [["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["quand", "ne", "tu"], ["quand", "ne", "vous"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
     [["qui", "etait", "monalisa"], ["qui", "etait", "mona"], ["qui", "etait", "lisa"], ["parle", "de", "lisa"], ["parle", "de", "mona"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"]],
     [["œuvres"], ["oeuvres"], ["inventions"], ["creations"], ["fier"], ["astu", "fais"], ["tu", "as", "fais"]],
 
@@ -159,8 +175,8 @@ let keyWords = [
     [["ou", "joconde"], ["ou", "monalisa"]],
     [["ou", "cene"]],﻿
     [["ou", "enterre"], ["ou", "tombe"]],
-    [["piller", "cadavre"], ["pillais", "cadavre"], ["etudier", "cadavre"], ["morgue"]],
-    [["estu", "decede"], ["estu", "mort"], ["tu", "mort"], ["vous", "mort"], ["etesvous", "mort"]]
+    [["piller", "cadavre"], ["pillais", "cadavre"], ["etudi", "cadavre"], ["morgue"]],
+    [["estu", "decede"], ["estu", "mort"], ["quand", "tu", "mort"], ["quand", "vous", "mort"], ["annee", "vous", "mort"], ["annee", "tu", "mort"], ["etesvous", "mort"]]
 ]
 
 let already_use = {
@@ -183,11 +199,15 @@ let already_use = {
 
 import * as Random from 'expo-random';
 
-export function checkQuestion(text)
+export function checkLeonardQuestion(text)
 {
     let variante = Math.floor(Math.random() * Math.floor(already_use["unknow"].length))
+    text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    text = text.replace(/[-_?!. ]/gi, '');
+    ret.video_path = unknow_path[variante];
+    ret.str = unknwow_answers[0]
+    ret.question = text
 
-    let ret = unknow_path[variante];
     for (let i = 0; i < questions.length; i++) {
         for (let j = 0; j < keyWords[i].length; j++) {
             let goodKeyWord = 0;
@@ -202,18 +222,19 @@ export function checkQuestion(text)
             if (goodKeyWord == keyWords[i][j].length) {
                 // let variante_liaison =  Math.floor(Math.random() * Math.floor(liaisons.length))
                 let count = 0
-                while (already_use[i][variante]) {
-                    variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
-                    if (count == 10 + already_use[i].length)
-                        already_use[i].fill(0)
-                }
-                // console.log(variante)
-                // console.log(i)
-                //
-                // console.log(source[i][variante])
-                already_use[i][variante] = 1;
-
-                return ([videoPath[i][variante]])
+                // console.log(already_use)
+                console.log(i)
+                console.log(variante)
+                // while (already_use[i][variante]) {
+                //     variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
+                //     if (count == 10 + already_use[i].length)
+                //         already_use[i].fill(0)
+                // }
+                // already_use[i][variante] = 1;
+                ret.video_path = videoPath[i];
+                ret.str = answers[i]
+                ret.question = questions[i]
+                return (ret)
             }
         }
     }
@@ -228,9 +249,34 @@ export function checkQuestion(text)
         var value = already_use[key];
         console.log(value)
     }
-    return ([ret])
+    return (ret)
 }
 
+
+// export function getLeonardAnswerStr(text)
+// {
+//     // text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+//     // text = text.replace(/[-_?!. ]/gi, '');
+//     //
+//     // let ret = answers[answers.length - 1];
+//     // for (let i = 0; i < questions.length; i++) {
+//     //     for (let j = 0; j < keyWords[i].length; j++) {
+//     //         let goodKeyWord = 0;
+//     //         for (let k = 0; k < keyWords[i][j].length; k++) {
+//     //             let regexStr = keyWords[i][j][k]
+//     //             let regexp = new RegExp(regexStr, "gi")
+//     //             if (text.match(regexp)) {
+//     //                 goodKeyWord += 1
+//     //             }
+//     //
+//     //         }
+//     //         if (goodKeyWord == keyWords[i][j].length) {
+//     //             return (answers[i])
+//     //         }
+//     //     }
+//     // }
+//     return ("")
+// }
 
 export function questionLeonardByIndex (index)
 {

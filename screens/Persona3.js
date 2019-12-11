@@ -16,8 +16,8 @@ import {
     FlatList
 } from 'react-native';
 import {Video} from 'expo-av'
-import {checkQuestion} from '../scripts/leonard_question_analyse'
-import {questionLeonard} from '../scripts/leonard_question_analyse'
+import {checkLeonardQuestion} from '../scripts/scriptLeonard'
+import {questionLeonard} from '../scripts/scriptLeonard'
 
 
 import {MaterialIcons, Octicons} from '@expo/vector-icons';
@@ -33,10 +33,10 @@ export default class Persona3 extends Component {
         let text = event.nativeEvent.text;
         text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         text = text.replace(/[-_?!. ]/gi, '');
-        let videoPath = checkQuestion(text);
+        let videoPath = checkLeonardQuestion(text);
         if (videoPath) {
             this.props.navigation.navigate('VideoModal', {
-                video: videoPath[0]
+                video: videoPath
             });
             this.setState({
                 inputColor: '#7D5FFF'
