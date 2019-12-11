@@ -24,6 +24,7 @@ const HomeStack = createStackNavigator(
 
 HomeStack.navigationOptions = {
     tabBarLabel: 'Accueil',
+    tabBarVisible: false,
     tabBarIcon: ({focused, tintColor}) => (
         <TabBarIcon
             focused={focused}
@@ -91,16 +92,19 @@ Perso3Stack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
-        secondPage,
+        //secondPage,
         // Perso1Stack,
         // Perso3Stack,
     },
     {
         tabBarOptions: {
             activeTintColor: '#7D5FFF',
+            visible: false,
         }
     });
 
 tabNavigator.path = '';
+
+
 
 export default tabNavigator;
