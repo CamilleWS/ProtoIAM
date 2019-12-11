@@ -13,7 +13,7 @@ import {
     Animated,
     Easing
 } from 'react-native';
-import {Video, Audio} from 'expo-av'
+import {Video, Audio, Sound} from 'expo-av'
 
 
 // const playbackObject = await AudioSound.createAsync(
@@ -21,26 +21,31 @@ import {Video, Audio} from 'expo-av'
 //   { shouldPlay: true }
 // );
 
+const soundObject = new Audio.Sound();
+
 class HomeScreen extends Component {
 
 // const playbackObject = new Audio.Sound();
     callFun = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
+        soundObject.stopAsync();
     }
     callFun2 = () =>
     {
         // this.props.navigation.navigate('Persona1', {"nothing"});
         this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
+        soundObject.stopAsync();
+
         // alert("marie");
     }
     callFun3 = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
+        soundObject.stopAsync();
     }
 
     run_tuto = async () => {
-        const soundObject = new Audio.Sound();
         try {
             await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
             await soundObject.playAsync();
@@ -55,18 +60,15 @@ class HomeScreen extends Component {
       this.spinValue = new Animated.Value(0);
       this.spinmValue = new Animated.Value(0);
       this.spineValue = new Animated.Value(0);
-        this.run_tuto()
+      this.run_tuto()
     }
 
     componentDidMount () {
       this.spin();
       this.spinm();
       this.spine();
-
-
-
-
     }
+
     spin () {
       this.spinValue.setValue(0)
       Animated.timing(
@@ -116,13 +118,6 @@ class HomeScreen extends Component {
         })
         return (
             <View style={styles.mainContainer}>
-                <Sound
-                    url={soundfile}
-                    playStatus={Sound.status.PLAYING}
-                    onLoading={this.handleSongLoading}
-                    onPlaying={this.handleSongPlaying}
-                    onFinishedPlaying={this.handleSongFinishedPlaying}
-                />
                 <View style={styles.images}>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
                     <Video

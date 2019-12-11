@@ -1,6 +1,6 @@
 //Imports
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomSheet from 'reanimated-bottom-sheet'
@@ -17,9 +17,10 @@ import {getMarieCurieAnswerStr, checkMarieCurieQuestion} from '../scripts/script
 import {getRamsesAnswerStr, checkRamsesQuestion} from '../scripts/scriptRamses'
 import {Audio} from "expo-av";
 
+const soundObject = new Audio.Sound();
+
+
 class CharacterScreen extends Component {
-
-
 
     constructor(props) {
         super(props)
@@ -33,9 +34,23 @@ class CharacterScreen extends Component {
             actualVideo: undefined,
         };
         this.addMessageToChat = this.addMessageToChat.bind(this);
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     };
+
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+    handleBackButtonClick() {
+        soundObject.stopAsync();
+        this.props.navigation.goBack(null);
+        return true;
+    }
     run_tuto = async () => {
-        const soundObject = new Audio.Sound();
         try {
             await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
             await soundObject.playAsync();
@@ -45,7 +60,7 @@ class CharacterScreen extends Component {
         }
     };
     componentDidMount() {
-        this.run_tuto();
+        // this.run_tuto();
     };
 
       getCharacterAnswerStr = (characterId, item) =>
