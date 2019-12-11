@@ -11,10 +11,11 @@ import {
     navigation,
     Dimensions,
     Animated,
-    Easing
+    Easing, ImageBackground
 } from 'react-native';
 import {Video, Audio, Sound} from 'expo-av'
 
+import { Icon } from 'react-native-elements'
 
 // const playbackObject = await AudioSound.createAsync(
 //   { uri: '../assets/videos/tuto_page2.mp3' },
@@ -104,6 +105,7 @@ class HomeScreen extends Component {
     }
 
     render() {
+        const { goBack } = this.props.navigation;
         const spin = this.spinValue.interpolate({
           inputRange: [0, 1],
           outputRange: ['0deg', '360deg']
@@ -118,6 +120,12 @@ class HomeScreen extends Component {
         })
         return (
             <View style={styles.mainContainer}>
+                <Icon
+                    raised
+                    name='reply'
+                    type='font-awesome'
+                    color='#8A2BE2'
+                    onPress={() => goBack()} />
                 <View style={styles.images}>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
                     <Video

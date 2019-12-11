@@ -1,10 +1,11 @@
 //Imports
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomSheet from 'reanimated-bottom-sheet'
 import { connect } from 'react-redux';
+import { Icon } from 'react-native-elements'
 
 //Data
 import characters from '../assets/characters/characters.json';
@@ -123,7 +124,7 @@ class CharacterScreen extends Component {
         );
 
     render() {
-
+        const { goBack } = this.props.navigation;
         let characterId = this.props.navigation.state.params.characterId
 
         const config = characters.filter(el => el.id === characterId);
@@ -138,11 +139,19 @@ class CharacterScreen extends Component {
                 source={backgroundImage === "egypt" ? require('../assets/characters/backgrounds/egypt.jpg') : null}
                 imageStyle={{resizeMode: 'cover'}}
                 style={[styles.background, {backgroundColor: mainColor}]}>
+
+                <Icon
+                    raised
+                    name='reply'
+                    type='font-awesome'
+                    color='#8A2BE2'
+                    onPress={() => goBack()} />
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} />
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                     <Talk></Talk>
                 </View>
+
                 <View style={{height: 75, width: "100%" }}></View>
                 <BottomSheet
                     ref={(ref) => this._bottomSheet = ref }
