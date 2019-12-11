@@ -76,6 +76,7 @@ let linkPath = [
     ]
 ]
 
+
 let videoPath = [
     [
         require("../assets/videos/leonard_de_vinci/presentation-2.mov"),
@@ -116,14 +117,15 @@ let videoPath = [
     ],
     [
         require("../assets/videos/leonard_de_vinci/date-deces.mov")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),
-        require("../assets/videos/leonard_de_vinci/je_n_est_pas_la_reponse.mp4")
     ]
+
 
 ]
 
+let unknow_path = [
+        require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),
+        require("../assets/videos/leonard_de_vinci/je_n_est_pas_la_reponse.mp4")
+    ]
 
 let keyWords = [
     [["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"]],
@@ -131,18 +133,19 @@ let keyWords = [
     [["œuvres"], ["oeuvres"], ["inventions"], ["creations"], ["fier"], ["astu", "fais"], ["tu", "as", "fais"]],
 
     [
-        ["quand", "joconde"], ["quand", "monalisa"], ["parle", "moi", "joconde"], ["parle", "moi", "monalisa"],
+        ["quand", "joconde"], ["quand", "monalisa"], ["parle", "moi", "joconde"], ["parle", "de", "joconde"], ["quesceque", "joconde"], ["quest", "ceque", "joconde"], ["quest", "ce", "que", "joconde"], ["ce", "quest", "joconde"], ["qu", "est", "ce", "que", "joconde"],
+        ["parle", "moi", "monalisa"],
         ["la", "plus", "recente", "oeuvre"], ["la", "plus", "recente", "œuvre"],
         ["meilleure", "œuvre"], ["meilleure", "oeuvre"],
         ["connue", "œuvre"], ["connue", "oeuvre"],
         ["populaire", "œuvre"], ["connue", "oeuvre"],
 
-        ["la", "plus", "recente", "creation"], ["derner", "creation"],
+        ["la", "plus", "recente", "creation"], ["derniere", "creation"],
         ["meilleure", "creation"], ["meilleure", "creation"],
         ["connue", "creation"], ["connue", "creation"],
         ["populaire", "creation"], ["connue", "oeuvre"],
 
-        ["la", "plus", "recente", "invention"], ["dernier", "invention"],
+        ["la", "plus", "recente", "invention"], ["derniere", "invention"],
         ["meilleure", "invention"],
         ["connue", "invention"],
         ["populaire", "invention"]
@@ -160,13 +163,31 @@ let keyWords = [
     [["estu", "decede"], ["estu", "mort"], ["tu", "mort"], ["vous", "mort"], ["etesvous", "mort"]]
 ]
 
+let already_use = {
+    "presentation" : [0, 0],
+    "qui-est-la-joconde" : [0],
+    "oeuvres-plus-de-succes" : [0],
+    "presentation-joconde" : [0],
+    "presentation-la-cene" : [0],
+    "passion-medecine" : [0],
+    "relation-francois1er" : [0],
+    "passion-medecine" : [0],
+    "assistants" : [0],
+    "lieu-expo-joconde" : [0],
+    "lieu-enterrement" : [0],
+    "question-dissection" : [0],
+    "date-deces" : [0],
+    "unknow" : [0, 0]
+}
+
+
 import * as Random from 'expo-random';
 
 export function checkQuestion(text)
 {
-    let variante = Math.floor(Math.random() * Math.floor(videoPath[videoPath.length - 1].length))
+    let variante = Math.floor(Math.random() * Math.floor(already_use["unknow"].length))
 
-    let ret = videoPath[videoPath.length - 1][variante];
+    let ret = unknow_path[variante];
     for (let i = 0; i < questions.length; i++) {
         for (let j = 0; j < keyWords[i].length; j++) {
             let goodKeyWord = 0;
@@ -179,16 +200,33 @@ export function checkQuestion(text)
 
             }
             if (goodKeyWord == keyWords[i][j].length) {
-                let source = videoPath;
-                let variante_liaison =  Math.floor(Math.random() * Math.floor(liaisons.length))
-                variante = Math.floor(Math.random() * Math.floor(source[i].length))
+                // let variante_liaison =  Math.floor(Math.random() * Math.floor(liaisons.length))
+                let count = 0
+                while (already_use[i][variante]) {
+                    variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
+                    if (count == 10 + already_use[i].length)
+                        already_use[i].fill(0)
+                }
                 // console.log(variante)
                 // console.log(i)
                 //
                 // console.log(source[i][variante])
-                return ([source[i][variante], linkPath[0][0]])
+                already_use[i][variante] = 1;
+
+                return ([videoPath[i][variante]])
             }
         }
+    }
+    let count = 0
+    while (already_use["unknow"][variante]) {
+        variante = Math.floor(Math.random() * Math.floor(already_use["unknow"].length))
+        if (count == 10 + already_use["unknow"].length)
+            already_use["unknow"].fill(0)
+    }
+    already_use["unknow"][variante] = 1;
+    for (const key in already_use) {
+        var value = already_use[key];
+        console.log(value)
     }
     return ([ret])
 }
