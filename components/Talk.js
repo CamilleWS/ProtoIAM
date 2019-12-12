@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import ActionButton from 'react-native-circular-action-menu';
 import { Entypo, MaterialCommunityIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
@@ -24,19 +24,20 @@ class Talk extends React.Component {
     render() {
         return (
             <View>
-                <Icon
-                    raised
-                    name={this.props.isTalkIcon}
-                    type='entypo'
-                    color='#9b59b6'
-                    onPress={this.changeIsTalk} />
+                <TouchableOpacity
+                    onPress={this.changeIsTalk}
+                    style={[styles.actionSheet, {backgroundColor: 'rgba(0, 0, 0, 0.4)'}]}
+                >
+                    <Entypo name={this.props.isTalkIcon} size={25} color="#FFFFFF" style={styles.recordIcon}/>
+                </TouchableOpacity>
 
-                <Icon
-                    raised
-                    name={this.props.conversationTextIcon}
-                    type='material-community'
-                    color='#9b59b6'
-                    onPress={this.changeConversationText} />
+                <TouchableOpacity
+                    onPress={this.changeConversationText}
+                    style={[styles.actionSheet, {backgroundColor: 'rgba(0, 0, 0, 0.4)'}]}
+                >
+                    <MaterialCommunityIcons name={this.props.conversationTextIcon} size={25} color="#FFFFFF" style={styles.changeConversationText}/>
+                </TouchableOpacity>
+
             </View>
 
         );
@@ -50,9 +51,24 @@ const styles = StyleSheet.create({
     height: 22,
     color: 'white',
   },
-    icon: {
-        backgroundColor:'#cccccc',
-    }
+    actionSheet: {
+        top: '15%',
+        right: 0,
+        width: 50,
+        height: 50,
+        borderRadius: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    container: {
+        backgroundColor: '#fff',
+        top: '10%',
+        right: '5%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        zIndex: 2900000,
+    },
 });
 
 const mapStateToProps = (state) => {
