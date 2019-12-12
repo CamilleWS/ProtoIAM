@@ -21,10 +21,12 @@ import {getMarieCurieAnswerStr, checkMarieCurieQuestion} from '../scripts/script
 import {getRamsesAnswerStr, checkRamsesQuestion} from '../scripts/scriptRamses'
 import {Audio} from "expo-av";
 
-const soundObject = new Audio.Sound();
+
 
 
 class CharacterScreen extends Component {
+
+    soundObject = new Audio.Sound();
 
     constructor(props) {
         super(props)
@@ -39,6 +41,7 @@ class CharacterScreen extends Component {
         };
         this.addMessageToChat = this.addMessageToChat.bind(this);
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        this.renderBottomSheetContent = this.renderBottomSheetContent.bind(this);
     };
 
     componentWillMount() {
@@ -50,23 +53,33 @@ class CharacterScreen extends Component {
     }
 
     handleBackButtonClick() {
-        soundObject.stopAsync();
+        this.soundObject.stopAsync();
         this.props.navigation.goBack(null);
         return true;
     }
+    callbackFunctionForSound = async (childData) => {
+        console.log(childData);
+
+        this.refs.child.handleVolume()
+        if (childData) {
+           // await soundObject.setVolumeAsync(0.);
+           // await this.state.actualVideo.setVolumeAsync(0.);
+        } else {
+          //  await soundObject.setVolumeAsync(1.);
+          //  await this.state.actualVideo.setVolumeAsync(1.);
+        }
+
+    }
 
     run_tuto = async () => {
+        console.log("RUN_TUTO")
         try {
-            await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
-            await soundObject.playAsync();
-            // Your sound is playing!
+            console.log("TRY SUCCESS")
+            await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
+            await this.soundObject.playAsync();
         } catch (error) {
             // An error occurred!
         }
-    };
-    componentDidMount() {
-        if (this.props.mute == false)
-            this.run_tuto();
     };
 
     componentDidMount()
@@ -76,9 +89,16 @@ class CharacterScreen extends Component {
 
         let { name, backgroundImage, mainColor } = config[0];
 
+        if (this.props.mute == false)
+            this.run_tuto();
+
         if (this.state.mainColor === '')
             this.setState({mainColor});
         this.setState({name, backgroundImage});
+
+
+        if (this.props.mute == false)
+            this.run_tuto();
     };
 
     getCharacterAnswerStr = (characterId, item) =>
@@ -107,9 +127,11 @@ class CharacterScreen extends Component {
         this.props.dispatch(action);
     }
 
+
+
+
     callbackFunction = async (childData) => {
         await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
-
         let newChatElemUser = {
                 myself: true,
                 message: childData
@@ -124,7 +146,11 @@ class CharacterScreen extends Component {
     };
 
     addMessageToChat(value) {
-        const action = {type: 'ADD_MESSAGE', value};
+        var data = {
+            name: this.props.navigation.state.params.characterId,
+            value
+        }
+        const action = {type: 'ADD_MESSAGE', data};
         this.props.dispatch(action);
     }
 
@@ -144,16 +170,23 @@ class CharacterScreen extends Component {
                   this.scrollView.scrollToEnd({animated: true});
                   console.log("test");
               }}>
-              {this.props.chat.map((message, index) =>
+              {this.props.chat[this.props.characterId] != undefined ?
+                  this.props.chat[this.props.characterId].map((message, index) =>
                   <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: this.state.mainColor, alignSelf: 'flex-end'} : {}]}>
                       <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
                   </View>
-              )}
+              ): null}
         </ScrollView>
     );
 
+
+    goBack()
+    {
+        this.soundObject.stopAsync()
+        this.props.navigation.goBack(null);
+    }
     render() {
-        const { goBack } = this.props.navigation;
+        // const { goBack } = this.props.navigation;
         const { backgroundImage, mainColor } = this.state;
 
         return (
@@ -166,9 +199,12 @@ class CharacterScreen extends Component {
                     name='reply'
                     type='font-awesome'
                     color='#8A2BE2'
-                    onPress={() => goBack()} />
+                    onPress={() => this.goBack()} />
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} characterId={this.props.navigation.state.params.characterId}/>
+                    <View style={[{position: 'absolute', bottom: 0, right: 0, zIndex: 999}, styles.changeButton]}>
+                        <Talk parentCallback = {this.callbackFunctionForSound}/>
+                    </View>
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                 </View>
                  { this.props.conversationText == 1 ?
@@ -262,7 +298,7 @@ const styles = StyleSheet.create({
     changeButton: {
         width: '100%',
         height: 150,
-        bottom: -5,//mettre 75 pour le remonter
+        bottom: 300,//mettre 75 pour le remonter
         width: 150,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 100,
@@ -315,7 +351,8 @@ const mapStateToProps = (state) => {
         conversationText: state.perso.conversationText,
         inputText: state.perso.inputText,
         chat: state.message.chat,
-        mute : state.mute.mute
+        mute : state.mute.mute,
+        characterId: state.characterId.id
     });
 }
 export default connect (mapStateToProps)(CharacterScreen);

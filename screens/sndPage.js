@@ -23,20 +23,28 @@ import { Icon } from 'react-native-elements'
 //   { shouldPlay: true }
 // );
 
-const soundObject = new Audio.Sound();
+let soundObject = new Audio.Sound();
 
 class HomeScreen extends Component {
 
+
+
 // const playbackObject = new Audio.Sound();
+    setChoseCharacterId(value) {
+        const action = {type: 'SET_CHARACTERID', value};
+        this.props.dispatch(action);
+    }
+
     callFun = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
+        this.setChoseCharacterId("leonard_de_vinci");
         soundObject.stopAsync();
     }
     callFun2 = () =>
     {
-        // this.props.navigation.navigate('Persona1', {"nothing"});
         this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
+        this.setChoseCharacterId("marie_curie");
         soundObject.stopAsync();
 
         // alert("marie");
@@ -44,13 +52,14 @@ class HomeScreen extends Component {
     callFun3 = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
+        this.setChoseCharacterId("ramesses");
         soundObject.stopAsync();
     }
 
     run_tuto = async () => {
         try {
-            await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
-            await soundObject.playAsync();
+            await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
+            await this.soundObject.playAsync();
             // Your sound is playing!
         } catch (error) {
             // An error occurred!
@@ -59,12 +68,12 @@ class HomeScreen extends Component {
     muteAll = () => {
         console.log(this.props.mute);
         if (this.props.mute == false) {
-            soundObject.stopAsync();
+            this.soundObject.stopAsync();
             const action = {type: 'MUTE_TUTO'};
             this.props.dispatch(action);
         }
         else {
-            soundObject.replayAsync();
+            this.soundObject.replayAsync();
             const action = {type: 'MUTE_TUTO'};
             this.props.dispatch(action);
         }
@@ -260,7 +269,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return ({
-            mute: state.mute.mute
+        mute: state.mute.mute,
+        characterId: state.characterId.id
     });
 }
 export default connect (mapStateToProps)(HomeScreen);
