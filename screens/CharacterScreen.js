@@ -18,10 +18,12 @@ import {getMarieCurieAnswerStr, checkMarieCurieQuestion} from '../scripts/script
 import {getRamsesAnswerStr, checkRamsesQuestion} from '../scripts/scriptRamses'
 import {Audio} from "expo-av";
 
-const soundObject = new Audio.Sound();
+
 
 
 class CharacterScreen extends Component {
+
+    soundObject = new Audio.Sound();
 
     constructor(props) {
         super(props)
@@ -47,23 +49,20 @@ class CharacterScreen extends Component {
     }
 
     handleBackButtonClick() {
-        soundObject.stopAsync();
+        this.soundObject.stopAsync();
         this.props.navigation.goBack(null);
         return true;
     }
 
     run_tuto = async () => {
+        console.log("RUN_TUTO")
         try {
-            await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
-            await soundObject.playAsync();
-            // Your sound is playing!
+            console.log("TRY SUCCESS")
+            await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
+            await this.soundObject.playAsync();
         } catch (error) {
             // An error occurred!
         }
-    };
-    componentDidMount() {
-        if (this.props.mute == false)
-            this.run_tuto();
     };
 
     componentDidMount()
@@ -72,6 +71,9 @@ class CharacterScreen extends Component {
         const config = characters.filter(el => el.id === characterId);
 
         let { name, backgroundImage, mainColor } = config[0];
+
+        if (this.props.mute == false)
+            this.run_tuto();
 
         if (this.state.mainColor === '')
             this.setState({mainColor});
@@ -139,8 +141,14 @@ class CharacterScreen extends Component {
         </View>
     );
 
+    goBack()
+    {
+        this.soundObject.stopAsync()
+        this.props.navigation.goBack(null);
+    }
+
     render() {
-        const { goBack } = this.props.navigation;
+        // const { goBack } = this.props.navigation;
         const { backgroundImage, mainColor } = this.state;
 
         return (
@@ -153,7 +161,7 @@ class CharacterScreen extends Component {
                     name='reply'
                     type='font-awesome'
                     color='#8A2BE2'
-                    onPress={() => goBack()} />
+                    onPress={() => this.goBack()} />
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} />
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
