@@ -10,13 +10,17 @@ class Talk extends React.Component {
     changeIsTalk = () => {
         const action = {type: 'IS_TALKING'};
         this.props.dispatch(action);
+
+        this.sendData(this.props.isTalk);
     };
 
     changeConversationText = () => {
         const action = {type: 'CONVERSATION_TEXT'};
         this.props.dispatch(action);
     };
-
+    sendData = (transcription) => {
+        this.props.parentCallback(transcription);
+    };
     render() {
         return (
             <View>

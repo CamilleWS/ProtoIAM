@@ -53,6 +53,17 @@ class CharacterScreen extends Component {
         this.props.navigation.goBack(null);
         return true;
     }
+    callbackFunctionForSound = async (childData) => {
+        console.log(childData);
+        if (childData) {
+           // await soundObject.setVolumeAsync(0.);
+            await this.state.actualVideo.setVolumeAsync(0.);
+        } else {
+          //  await soundObject.setVolumeAsync(1.);
+            await this.state.actualVideo.setVolumeAsync(1.);
+        }
+
+    }
 
     run_tuto = async () => {
         try {
@@ -62,10 +73,6 @@ class CharacterScreen extends Component {
         } catch (error) {
             // An error occurred!
         }
-    };
-    componentDidMount() {
-        if (this.props.mute == false)
-            this.run_tuto();
     };
 
     componentDidMount()
@@ -78,6 +85,10 @@ class CharacterScreen extends Component {
         if (this.state.mainColor === '')
             this.setState({mainColor});
         this.setState({name, backgroundImage});
+
+
+        if (this.props.mute == false)
+            this.run_tuto();
     };
 
     getCharacterAnswerStr = (characterId, item) =>
@@ -106,14 +117,11 @@ class CharacterScreen extends Component {
         this.props.dispatch(action);
     }
 
-    callbackFunctionForSound = async (childData) => {
-        console.log(childData)
-    }
+
 
 
     callbackFunction = async (childData) => {
         await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
-
         let newChatElemUser = {
                 myself: true,
                 message: childData
@@ -168,7 +176,7 @@ class CharacterScreen extends Component {
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} />
                     <View style={[{position: 'absolute', bottom: 0, right: 0, zIndex: 999}, styles.changeButton]}>
-                        <Talk/>
+                        <Talk parentCallback = {this.callbackFunctionForSound}/>
                     </View>
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                 </View>
