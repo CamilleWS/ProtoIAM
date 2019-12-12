@@ -92,7 +92,7 @@ class Tips extends React.Component{
 
   render()  {
       return (
-          <View style={[styles.container, {backgroundColor: 'rgba(0, 0, 0, 0)'}]}>
+          <View>
           <TouchableOpacity
           onPress={this.toggleModal.bind(this)}
           style={[styles.actionSheet, {backgroundColor: 'rgba(0, 0, 0, 0.4)'}]}
@@ -139,8 +139,9 @@ const styles = StyleSheet.create({
    container: {
        backgroundColor: '#fff',
        alignItems: 'center',
-       top: 30,
+       top: '5%',
        right: '5%',
+       marginBottom: 50,
        alignItems: 'center',
        justifyContent: 'center',
        position: 'absolute',

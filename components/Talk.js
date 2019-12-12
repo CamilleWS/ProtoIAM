@@ -23,7 +23,7 @@ class Talk extends React.Component {
     };
     render() {
         return (
-            <View>
+            <View style={{paddingTop: 30}}>
                 <TouchableOpacity
                     onPress={this.changeIsTalk}
                     style={[styles.actionSheet, {backgroundColor: 'rgba(0, 0, 0, 0.4)'}]}
@@ -52,17 +52,18 @@ const styles = StyleSheet.create({
     color: 'white',
   },
     actionSheet: {
-        top: '15%',
-        right: 0,
+        right: '5%',
         width: 50,
         height: 50,
         borderRadius: 30,
+        marginBottom: 30,
         alignItems: 'center',
         justifyContent: 'center',
     },
     container: {
         backgroundColor: '#fff',
-        top: '10%',
+        alignItems: 'center',
+        top: 30,
         right: '5%',
         alignItems: 'center',
         justifyContent: 'center',
