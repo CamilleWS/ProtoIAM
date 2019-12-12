@@ -62,6 +62,10 @@ class CharacterScreen extends Component {
             // An error occurred!
         }
     };
+    componentDidMount() {
+        if (this.props.mute == false)
+            this.run_tuto();
+    };
 
     componentDidMount()
     {
@@ -291,7 +295,8 @@ const mapStateToProps = (state) => {
         isTalk: state.perso.isTalk,
         conversationText: state.perso.conversationText,
         inputText: state.perso.inputText,
-        chat: state.message.chat
+        chat: state.message.chat,
+        mute : state.mute.mute
     });
 }
 export default connect (mapStateToProps)(CharacterScreen);
