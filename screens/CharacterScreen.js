@@ -57,10 +57,12 @@ class CharacterScreen extends Component {
         console.log(childData);
         if (childData) {
            // await soundObject.setVolumeAsync(0.);
-            await this.state.actualVideo.setVolumeAsync(0.);
+           // this.refs.child.handleVolume()
+           // await this.state.actualVideo.setVolumeAsync(0.);
         } else {
           //  await soundObject.setVolumeAsync(1.);
-            await this.state.actualVideo.setVolumeAsync(1.);
+           // this.refs.child.handleVolume()
+          //  await this.state.actualVideo.setVolumeAsync(1.);
         }
 
     }
@@ -178,7 +180,7 @@ class CharacterScreen extends Component {
                     <View style={[{position: 'absolute', bottom: 0, right: 0, zIndex: 999}, styles.changeButton]}>
                         <Talk parentCallback = {this.callbackFunctionForSound}/>
                     </View>
-                    <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
+                    <CharacterVideo video={this.state.actualVideo}  ref='child' {...this.props} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                 </View>
                  { this.props.conversationText == 1 ?
                     <BottomSheet

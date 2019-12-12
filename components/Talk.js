@@ -29,6 +29,7 @@ class Talk extends React.Component {
                     name={this.props.isTalkIcon}
                     type='entypo'
                     color='#9b59b6'
+                    iconStyle={styles.icon}
                     onPress={this.changeIsTalk} />
 
                 <Icon
@@ -50,6 +51,9 @@ const styles = StyleSheet.create({
     height: 22,
     color: 'white',
   },
+    icon: {
+        backgroundColor:'#cccccc',
+    }
 });
 
 const mapStateToProps = (state) => {
