@@ -1,5 +1,5 @@
 const initialState = {
-    chat: []
+    chat: {}
 }
 
 function toggleMessage(state = initialState, action) {
@@ -7,18 +7,28 @@ function toggleMessage(state = initialState, action) {
     switch (action.type) {
         case "ADD_MESSAGE":
             var name = action.data.name;
-            if (state.chat.find(name) == undefined)
+            // const messageIndex = state.chat.findIndex(item => item.id === action.data.name)
+            const messageIndex = state.chat.hasOwnProperty(name)
+            console.log (name)
+            // console.log (action);
+            console.log (messageIndex)
+            if (messageIndex === false)
             {
                 newState = {
-                    ...state,
-                    name: [action.data.value]
+                    chat: {
+                        ...state.chat,
+                        [name]: [action.data.value]
+                    }
                 }
             } else {
                 newState = {
-                    ...state,
-                    name: [...state.chat[name], action.data.value]
+                    chat: {
+                        ...state.chat,
+                        [name]: [...state.chat[name], action.data.value]
+                    }
                 }
             }
+            console.log (newState)
             return (newState);
         default:
             return (state);
