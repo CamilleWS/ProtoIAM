@@ -1,11 +1,13 @@
 //Imports
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler, Button } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler, Button, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomSheet from 'reanimated-bottom-sheet'
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements'
+import { FontAwesome } from '@expo/vector-icons';
+
 
 //Data
 import characters from '../assets/characters/characters.json';
@@ -38,6 +40,7 @@ class CharacterScreen extends Component {
         };
         this.addMessageToChat = this.addMessageToChat.bind(this);
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        this.renderBottomSheetContent = this.renderBottomSheetContent.bind(this);
     };
 
     componentWillMount() {
@@ -52,6 +55,19 @@ class CharacterScreen extends Component {
         this.soundObject.stopAsync();
         this.props.navigation.goBack(null);
         return true;
+    }
+    callbackFunctionForSound = async (childData) => {
+        console.log(childData);
+
+        this.refs.child.handleVolume()
+        if (childData) {
+           // await soundObject.setVolumeAsync(0.);
+           // await this.state.actualVideo.setVolumeAsync(0.);
+        } else {
+          //  await soundObject.setVolumeAsync(1.);
+          //  await this.state.actualVideo.setVolumeAsync(1.);
+        }
+
     }
 
     run_tuto = async () => {
@@ -78,6 +94,10 @@ class CharacterScreen extends Component {
         if (this.state.mainColor === '')
             this.setState({mainColor});
         this.setState({name, backgroundImage});
+
+
+        if (this.props.mute == false)
+            this.run_tuto();
     };
 
     getCharacterAnswerStr = (characterId, item) =>
@@ -101,10 +121,16 @@ class CharacterScreen extends Component {
             return (checkRamsesQuestion(item))
         return ("Error")
     };
+    changeInputText = () => {
+        const action = {type: 'INPUT_TEXT'};
+        this.props.dispatch(action);
+    }
+
+
+
 
     callbackFunction = async (childData) => {
         await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
-
         let newChatElemUser = {
                 myself: true,
                 message: childData
@@ -119,7 +145,11 @@ class CharacterScreen extends Component {
     };
 
     addMessageToChat(value) {
-        const action = {type: 'ADD_MESSAGE', value};
+        var data = {
+            name: this.props.navigation.state.params.characterId,
+            value
+        }
+        const action = {type: 'ADD_MESSAGE', data};
         this.props.dispatch(action);
     }
 
@@ -130,23 +160,26 @@ class CharacterScreen extends Component {
         </View>
     );
 
-    renderBottomSheetContent = () =>
-    (
+    renderBottomSheetContent = () => (
         <View style={styles.chatContent}>
-            {this.props.chat.map((message, index) =>
-                <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: this.state.mainColor, alignSelf: 'flex-end'} : {}]}>
-                    <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
-                </View>
-            )}
+            {this.props.chat[this.props.characterId] != undefined ?
+                this.props.chat[this.props.characterId].map((message, index) =>
+                    <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: this.state.mainColor, alignSelf: 'flex-end'} : {}]}>
+                        <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
+                    </View>
+                )
+                :
+                null
+            }
         </View>
     );
+
 
     goBack()
     {
         this.soundObject.stopAsync()
         this.props.navigation.goBack(null);
     }
-
     render() {
         // const { goBack } = this.props.navigation;
         const { backgroundImage, mainColor } = this.state;
@@ -164,7 +197,10 @@ class CharacterScreen extends Component {
                     onPress={() => this.goBack()} />
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} />
-                    <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
+                    <View style={[{position: 'absolute', bottom: 0, right: 0, zIndex: 999}, styles.changeButton]}>
+                        <Talk parentCallback = {this.callbackFunctionForSound}/>
+                    </View>
+                    <CharacterVideo video={this.state.actualVideo}  ref='child' {...this.props} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                 </View>
                  { this.props.conversationText == 1 ?
                     <BottomSheet
@@ -186,16 +222,23 @@ class CharacterScreen extends Component {
                     keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}
                 >
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                        {this.props.inputText == 1 ?
-                            <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{left:65, height: 40, width: '60%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
+                    <TouchableOpacity
+                    onPress={this.changeInputText.bind(this)}
+                    style={[styles.switchMod, {backgroundColor: 'rgba(0, 0, 0, 0.4)'}]}
+                    >
+                    {this.props.inputText == 1 ?
+                        <FontAwesome name="microphone" size={25} color="#FFFFFF"/>
                         :
-                            <SpeechToText parentCallback = {this.callbackFunction}/>
-                        }
+                        <FontAwesome name="keyboard-o" size={25} color="#FFFFFF"/>
+                    }
+                    </TouchableOpacity>
+                    {this.props.inputText == 1 ?
+                        <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '70%', borderBottomColor: 'white', borderBottomWidth: 1, backgroundColor: 'rgb(0,0,0,0)', borderRadius: 25, paddingLeft: 15, left: '25%', position: 'absolute'}}/>
+                     :
+                        <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                    }
                     </View>
                 </KeyboardAvoidingView>
-                <View style={[{position: 'absolute', bottom: 0, left: 0, zIndex: 999}, styles.changeButton]}>
-                    <Talk/>
-                </View>
             </ImageBackground>
         )
     }
@@ -242,10 +285,20 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         flexDirection:'row'
     },
+    switchMod: {
+        left: '5%',
+        margin: 5,
+        width: 50,
+        height: 50,
+        borderRadius: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute'
+    },
     changeButton: {
         width: '100%',
         height: 150,
-        bottom: -5,//mettre 75 pour le remonter
+        bottom: 300,//mettre 75 pour le remonter
         width: 150,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 100,
@@ -298,7 +351,8 @@ const mapStateToProps = (state) => {
         conversationText: state.perso.conversationText,
         inputText: state.perso.inputText,
         chat: state.message.chat,
-        mute : state.mute.mute
+        mute : state.mute.mute,
+        characterId: state.characterId.id
     });
 }
 export default connect (mapStateToProps)(CharacterScreen);

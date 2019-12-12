@@ -26,22 +26,34 @@ import { Icon } from 'react-native-elements'
 
 class HomeScreen extends Component {
 
+
     soundObject = new Audio.Sound();
+
+// const playbackObject = new Audio.Sound();
+    setChoseCharacterId(value) {
+        const action = {type: 'SET_CHARACTERID', value};
+        this.props.dispatch(action);
+    }
 
     callFun = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
-        this.soundObject.stopAsync();
+        this.setChoseCharacterId("leonard_de_vinci");
+        soundObject.stopAsync();
     }
     callFun2 = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
-        this.soundObject.stopAsync();
+        this.setChoseCharacterId("marie_curie");
+        soundObject.stopAsync();
+
+        // alert("marie");
     }
     callFun3 = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
-        this.soundObject.stopAsync();
+        this.setChoseCharacterId("ramesses");
+        soundObject.stopAsync();
     }
 
     run_tuto = async () => {
@@ -257,7 +269,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return ({
-            mute: state.mute.mute
+        mute: state.mute.mute,
+        characterId: state.characterId.id
     });
 }
 export default connect (mapStateToProps)(HomeScreen);
