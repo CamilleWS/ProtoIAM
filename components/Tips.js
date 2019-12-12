@@ -19,20 +19,42 @@ import {
     View, ActivityIndicator
 } from 'react-native';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Qui êtes-vous ?',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Parle moi de la Cène.',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Quand es-tu décédé ?',
-  },
-];
+const DATA = {
+    'leonard_de_vinci': [
+        {
+            title: 'Qui êtes-vous ?',
+        },
+        {
+            title: 'Parle moi de la Cène.',
+        },
+        {
+            title: 'Quand es-tu décédé ?',
+        },
+    ],
+    'marie_curie': [
+        {
+            title: 'Qui êtes-vous ?',
+        },
+        {
+            title: 'Quelles sont vos travaux',
+        },
+        {
+            title: 'Comment êtes-vous morte',
+        },
+    ],
+    'ramesses': [
+        {
+            title: 'Qui êtes-vous ?',
+        },
+        {
+            title: "Combien avez-vous d'enfant",
+        },
+        {
+            title: 'Quand es-tu né ?',
+        },
+    ]
+
+};
 
 
 
@@ -88,7 +110,7 @@ class Tips extends React.Component{
                 style={[{backgroundColor: 'rgba(0, 0, 0, 0)', width: "100%", height: "100%", position: 'absolute'}]}
                 >
                 <FlatList
-                data={DATA}
+                data={DATA[this.props.characterId]}
                 renderItem={({ item }) => (
                     <TouchableOpacity style={styles.tabBarInfoContainer} onPress={() => this.tipsBtn(item.title)}>
                       <Text style={styles.title}>{item.title}</Text>
@@ -108,7 +130,7 @@ const styles = StyleSheet.create({
    container: {
        backgroundColor: '#fff',
        alignItems: 'center',
-       top: '10%',
+       top: 30,
        right: '5%',
        alignItems: 'center',
        justifyContent: 'center',
