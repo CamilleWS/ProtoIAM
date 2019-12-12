@@ -29,8 +29,6 @@ class CharacterScreen extends Component {
 
         this.state = {
             mainColor: '',
-            transcript: "",
-            allTranscripts: [],
             text: '',
             actualVideo: undefined,
         };
@@ -87,27 +85,19 @@ class CharacterScreen extends Component {
       }
 
       callbackFunction = async (childData) => {
-            await this.setState({transcript: childData})
-            await this.setState(prevState => ({
-                allTranscripts: [...prevState.allTranscripts, childData]
-            }));
             await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
 
-            this.state.allTranscripts.map((item) => {
-
-                let newChatElemUser = {
-                        myself: true,
-                        message: item
-                      }
-                this.addMessageToChat(newChatElemUser);
-
-                let newChatElemPerso = {
-                      myself: false,
-                      message: this.getCharacterAnswerStr(this.props.navigation.state.params.characterId, item)
+            let newChatElemUser = {
+                    myself: true,
+                    message: childData
                     }
-                this.addMessageToChat(newChatElemPerso);
+            this.addMessageToChat(newChatElemUser);
 
-            });
+            let newChatElemPerso = {
+                    myself: false,
+                    message: this.getCharacterAnswerStr(this.props.navigation.state.params.characterId, childData)
+                }
+            this.addMessageToChat(newChatElemPerso);
       };
 
     addMessageToChat(value) {
@@ -149,7 +139,6 @@ class CharacterScreen extends Component {
                 source={backgroundImage === "egypt" ? require('../assets/characters/backgrounds/egypt.jpg') : null}
                 imageStyle={{resizeMode: 'cover'}}
                 style={[styles.background, {backgroundColor: mainColor}]}>
-
                 <Icon
                     raised
                     name='reply'
@@ -159,33 +148,37 @@ class CharacterScreen extends Component {
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} />
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
-                    <Talk></Talk>
                 </View>
-
-                <View style={{height: 75, width: "100%" }}></View>
-                <BottomSheet
-                    ref={(ref) => this._bottomSheet = ref }
-                    snapPoints={['90%', '40%']}
-                    // callbackNode={this._bottomSheetPosition}
-                    renderContent={this.renderBottomSheetContent}
-                    renderHeader={this.renderBottomSheetHeader}
-                    initialSnap={1}
-                    springConfig={{toss: 0.8, mass: 0.52}}
-                    keyboardShouldPersistTaps="handled"
-                />
+                 { this.props.conversationText == 1 ?
+                    <BottomSheet
+                        ref={(ref) => this._bottomSheet = ref }
+                        snapPoints={['90%', '40%']}
+                        // callbackNode={this._bottomSheetPosition}
+                        renderContent={this.renderBottomSheetContent}
+                        renderHeader={this.renderBottomSheetHeader}
+                        initialSnap={1}
+                        springConfig={{toss: 0.8, mass: 0.52}}
+                        keyboardShouldPersistTaps="handled"
+                    />
+                    :
+                    null
+                 }
                 <KeyboardAvoidingView
                     behavior="padding"
-                    style={{position: 'absolute', bottom: 0, width: '100%', zIndex: 999}}
-                    keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}>
+                    style={{position: 'absolute', bottom: 0, width: '100%', zIndex: 997}}
+                    keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}
+                >
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                        <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                        {this.props.inputText == 1 ?
-                            <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
-                         :
+                        { this.props.inputText == 1 ?
+                            <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{left:65, height: 40, width: '60%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
+                            :
                             <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
                         }
                     </View>
                 </KeyboardAvoidingView>
+                <View style={[{position: 'absolute', bottom: 0, left: 0, zIndex: 999}, styles.changeButton]}>
+                    <Talk/>
+                </View>
                 {/*<View style={[styles.actionSheet, {backgroundColor: this.state.mainColor}]}>*/}
                 {/*    <View style={styles.recordButton}/>*/}
                 {/*</View>*/}
@@ -233,6 +226,22 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.22,
         shadowOffset: { width: 0, height: 0 },
         shadowRadius: 5,
+        flexDirection:'row'
+    },
+    changeButton: {
+        width: '100%',
+        height: 150,
+        bottom: -5,//mettre 75 pour le remonter
+        width: 150,
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 0,
+        shadowColor: 'black',
+        shadowOpacity: 0,
+        shadowOffset: { width: 0, height: 0 },
+        shadowRadius: 0,
         flexDirection:'row'
     },
     recordButton: {
