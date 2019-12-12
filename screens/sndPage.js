@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import {Video, Audio, Sound} from 'expo-av'
 import Carousel from 'react-native-snap-carousel';
-
+import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements'
 
 // const playbackObject = await AudioSound.createAsync(
@@ -54,6 +54,19 @@ class HomeScreen extends Component {
             // Your sound is playing!
         } catch (error) {
             // An error occurred!
+        }
+    }
+    muteAll = () => {
+        console.log(this.props.mute);
+        if (this.props.mute == false) {
+            soundObject.stopAsync();
+            const action = {type: 'MUTE_TUTO'};
+            this.props.dispatch(action);
+        }
+        else {
+            soundObject.replayAsync();
+            const action = {type: 'MUTE_TUTO'};
+            this.props.dispatch(action);
         }
     }
 
@@ -121,12 +134,21 @@ class HomeScreen extends Component {
         })
         return (
             <View style={styles.mainContainer}>
+                <View>
                 <Icon
                     raised
                     name='reply'
                     type='font-awesome'
                     color='#8A2BE2'
                     onPress={() => goBack()} />
+                <Icon
+                    raised
+                    name={this.props.mute == false ? 'volume-up' : 'volume-off'}
+                    // name='volume-up'
+                    type='font-awesome'
+                    color='#8A2BE2'
+                    onPress={() => this.muteAll()} />
+                </View>
                 <View style={styles.images}>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
                     <Video
@@ -235,4 +257,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HomeScreen
+
+const mapStateToProps = (state) => {
+    return ({
+            mute: state.mute.mute
+    });
+}
+export default connect (mapStateToProps)(HomeScreen);

@@ -59,7 +59,8 @@ class CharacterScreen extends Component {
         }
     };
     componentDidMount() {
-        // this.run_tuto();
+        if (this.props.mute == false)
+            this.run_tuto();
     };
 
       getCharacterAnswerStr = (characterId, item) =>
@@ -260,7 +261,8 @@ const mapStateToProps = (state) => {
         isTalk: state.perso.isTalk,
         conversationText: state.perso.conversationText,
         inputText: state.perso.inputText,
-        chat: state.message.chat
+        chat: state.message.chat,
+        mute : state.mute.mute
     });
 }
 export default connect (mapStateToProps)(CharacterScreen);
