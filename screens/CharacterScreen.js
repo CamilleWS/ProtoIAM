@@ -60,7 +60,8 @@ class CharacterScreen extends Component {
     callbackFunctionForSound = async (childData) => {
         console.log(childData);
 
-        this.refs.child.handleVolume()
+        this.refs.child.handleVolume();
+
         if (childData) {
            // await soundObject.setVolumeAsync(0.);
            // await this.state.actualVideo.setVolumeAsync(0.);
