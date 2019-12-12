@@ -205,7 +205,7 @@ class CharacterScreen extends Component {
                     <View style={[{position: 'absolute', bottom: 0, right: 0, zIndex: 999}, styles.changeButton]}>
                         <Talk parentCallback = {this.callbackFunctionForSound}/>
                     </View>
-                    <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
+                    <CharacterVideo video={this.state.actualVideo} ref='child' {...this.props} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                 </View>
                  { this.props.conversationText == 1 ?
                     <BottomSheet

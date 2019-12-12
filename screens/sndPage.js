@@ -23,11 +23,11 @@ import { Icon } from 'react-native-elements'
 //   { shouldPlay: true }
 // );
 
-let soundObject = new Audio.Sound();
 
 class HomeScreen extends Component {
 
 
+    soundObject = new Audio.Sound();
 
 // const playbackObject = new Audio.Sound();
     setChoseCharacterId(value) {
@@ -39,13 +39,13 @@ class HomeScreen extends Component {
     {
         this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
         this.setChoseCharacterId("leonard_de_vinci");
-        soundObject.stopAsync();
+        this.soundObject.stopAsync();
     }
     callFun2 = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
         this.setChoseCharacterId("marie_curie");
-        soundObject.stopAsync();
+        this.soundObject.stopAsync();
 
         // alert("marie");
     }
@@ -53,7 +53,7 @@ class HomeScreen extends Component {
     {
         this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
         this.setChoseCharacterId("ramesses");
-        soundObject.stopAsync();
+        this.soundObject.stopAsync();
     }
 
     run_tuto = async () => {
