@@ -6,8 +6,18 @@ function toggleMessage(state = initialState, action) {
     let newState;
     switch (action.type) {
         case "ADD_MESSAGE":
-            newState = {
-                chat: [...state.chat, action.value]
+            var name = action.data.name;
+            if (state.chat.find(name) == undefined)
+            {
+                newState = {
+                    ...state,
+                    name: [action.data.value]
+                }
+            } else {
+                newState = {
+                    ...state,
+                    name: [...state.chat[name], action.data.value]
+                }
             }
             return (newState);
         default:

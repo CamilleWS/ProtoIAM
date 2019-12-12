@@ -49,6 +49,7 @@ class CharacterScreen extends Component {
         this.props.navigation.goBack(null);
         return true;
     }
+
     run_tuto = async () => {
         try {
             await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
@@ -58,6 +59,7 @@ class CharacterScreen extends Component {
             // An error occurred!
         }
     };
+
     componentDidMount() {
         // this.run_tuto();
     };
@@ -101,8 +103,14 @@ class CharacterScreen extends Component {
       };
 
     addMessageToChat(value) {
-        const action = {type: 'ADD_MESSAGE', value};
+        console.log(this.props.chat);
+        var data = {
+            name: this.props.navigation.state.params.characterId,
+            value
+        }
+        const action = {type: 'ADD_MESSAGE', data};
         this.props.dispatch(action);
+        console.log(this.props.chat);
     }
 
     renderBottomSheetHeader = () =>
@@ -115,7 +123,7 @@ class CharacterScreen extends Component {
     renderBottomSheetContent = () =>
         (
             <View style={styles.chatContent}>
-                {this.props.chat.map((message, index) =>
+                {this.props.chat[this.props.navigation.state.params.characterId].map((message, index) =>
                     <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: this.state.mainColor, alignSelf: 'flex-end'} : {}]}>
                         <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
                     </View>
