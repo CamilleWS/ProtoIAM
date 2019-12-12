@@ -96,6 +96,11 @@ class CharacterScreen extends Component {
         return ("Error")
     };
 
+    callbackFunctionForSound = async (childData) => {
+        console.log(childData)
+    }
+
+
     callbackFunction = async (childData) => {
         await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
 
@@ -152,6 +157,9 @@ class CharacterScreen extends Component {
                     onPress={() => goBack()} />
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} />
+                    <View style={[{position: 'absolute', bottom: 0, right: 0, zIndex: 999}, styles.changeButton]}>
+                        <Talk/>
+                    </View>
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                 </View>
                  { this.props.conversationText == 1 ?
@@ -181,9 +189,6 @@ class CharacterScreen extends Component {
                         }
                     </View>
                 </KeyboardAvoidingView>
-                <View style={[{position: 'absolute', bottom: 0, left: 0, zIndex: 999}, styles.changeButton]}>
-                    <Talk/>
-                </View>
             </ImageBackground>
         )
     }
@@ -233,7 +238,7 @@ const styles = StyleSheet.create({
     changeButton: {
         width: '100%',
         height: 150,
-        bottom: -5,//mettre 75 pour le remonter
+        bottom: 300,//mettre 75 pour le remonter
         width: 150,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 100,
