@@ -10,7 +10,7 @@ export class Answear {
 let ret = new Answear()
 
 let keyWords = [
-    [["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["quand", "ne", "tu"], ["quand", "ne", "vous"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"], ["te", "connaitre"]],
+    [["bonjour"],["qui", "estu"], ["t'es", "qui"], ["tu", "es", "qui"], ["qui", "etesvous"], ["presente", "toi"], ["presentez", "vous"], ["ou", "ne", "tu"], ["ou", "ne", "vous"], ["quand", "ne", "tu"], ["quand", "ne", "vous"], ["ou", "ne", "vous"], ["qui", "parents"],["quel", "metier"], ["pourquoi", "connu"], ["parle", "de", "toi"], ["te", "connaitre"]],
     [["qui", "etait", "monalisa"], ["qui", "etait", "mona"], ["qui", "etait", "lisa"], ["parle", "de", "lisa"], ["parle", "de", "mona"], ["florentine lisa gherardini"], ["qui", "est", "monalisa"], ["qui", "est", "joconde"], ["qui", "etait", "joconde"]],
     [["œuvres"], ["oeuvres"], ["inventions"], ["creations"], ["fier"], ["astu", "fais"], ["tu", "as", "fais"]],
 
@@ -62,11 +62,11 @@ let questions = [
 ]
 
 let answers = [
-    ["Je suis Léonard de Vinci et je suis né le 15 avril 1452 sur les hauteurs du village de Vinci en Toscane."],
+    ["Moi, je suis Léonard de Vinci et je suis né le 15 avril 1452 sur les hauteurs du village de Vinci en Toscane.", "Je suis Léonard de Vinci et je suis né le 15 avril 1452 sur les hauteurs du village de Vinci en Toscane."],
     ["La théorie la plus répandue est que Mona Lisa serait la représentation de la Florentine Lisa Gherardini, épouse de Francesco del Giocondo.", "D'après certains historiens, Mona Lisa serait la Florentine Lisa Gerhardini"],
     ["Je suis particulièrement fier de mes œuvres 'La Joconde' et 'La Cene'", "je ne sais pas si je peut les qualifier d'invention, mais mes ouevres les plus réputé sont sans aucun doute La joconde et La cene", "La cene et la joconde, ces peintures sont sublimes ! vous ne trouvez pas ?"],
     ["La Joconde, ou Portrait de Mona Lisa, est un tableau que j’ai réalisé entre 1503 et 1506 ou entre 1513 et 1516, je ne me souviens plus vraiment.", "Je peins la joconde en 3ans, ce tableau est à l'heure actuel, considéré comme l'une de mes plus belles oeuvres !", "Ah, la joconde... Ce tableau représente 3 durs année de travail, mais ca en valait la peine ! "],
-    ["Aaaah oui la Cène... C'est une peinture murale que j’ai réalisée de 1495 à 1498 pour le réfectoire du couvent Dominicain de Santa Maria delle Grazie à Milan.", "J'ai peins la cene pour le réfectoire du couvent dominicain de Santa Maria delle Grazie à Milan. C'est une peinture mural que j'ai réalisé en seulement 3 ans !", "La cene est l'une de mes plus belles oeuvres, sans nul doute ! Je la réalisa entre 1495 et 1498 pour le réfectoir du couvant dominicain de Santa Maria delle Grazie à Millan !"],
+    ["Aaaah oui la Cène. C'est une peinture murale que j’ai réalisée de 1495 à 1498 pour le réfectoire du couvent Dominicain de Santa Maria delle Grazie à Milan.", "J'ai peins la cene pour le réfectoire du couvent dominicain de Santa Maria delle Grazie à Milan. C'est une peinture mural que j'ai réalisé en seulement 3 ans !", "La cene est l'une de mes plus belles oeuvres, sans nul doute ! Je la réalisa entre 1495 et 1498 pour le réfectoir du couvant dominicain de Santa Maria delle Grazie à Millan !"],
     ["J’ai commencé à m’initier à l'anatomie du corps lors de mon apprentissage avec Andrea del Verrocchio, mon maître. Comme artiste, je suis rapidement devenu un expert de l’anatomie topographique, notamment après mes nombreuses études des muscles, des tendons et d'autres caractéristiques anatomiques visibles"],
     ["François premier fut mon dernier mécène. Il reconnut ma valeur et m’invita à résider dans le splendide château du Clos Lucé, où je passa le reste de ma vie."],
     ["J’ai eu plusieurs assistants, mais le plus connu reste Salai. D’ailleurs, certains pensent que Salai est le modèle qui m’a servi à réaliser La Joconde !"],
@@ -83,8 +83,8 @@ let unknwow_answers = [
 
 let videoPath = [
     [
-        require("../assets/videos/leonard_de_vinci/presentation-2.mov"),
         require("../assets/videos/leonard_de_vinci/presentation-1.mov")
+        require("../assets/videos/leonard_de_vinci/presentation-2.mov"),
     ],
     [
         require("../assets/videos/leonard_de_vinci/qui-est-la-joconde.mov"),
@@ -158,18 +158,18 @@ let repeat_triggers = [
 
 let already_use = [
     [0, 0],
+    [0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
     [0],
     [0],
     [0],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0],
     [0],
-    [0],
-    [0],
-    [0],
-    [0],
-    [0],
-    [0],
-    [0],
-    [0],
+    [0, 0],
     [0, 0]
 ]
 
