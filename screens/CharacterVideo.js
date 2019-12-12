@@ -20,10 +20,10 @@ import {Video} from 'expo-av'
 import {MaterialIcons, Octicons} from '@expo/vector-icons';
 
 const {width} = Dimensions.get('window');
-coucou = true;
 
 export default class CharacterVideo extends Component {
 
+    coucou = this.props.isTalk;
 
 
     constructor(props) {
@@ -73,12 +73,11 @@ export default class CharacterVideo extends Component {
     }
 
     handleVolume = () => {
-        if (!coucou) {
+        if (!this.props.isTalk) {
             (this.state.playbackObject).setVolumeAsync(1);
         } else {
             (this.state.playbackObject).setVolumeAsync(0);
         }
-        coucou = !coucou;
     }
 
     handlePlayAndPause = () => {
@@ -99,7 +98,7 @@ export default class CharacterVideo extends Component {
             <Video
                 source={this.props.video == undefined ? this.standingVideos[this.props.characterId] : this.props.video}
                 ref={this._handleVideoRef}
-                isMuted={this.state.mute}
+                isMuted={this.coucou ? false : true}
                 resizeMode="cover"
                 shouldPlay={this.state.play}
                 isLooping={this.state.loop}
