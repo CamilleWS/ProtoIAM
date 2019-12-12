@@ -1,8 +1,6 @@
 import React from 'react';
-import { StyleSheet,Text, Image, View,SafeAreaView, Dimensions, TouchableOpacity} from 'react-native';
-import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet,Text, Image, View, Dimensions, TouchableOpacity} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import Button from '@material-ui/core/Button';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 var indexImage = -1;
@@ -26,13 +24,9 @@ export default class App extends React.Component {
             ]}
     }
 
-    onPress = () => {
-        alert("click !");
-    };
-
 
     _renderItem({item,index}){
-         indexImage = indexImage === 3 ? 0 : indexImage += 1;
+         indexImage = indexImage === 2 ? 0 : indexImage += 1;
         return (
             <View style={{flexGrow:1,justifyContent:'center'}}>
             <Image
@@ -52,19 +46,19 @@ export default class App extends React.Component {
                     sliderWidth={viewportWidth}
                     itemWidth={viewportWidth}
                     slideStyle={{ width: viewportWidth }}
-                    inactiveSlideOpacity={1}
-                    inactiveSlideScale={1}
+                    inactiveSlideOpacity={0}
+                    inactiveSlideScale={0}
                     loop={true}
                     autoplay={true}
-                    autoplayDelay={0}
-                    enableMomentum={true}
-                    lockScrollWhileSnapping={false}
+                    autoplayDelssay={0}
+                    scrollEnabled={false}
                     autoplayInterval={6000}
                     layout={'tinder'}
                     layoutCardOffset={9}
                 />
-            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-                    <TouchableOpacity activOpactity={0.5} style={styles.startButton} onPress={()=>this.props.navigation.navigate("Persona1", {})}>
+                {/*alert("Add 'this.props.navigation.navigate(\'where you want to redirect\', {})' at lign 61 in homeScreen.js ")*/}
+                <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+                    <TouchableOpacity activOpactity={0.5} style={styles.startButton} onPress={()=>this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" })}>
                         <View style={{backgroundColor: "white"}}>
                             <Text style={styles.startText}>Start experience</Text>
                         </View>
@@ -91,6 +85,6 @@ const styles = StyleSheet.create({
     startText: {
         fontSize: 40,
         fontWeight: '100',
-        color: "black",
+        color: "grey",
     }
 });
