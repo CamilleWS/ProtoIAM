@@ -1,11 +1,13 @@
 //Imports
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler, Button } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler, Button, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomSheet from 'reanimated-bottom-sheet'
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements'
+import { FontAwesome } from '@expo/vector-icons';
+
 
 //Data
 import characters from '../assets/characters/characters.json';
@@ -95,6 +97,10 @@ class CharacterScreen extends Component {
             return (checkRamsesQuestion(item))
         return ("Error")
     };
+    changeInputText = () => {
+        const action = {type: 'INPUT_TEXT'};
+        this.props.dispatch(action);
+    }
 
     callbackFunction = async (childData) => {
         await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
@@ -174,16 +180,23 @@ class CharacterScreen extends Component {
                     keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}
                 >
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
-                        {this.props.inputText == 1 ?
-                            <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{left:65, height: 40, width: '60%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
+                    <TouchableOpacity
+                    onPress={this.changeInputText.bind(this)}
+                    style={[styles.switchMod, {backgroundColor: 'rgba(0, 0, 0, 0.4)'}]}
+                    >
+                    {this.props.inputText == 1 ?
+                        <FontAwesome name="microphone" size={25} color="#FFFFFF"/>
                         :
-                            <SpeechToText parentCallback = {this.callbackFunction}/>
-                        }
+                        <FontAwesome name="keyboard-o" size={25} color="#FFFFFF"/>
+                    }
+                    </TouchableOpacity>
+                    {this.props.inputText == 1 ?
+                        <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '70%', borderBottomColor: 'white', borderBottomWidth: 1, backgroundColor: 'rgb(0,0,0,0)', borderRadius: 25, paddingLeft: 15, left: '25%', position: 'absolute'}}/>
+                     :
+                        <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
+                    }
                     </View>
                 </KeyboardAvoidingView>
-                <View style={[{position: 'absolute', bottom: 0, left: 0, zIndex: 999}, styles.changeButton]}>
-                    <Talk/>
-                </View>
             </ImageBackground>
         )
     }
@@ -229,6 +242,16 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 0 },
         shadowRadius: 5,
         flexDirection:'row'
+    },
+    switchMod: {
+        left: '5%',
+        margin: 5,
+        width: 50,
+        height: 50,
+        borderRadius: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute'
     },
     changeButton: {
         width: '100%',
