@@ -3,7 +3,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import VideoModal from "../screens/VideoModal";
-import sndPage from "../screens/sndPage";
+import sndPage from "../screens/SelectionScreen";
 import Persona1 from "../screens/Persona1";
 import CharacterScreen from "../screens/CharacterScreen";
 
