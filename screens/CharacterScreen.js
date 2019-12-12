@@ -118,14 +118,12 @@ class CharacterScreen extends Component {
     };
 
     addMessageToChat(value) {
-        console.log(this.props.chat);
         var data = {
             name: this.props.navigation.state.params.characterId,
             value
         }
         const action = {type: 'ADD_MESSAGE', data};
         this.props.dispatch(action);
-        console.log(this.props.chat);
     }
 
     renderBottomSheetHeader = () =>
@@ -138,11 +136,15 @@ class CharacterScreen extends Component {
     renderBottomSheetContent = () =>
         (
             <View style={styles.chatContent}>
-                {this.props.chat[this.props.navigation.state.params.characterId].map((message, index) =>
-                    <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: this.state.mainColor, alignSelf: 'flex-end'} : {}]}>
-                        <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
-                    </View>
-                )}
+                {this.props.chat[this.props.characterId] != undefined ?
+                    this.props.chat[this.props.characterId].map((message, index) =>
+                        <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: this.state.mainColor, alignSelf: 'flex-end'} : {}]}>
+                            <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
+                        </View>
+                    )
+                    :
+                    null
+                }
             </View>
         );
     render() {
@@ -296,7 +298,8 @@ const mapStateToProps = (state) => {
         conversationText: state.perso.conversationText,
         inputText: state.perso.inputText,
         chat: state.message.chat,
-        mute : state.mute.mute
+        mute : state.mute.mute,
+        characterId: state.characterId.id
     });
 }
 export default connect (mapStateToProps)(CharacterScreen);

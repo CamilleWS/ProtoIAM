@@ -28,15 +28,22 @@ const soundObject = new Audio.Sound();
 class HomeScreen extends Component {
 
 // const playbackObject = new Audio.Sound();
+    setChoseCharacterId(value) {
+        const action = {type: 'SET_CHARACTERID', value};
+        this.props.dispatch(action);
+    }
+
     callFun = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
+        this.setChoseCharacterId("leonard_de_vinci");
         soundObject.stopAsync();
     }
     callFun2 = () =>
     {
         // this.props.navigation.navigate('Persona1', {"nothing"});
         this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
+        this.setChoseCharacterId("marie_curie");
         soundObject.stopAsync();
 
         // alert("marie");
@@ -44,6 +51,7 @@ class HomeScreen extends Component {
     callFun3 = () =>
     {
         this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
+        this.setChoseCharacterId("ramesses");
         soundObject.stopAsync();
     }
 
@@ -260,7 +268,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return ({
-            mute: state.mute.mute
+        mute: state.mute.mute,
+        characterId: state.characterId.id
     });
 }
 export default connect (mapStateToProps)(HomeScreen);

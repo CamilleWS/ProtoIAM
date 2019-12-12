@@ -7,11 +7,7 @@ function toggleMessage(state = initialState, action) {
     switch (action.type) {
         case "ADD_MESSAGE":
             var name = action.data.name;
-            // const messageIndex = state.chat.findIndex(item => item.id === action.data.name)
             const messageIndex = state.chat.hasOwnProperty(name)
-            console.log (name)
-            // console.log (action);
-            console.log (messageIndex)
             if (messageIndex === false)
             {
                 newState = {
@@ -28,7 +24,6 @@ function toggleMessage(state = initialState, action) {
                     }
                 }
             }
-            console.log (newState)
             return (newState);
         default:
             return (state);
