@@ -14,6 +14,7 @@ import {
     Easing
 } from 'react-native';
 import {Video, Audio, Sound} from 'expo-av'
+import Carousel from 'react-native-snap-carousel';
 
 
 // const playbackObject = await AudioSound.createAsync(
@@ -154,19 +155,19 @@ class HomeScreen extends Component {
                 <View style={styles.contentCircle}>
                         <View style={{zIndex: 999, opacity: 0.5}}>
                             <Animated.Image
-                              style={{ width: 200, height: 200, transform: [{rotate: spin2}]}}
+                              style={{transform: [{rotate: spin2}]}}
                                 source={require('../assets/images/circle3.png')}
                             />
                         </View>
                       <View>
                           <Animated.Image
-                            style={{ width: 200, height: 200, transform: [{rotate: spin1}]}}
+                            style={{transform: [{rotate: spin1}]}}
                               source={require('../assets/images/circle2.png')}
                           />
                       </View>
                       <View>
                           <Animated.Image
-                            style={{ width: 200, height: 200, transform: [{rotate: spin}]}}
+                            style={{transform: [{rotate: spin}]}}
                               source={require('../assets/images/circle1.png')}
                           />
                       </View>
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: 'space-around',
         paddingTop: 20,
-        backgroundColor: '#DFD8FF',
+        backgroundColor: '#000000',
         width: 350,
         height: 250,
     },
@@ -203,10 +204,11 @@ const styles = StyleSheet.create({
         height: 100,
         borderBottomLeftRadius: 20,
         borderTopRightRadius: 20,
-        backgroundColor: '#DFD8FF',
+        backgroundColor: '#000000',
     },
     contentCircle: {
         // flex:1,
+        // backgroundColor: '#0000FF',
         width: 200,
         height: 200,
         justifyContent: 'center',
