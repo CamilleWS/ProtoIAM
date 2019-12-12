@@ -1,12 +1,13 @@
 //Imports
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TextInput, KeyboardAvoidingView, Platform, BackHandler, Button, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomSheet from 'reanimated-bottom-sheet'
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements'
 import { FontAwesome } from '@expo/vector-icons';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 //Data
@@ -20,10 +21,12 @@ import {getMarieCurieAnswerStr, checkMarieCurieQuestion} from '../scripts/script
 import {getRamsesAnswerStr, checkRamsesQuestion} from '../scripts/scriptRamses'
 import {Audio} from "expo-av";
 
-const soundObject = new Audio.Sound();
+
 
 
 class CharacterScreen extends Component {
+
+    soundObject = new Audio.Sound();
 
     constructor(props) {
         super(props)
@@ -50,7 +53,7 @@ class CharacterScreen extends Component {
     }
 
     handleBackButtonClick() {
-        soundObject.stopAsync();
+        this.soundObject.stopAsync();
         this.props.navigation.goBack(null);
         return true;
     }
@@ -69,10 +72,11 @@ class CharacterScreen extends Component {
     }
 
     run_tuto = async () => {
+        console.log("RUN_TUTO")
         try {
-            await soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
-            await soundObject.playAsync();
-            // Your sound is playing!
+            console.log("TRY SUCCESS")
+            await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
+            await this.soundObject.playAsync();
         } catch (error) {
             // An error occurred!
         }
@@ -84,6 +88,9 @@ class CharacterScreen extends Component {
         const config = characters.filter(el => el.id === characterId);
 
         let { name, backgroundImage, mainColor } = config[0];
+
+        if (this.props.mute == false)
+            this.run_tuto();
 
         if (this.state.mainColor === '')
             this.setState({mainColor});
@@ -155,21 +162,31 @@ class CharacterScreen extends Component {
     );
 
     renderBottomSheetContent = () =>
-        (
-            <View style={styles.chatContent}>
-                {this.props.chat[this.props.characterId] != undefined ?
-                    this.props.chat[this.props.characterId].map((message, index) =>
-                        <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: this.state.mainColor, alignSelf: 'flex-end'} : {}]}>
-                            <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
-                        </View>
-                    )
-                    :
-                    null
-                }
-            </View>
-        );
+    (
+        <ScrollView   ref={ref => this.scrollView = ref}
+              style={styles.chatContent}
+              contentContainerStyle={{paddingBottom: 100}}
+              onContentSizeChange={(contentWidth, contentHeight)=>{
+                  this.scrollView.scrollToEnd({animated: true});
+                  console.log("test");
+              }}>
+              {this.props.chat[this.props.characterId] != undefined ?
+                  this.props.chat[this.props.characterId].map((message, index) =>
+                  <View key={index} style={[styles.chatMessage, message.myself ? {backgroundColor: this.state.mainColor, alignSelf: 'flex-end'} : {}]}>
+                      <Text style={[styles.chatMessageText, message.myself ? {color: 'white'} : {}]}>{message.message}</Text>
+                  </View>
+              ): null}
+        </ScrollView>
+    );
+
+
+    goBack()
+    {
+        this.soundObject.stopAsync()
+        this.props.navigation.goBack(null);
+    }
     render() {
-        const { goBack } = this.props.navigation;
+        // const { goBack } = this.props.navigation;
         const { backgroundImage, mainColor } = this.state;
 
         return (
@@ -182,13 +199,13 @@ class CharacterScreen extends Component {
                     name='reply'
                     type='font-awesome'
                     color='#8A2BE2'
-                    onPress={() => goBack()} />
+                    onPress={() => this.goBack()} />
                 <View style={styles.characterContent}>
-                    <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} />
+                    <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} characterId={this.props.navigation.state.params.characterId}/>
                     <View style={[{position: 'absolute', bottom: 0, right: 0, zIndex: 999}, styles.changeButton]}>
                         <Talk parentCallback = {this.callbackFunctionForSound}/>
                     </View>
-                    <CharacterVideo video={this.state.actualVideo}  ref='child' {...this.props} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
+                    <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                 </View>
                  { this.props.conversationText == 1 ?
                     <BottomSheet
@@ -198,6 +215,7 @@ class CharacterScreen extends Component {
                         renderContent={this.renderBottomSheetContent}
                         renderHeader={this.renderBottomSheetHeader}
                         initialSnap={1}
+                        enabledInnerScrolling={true}
                         springConfig={{toss: 0.8, mass: 0.52}}
                         keyboardShouldPersistTaps="handled"
                     />
@@ -221,7 +239,7 @@ class CharacterScreen extends Component {
                     }
                     </TouchableOpacity>
                     {this.props.inputText == 1 ?
-                        <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '70%', borderBottomColor: 'white', borderBottomWidth: 1, backgroundColor: 'rgb(0,0,0,0)', borderRadius: 25, paddingLeft: 15, left: '25%', position: 'absolute'}}/>
+                        <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { if (this.state.text != '')this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '70%', borderBottomColor: 'white', borderBottomWidth: 2, borderRadius: 25, paddingLeft: 15, left: '25%', position: 'absolute'}}/>
                      :
                         <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
                     }
@@ -245,18 +263,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingBottom: '40%'
     },
-    // bottomSheet:  {
-    //     width: '100%',
-    //     height: '40%',
-    //     backgroundColor: 'white',
-    //     borderTopLeftRadius: 25,
-    //     borderTopRightRadius: 25,
-    //     overflow: 'hidden'
-    // },
     chatContent: {
         backgroundColor: 'white',
         paddingTop: 15,
-        height: '100%'
+        height: '100%',
+        zIndex: 20000,
+        paddingBottom: 80
     },
     actionSheet: {
         width: '100%',

@@ -19,20 +19,51 @@ import {
     View, ActivityIndicator
 } from 'react-native';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Qui êtes-vous ?',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Parle moi de la Cène.',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Quand es-tu décédé ?',
-  },
-];
+const DATA = {
+    'leonard_de_vinci': [
+        {
+            id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+            title: 'Qui êtes-vous ?',
+        },
+        {
+            id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+            title: 'Parle moi de la Cène.',
+        },
+        {
+            id: '58694a0f-3da1-471f-bd96-145571e29d72',
+            title: 'Quand es-tu décédé ?',
+        },
+    ],
+    'marie_curie': [
+        {
+            id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ce',
+            title: 'Qui êtes-vous ?',
+        },
+        {
+            id: 'bd7acbea-c3b1-46c2-aed5-3ad53abb28ba',
+            title: 'Quelles sont vos travaux',
+        },
+        {
+            id: 'bd7acbea-c1b1-47c2-aed5-3ad53abb28ba',
+            title: 'Comment êtes-vous morte',
+        },
+    ],
+    'ramesses': [
+        {
+            id: 'bd7acbea-c1b1-46c0-aed5-3ad53abb28ba',
+            title: 'Qui êtes-vous ?',
+        },
+        {
+            id: 'by7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+            title: "Combien avez-vous d'enfant",
+        },
+        {
+            id: 'bd7jcbea-c1b1-46c2-aed5-3ad53abb28ba',
+            title: 'Quand es-tu né ?',
+        },
+    ]
+
+};
 
 
 
@@ -88,7 +119,7 @@ class Tips extends React.Component{
                 style={[{backgroundColor: 'rgba(0, 0, 0, 0)', width: "100%", height: "100%", position: 'absolute'}]}
                 >
                 <FlatList
-                data={DATA}
+                data={DATA[this.props.characterId]}
                 renderItem={({ item }) => (
                     <TouchableOpacity style={styles.tabBarInfoContainer} onPress={() => this.tipsBtn(item.title)}>
                       <Text style={styles.title}>{item.title}</Text>
@@ -108,7 +139,7 @@ const styles = StyleSheet.create({
    container: {
        backgroundColor: '#fff',
        alignItems: 'center',
-       top: '10%',
+       top: 30,
        right: '5%',
        alignItems: 'center',
        justifyContent: 'center',
@@ -116,7 +147,6 @@ const styles = StyleSheet.create({
        zIndex: 2900000,
    },
     actionSheet: {
-        top: '15%',
         right: '5%',
         width: 50,
         height: 50,
