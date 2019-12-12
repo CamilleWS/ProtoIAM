@@ -1,10 +1,11 @@
 //Imports
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, ScrollView, TextInput, KeyboardAvoidingView, Platform, BackHandler, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomSheet from 'reanimated-bottom-sheet'
 import { connect } from 'react-redux';
+import { Icon } from 'react-native-elements'
 
 //Data
 import characters from '../assets/characters/characters.json';
@@ -28,8 +29,6 @@ class CharacterScreen extends Component {
 
         this.state = {
             mainColor: '',
-            transcript: "",
-            allTranscripts: [],
             text: '',
             actualVideo: undefined,
         };
@@ -86,27 +85,19 @@ class CharacterScreen extends Component {
       }
 
       callbackFunction = async (childData) => {
-            await this.setState({transcript: childData})
-            await this.setState(prevState => ({
-                allTranscripts: [...prevState.allTranscripts, childData]
-            }));
             await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
 
-            this.state.allTranscripts.map((item) => {
-
-                let newChatElemUser = {
-                        myself: true,
-                        message: item
-                      }
-                this.addMessageToChat(newChatElemUser);
-
-                let newChatElemPerso = {
-                      myself: false,
-                      message: this.getCharacterAnswerStr(this.props.navigation.state.params.characterId, item)
+            let newChatElemUser = {
+                    myself: true,
+                    message: childData
                     }
-                this.addMessageToChat(newChatElemPerso);
+            this.addMessageToChat(newChatElemUser);
 
-            });
+            let newChatElemPerso = {
+                    myself: false,
+                    message: this.getCharacterAnswerStr(this.props.navigation.state.params.characterId, childData)
+                }
+            this.addMessageToChat(newChatElemPerso);
       };
 
     addMessageToChat(value) {
@@ -133,7 +124,7 @@ class CharacterScreen extends Component {
         );
 
     render() {
-
+        const { goBack } = this.props.navigation;
         let characterId = this.props.navigation.state.params.characterId
 
         const config = characters.filter(el => el.id === characterId);
@@ -148,11 +139,19 @@ class CharacterScreen extends Component {
                 source={backgroundImage === "egypt" ? require('../assets/characters/backgrounds/egypt.jpg') : null}
                 imageStyle={{resizeMode: 'cover'}}
                 style={[styles.background, {backgroundColor: mainColor}]}>
+
+                <Icon
+                    raised
+                    name='reply'
+                    type='font-awesome'
+                    color='#8A2BE2'
+                    onPress={() => goBack()} />
                 <View style={styles.characterContent}>
                     <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} />
                     <CharacterVideo video={this.state.actualVideo} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                     <Talk></Talk>
                 </View>
+
                 <View style={{height: 75, width: "100%" }}></View>
                 <BottomSheet
                     ref={(ref) => this._bottomSheet = ref }
@@ -170,11 +169,7 @@ class CharacterScreen extends Component {
                     keyboardVerticalOffset={Platform.select({ios: 0, android: 0})}>
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
                         <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                        {this.props.inputText == 1 ?
-                            <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
-                         :
-                            <SpeechToText parentCallback = {this.callbackFunction}></SpeechToText>
-                        }
+                        <TextInput ref={this.searchInput} onChangeText={(text) => this.setState({text})} value={this.state.text} onSubmitEditing = { (e)=> { this.callbackFunction(this.state.text); this.state.text = ''; } } style={{ height: 40, width: '80%', borderColor: 'gray', borderWidth: 1, backgroundColor: 'white', borderRadius: 25, paddingLeft: 15}}/>
                     </View>
                 </KeyboardAvoidingView>
                 {/*<View style={[styles.actionSheet, {backgroundColor: this.state.mainColor}]}>*/}
