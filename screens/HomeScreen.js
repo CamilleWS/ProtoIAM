@@ -56,11 +56,10 @@ export default class App extends React.Component {
                     layout={'tinder'}
                     layoutCardOffset={9}
                 />
-                {/*alert("Add 'this.props.navigation.navigate(\'where you want to redirect\', {})' at lign 61 in homeScreen.js ")*/}
-                <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-                    <TouchableOpacity activOpactity={0.5} style={styles.startButton} onPress={()=>this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" })}>
+            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+                    <TouchableOpacity activOpactity={0.5} style={styles.startButton} onPress={() => {this.props.navigation.navigate('sndPage');}}>
                         <View style={{backgroundColor: "white"}}>
-                            <Text style={styles.startText}>Start experience</Text>
+                            <Text style={styles.startText}>Commencer l'expérience</Text>
                         </View>
                     </TouchableOpacity>
             </View>
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
         borderRadius: 30
     },
     startText: {
-        fontSize: 40,
+        fontSize: 25,
         fontWeight: '100',
         color: "grey",
     }
