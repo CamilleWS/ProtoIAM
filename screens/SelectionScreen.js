@@ -13,16 +13,11 @@ import {
     Easing, ImageBackground
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import ParticleBackground from "react-native-particle-background";
 import {Video, Audio, Sound} from 'expo-av'
 import { connect } from 'react-redux';
 
 import { Icon } from 'react-native-elements'
 
-// const playbackObject = await AudioSound.createAsync(
-//   { uri: '../assets/videos/tuto_page2.mp3' },
-//   { shouldPlay: true }
-// );
 
 //Data
 import characters from '../assets/characters/characters.json';
@@ -56,33 +51,6 @@ class SelectionScreen extends Component {
         } catch (error) {}
     };
 
-// const playbackObject = new Audio.Sound();
-    setChoseCharacterId(value) {
-        const action = {type: 'SET_CHARACTERID', value};
-        this.props.dispatch(action);
-    }
-
-    callFun = () =>
-    {
-        this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
-        this.setChoseCharacterId("leonard_de_vinci");
-        this.soundObject.stopAsync();
-    }
-    callFun2 = () =>
-    {
-        this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
-        this.setChoseCharacterId("marie_curie");
-        this.soundObject.stopAsync();
-
-        // alert("marie");
-    }
-    callFun3 = () =>
-    {
-        this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
-        this.setChoseCharacterId("ramesses");
-        this.soundObject.stopAsync();
-    }
-
     muteAll = () => {
         console.log(this.props.mute);
         if (this.props.mute == false) {
@@ -95,56 +63,9 @@ class SelectionScreen extends Component {
             const action = {type: 'MUTE_TUTO'};
             this.props.dispatch(action);
         }
-    }
-
-    constructor () {
-        super()
-        this.spinValue = new Animated.Value(0);
-        this.spinmValue = new Animated.Value(0);
-        this.spineValue = new Animated.Value(0);
-        this.runTuto()
-    }
-
-    spin () {
-        this.spinValue.setValue(0)
-        Animated.timing(
-            this.spinValue,
-            {
-                toValue: 1,
-                duration: 2000,
-                easing: Easing.linear
-            }
-        ).start(() => this.spin())
-    }
-    spinm () {
-        this.spinmValue.setValue(0)
-        Animated.timing(
-            this.spinmValue,
-            {
-                toValue: 1,
-                duration: 4000,
-                easing: Easing.linear
-            }
-        ).start(() => this.spinm())
-    }
-    spine () {
-        this.spineValue.setValue(0)
-        Animated.timing(
-            this.spineValue,
-            {
-                toValue: 1,
-                duration: 3000,
-                easing: Easing.linear
-            }
-        ).start(() => this.spine())
-    }
-
+    };
 
     componentDidMount () {
-
-        this.spin();
-        this.spinm();
-        this.spine();
         this.setState({
             characters
         }, () => { this.onSliderMoveTo(0) });
@@ -206,23 +127,16 @@ class SelectionScreen extends Component {
         const { goBack } = this.props.navigation;
 
         return (
-            <View>
-                <ParticleBackground
-                    backgroundColor="black"
-                />
+            <View style={{backgroundColor: 'black', width: '100%', height: '100%'}}>
                 <SafeAreaView style={[StyleSheet.absoluteFill, {justifyContent: 'center', alignItems: 'center', marginTop: 185}]}>
-
-
-
                     <TouchableOpacity
                         onPress={() => this.muteAll()}
                         style={[styles.actionSheet]}>
                         <FontAwesome name={this.props.mute === false ? 'volume-up' : 'volume-off'} size={25} color="#FFFFFF" style={styles.recordIcon}/>
                     </TouchableOpacity>
-
                     <Image source={require('../assets/images/logo_light.png')} resizeMode={'center'} style={{width: 200, height: 70}}/>
                     <Carousel
-                        data={this.state.characters}
+                        data={characters}
                         renderItem={this.renderCharacterCard}
                         sliderWidth={screenWidth}
                         itemWidth={screenWidth * 0.6}
@@ -284,5 +198,6 @@ const mapStateToProps = (state) => {
         mute: state.mute.mute,
         characterId: state.characterId.id
     });
-}
-export default connect (mapStateToProps)(SelectionScreen);
+};
+
+export default connect(mapStateToProps)(SelectionScreen);
