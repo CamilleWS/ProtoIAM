@@ -202,25 +202,21 @@ class SelectionScreen extends Component {
         return (
             <View>
 
+                <View>
+                    <TouchableOpacity
+                        onPress={() => this.muteAll()}
+                        style={[styles.actionSheet]}>
+                        <FontAwesome name={this.props.mute == false ? 'volume-up' : 'volume-off'} size={25} color="#FFFFFF"/>
+                    </TouchableOpacity>
+
+                </View>
                 <ParticleBackground
                     particleColor={this.state.particlesColor}
                     particleSize={8}
                     particleDispersion={32}
                     backgroundColor="black"
                 />
-
                 <SafeAreaView style={[StyleSheet.absoluteFill, {justifyContent: 'center', alignItems: 'center', marginTop: 185}]}>
-                    <TouchableOpacity
-                        onPress={() => this.muteAll()}
-                        style={[styles.actionSheet, {backgroundColor: 'rgba(0, 0, 0, 0.4)', left:0}]}>
-                        <FontAwesome name={this.props.mute == false ? 'volume-up' : 'volume-off'} size={25} color="#FFFFFF"/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => goBack()}
-                        style={[styles.actionSheet, {backgroundColor: 'rgba(0, 0, 0, 0.4)', right:0}]}>
-                        <Entypo name='reply' size={25} color="#FFFFFF"/>
-                    </TouchableOpacity>
 
                     <Image source={require('../assets/images/logo_light.png')} resizeMode={'center'} style={{width: 200, height: 70}}/>
                     <Carousel
@@ -268,6 +264,11 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 30,
         marginBottom: 30,
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        right:0,
+        top: 100,
+        position: 'absolute',
+        zIndex:1000,
     },
     characterCardName: {
         color: 'white',
