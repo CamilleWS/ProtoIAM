@@ -98,7 +98,7 @@ export default class CharacterVideo extends Component {
             <Video
                 source={this.props.video == undefined ? this.standingVideos[this.props.characterId] : this.props.video}
                 ref={this._handleVideoRef}
-                isMuted={this.coucou ? false : true}
+                volume={this.coucou ? 1.0 : 0.0}
                 resizeMode="cover"
                 shouldPlay={this.state.play}
                 isLooping={this.state.loop}
