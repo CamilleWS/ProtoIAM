@@ -7,7 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import Persona1 from '../screens/Persona1';
 import Persona2 from '../screens/Persona2';
 import Persona3 from '../screens/Persona3';
-import sndPage from '../screens/sndPage';
+import sndPage from '../screens/SelectionScreen';
 import CharacterScreen from "../screens/CharacterScreen";
 
 const config = Platform.select({

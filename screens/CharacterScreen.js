@@ -230,8 +230,8 @@ class CharacterScreen extends Component {
                 >
                     <View style={[styles.actionSheet, {backgroundColor: mainColor}]}>
                     <TouchableOpacity
-                    onPress={this.changeInputText.bind(this)}
-                    style={[styles.switchMod, {backgroundColor: 'rgba(0, 0, 0, 0.4)'}]}
+                        onPress={this.changeInputText.bind(this)}
+                        style={[styles.switchMod, {backgroundColor: 'rgba(0, 0, 0, 0.4)'}]}
                     >
                     {this.props.inputText == 1 ?
                         <FontAwesome name="microphone" size={25} color="#FFFFFF"/>
@@ -307,7 +307,6 @@ const styles = StyleSheet.create({
         position: 'absolute'
     },
     changeButton: {
-        width: '100%',
         height: 150,
         bottom: 300,//mettre 75 pour le remonter
         width: 150,

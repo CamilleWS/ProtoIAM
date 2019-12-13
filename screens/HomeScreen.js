@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet,Text, Image, View,SafeAreaView, Dimensions, TouchableOpacity,
-navigation} from 'react-native';
+import { StyleSheet,Text, Image, View,SafeAreaView, Dimensions, TouchableOpacity, navigation} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import Carousel from 'react-native-snap-carousel';
+import * as Font from 'expo-font';
 import Button from '@material-ui/core/Button';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
@@ -25,6 +25,15 @@ export default class App extends React.Component {
                     title:"chemist"
                 }
             ]}
+    }
+
+    componentDidMount()
+    {
+        Font.loadAsync({
+            'Eina01-Bold': require('../assets/fonts/Eina01/Eina01-Bold.ttf'),
+            'Eina01-SemiBold': require('../assets/fonts/Eina01/Eina01-SemiBold.ttf'),
+            'Eina01-Regular': require('../assets/fonts/Eina01/Eina01-Regular.ttf')
+        }).then(null);
     }
 
     onPress = () => {
