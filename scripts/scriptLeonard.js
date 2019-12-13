@@ -78,13 +78,14 @@ let answers = [
 ]
 
 let unknwow_answers = [
-    "Désolé, je n'ai pas compris votre question."
+    "Je n'ai malheuresement pas la réponse à cette question.",
+    "Je suis désolé mais je ne sais pas."
 ]
 
 let videoPath = [
     [
-        require("../assets/videos/leonard_de_vinci/presentation-2.mp4"),
-        require("../assets/videos/leonard_de_vinci/presentation-1.mp4")
+        require("../assets/videos/leonard_de_vinci/presentation-1.mp4"),
+        require("../assets/videos/leonard_de_vinci/presentation-2.mp4")
     ],
     [
         require("../assets/videos/leonard_de_vinci/qui-est-la-joconde.mp4")
@@ -121,10 +122,6 @@ let videoPath = [
     ],
     [
         require("../assets/videos/leonard_de_vinci/date-deces.mp4")
-    ],
-    [
-        require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),
-        require("../assets/videos/leonard_de_vinci/je_n_ai_pas_la_reponse.mp4")
     ]
 
 
@@ -141,6 +138,8 @@ let repeat_triggers = [
     ["repete"], ["mal", "entendu"], ["pas", "compris"], ["hein"], ["peux", "tu", "repeter"], ["quoi"]
 ]
 
+const allUsed = (currentValue) => currentValue == 1;
+
 let already_use = [
     [0, 0],
     [0],
@@ -154,7 +153,7 @@ let already_use = [
     [0],
     [0],
     [0],
-    [0, 0],
+    [0],
     [0, 0]
 ]
 
@@ -202,22 +201,17 @@ export function checkLeonardQuestion(text)
             for (let k = 0; k < keyWords[i][j].length; k++) {
                 let regexStr = keyWords[i][j][k]
                 let regexp = new RegExp(regexStr, "gi")
-                if (text.match(regexp)) {
+                if (text.match(regexp))
                     goodKeyWord += 1
-                }
-
             }
             if (goodKeyWord == keyWords[i][j].length) {
-                let count = 0
                 variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
                 while (already_use[i][variante]) {
                     variante = Math.floor(Math.random() * Math.floor(videoPath[i].length))
-                    if (count == 10 + already_use[i].length)
+                    if (already_use[i].every(allUsed))
                         already_use[i].fill(0)
-                    count += 1
                 }
                 already_use[i][variante] = 1;
-                console.log(variante)
                 ret.video_path = videoPath[i][variante];
                 ret.str = answers[i][variante]
                 ret.question = questions[i]
@@ -225,17 +219,17 @@ export function checkLeonardQuestion(text)
             }
         }
     }
-    let count = 0
+    variante = Math.floor(Math.random() * Math.floor(already_use[already_use.length - 1].length))
     while (already_use[already_use.length - 1][variante]) {
         variante = Math.floor(Math.random() * Math.floor(already_use[already_use.length - 1].length))
-        if (count == 10 + already_use[already_use.length - 1].length)
+        if (already_use[already_use.length - 1].every(allUsed))
             already_use[already_use.length - 1].fill(0)
         count++;
     }
     already_use[already_use.length - 1][variante] = 1;
-    for (const key in already_use) {
-        var value = already_use[key];
-    }
+    ret.video_path = unknow_path[variante];
+    ret.str = unknwow_answers[variante]
+    ret.question = text
     return (ret.video_path)
 }
 
