@@ -307,7 +307,6 @@ const styles = StyleSheet.create({
         position: 'absolute'
     },
     changeButton: {
-        width: '100%',
         height: 150,
         bottom: 300,//mettre 75 pour le remonter
         width: 150,

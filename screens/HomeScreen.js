@@ -1,6 +1,9 @@
 import React from 'react';
-import { StyleSheet,Text, Image, View, Dimensions, TouchableOpacity} from 'react-native';
+import { StyleSheet,Text, Image, View,SafeAreaView, Dimensions, TouchableOpacity, navigation} from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
 import Carousel from 'react-native-snap-carousel';
+import * as Font from 'expo-font';
+import Button from '@material-ui/core/Button';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 var indexImage = -1;
@@ -23,6 +26,19 @@ export default class App extends React.Component {
                 }
             ]}
     }
+
+    componentDidMount()
+    {
+        Font.loadAsync({
+            'Eina01-Bold': require('../assets/fonts/Eina01/Eina01-Bold.ttf'),
+            'Eina01-SemiBold': require('../assets/fonts/Eina01/Eina01-SemiBold.ttf'),
+            'Eina01-Regular': require('../assets/fonts/Eina01/Eina01-Regular.ttf')
+        }).then(null);
+    }
+
+    onPress = () => {
+        alert("click !");
+    };
 
 
     _renderItem({item,index}){
