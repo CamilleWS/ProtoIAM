@@ -4,7 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import sndPage from '../screens/sndPage';
+import sndPage from '../screens/SelectionScreen';
 import CharacterScreen from "../screens/CharacterScreen";
 
 const config = Platform.select({

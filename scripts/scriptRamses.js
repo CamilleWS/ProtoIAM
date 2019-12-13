@@ -36,7 +36,7 @@ let videoPath = [
 
 let keyWords = [
     [["quand", "ne"], ["naissance"], ["presenter"], ["presentez"], ["presente"], ["etesvous"], ["estu"]],
-    [["famille"], ["origines"]],
+    [["famille"], ["origines"], ["enfant"]],
     [["reine"], ["roi"]],
     [["paix"], ["guerre"]],
 ]

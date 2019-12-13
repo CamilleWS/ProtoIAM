@@ -58,7 +58,6 @@ class CharacterScreen extends Component {
         return true;
     }
     callbackFunctionForSound = async (childData) => {
-        console.log(childData);
 
         this.refs.child.handleVolume();
 
@@ -73,9 +72,7 @@ class CharacterScreen extends Component {
     }
 
     run_tuto = async () => {
-        console.log("RUN_TUTO")
         try {
-            console.log("TRY SUCCESS")
             await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
             await this.soundObject.playAsync();
         } catch (error) {
@@ -180,7 +177,7 @@ class CharacterScreen extends Component {
     );
 
 
-    goBack()
+    goBack = async() =>
     {
         await this.soundObject.stopAsync()
         this.props.navigation.goBack(null);
@@ -306,7 +303,6 @@ const styles = StyleSheet.create({
         position: 'absolute'
     },
     changeButton: {
-        width: '100%',
         height: 150,
         bottom: 300,//mettre 75 pour le remonter
         width: 150,
