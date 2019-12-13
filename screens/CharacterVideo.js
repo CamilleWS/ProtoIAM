@@ -47,10 +47,10 @@ export default class CharacterVideo extends Component {
     _onPlaybackStatusUpdate = async (playbackStatus, characterId) => {
         if (playbackStatus.didJustFinish) {
             if (this.state.shouldGoIdle) {
-                await this.setState({shouldGoIdle: false});
+                await this.setState({shouldGoIdle: false, loop: true});
                 await this.state.playbackObject.unloadAsync();
                 await this.state.playbackObject.loadAsync(this.standingVideos[characterId]);
-                this.state.playbackObject.playFromPositionAsync(0);
+                await this.state.playbackObject.playFromPositionAsync(0);
             }
         }
     };
@@ -59,11 +59,11 @@ export default class CharacterVideo extends Component {
         this.setState({playbackObject: component})
     }
 
-    changeVideo = async () => {
+    changeVideo = async (video) => {
+        await this.setState({shouldGoIdle: true, loop: false});
         await this.state.playbackObject.unloadAsync();
-        await this.state.playbackObject.loadAsync(video[this.state.indexVideoPlayed]);
-        this.state.playbackObject.playFromPositionAsync(0);
-        this.setState({shouldGoIdle: true});
+        await this.state.playbackObject.loadAsync(video);
+        await this.state.playbackObject.playFromPositionAsync(0);
     }
 
     stopVideo = () => {
@@ -90,13 +90,9 @@ export default class CharacterVideo extends Component {
     };
 
     render() {
-        if (this.props.video != undefined) {
-            this.state.loop = false;
-            this.state.shouldGoIdle = true;
-        }
         return (
             <Video
-                source={this.props.video == undefined ? this.standingVideos[this.props.characterId] : this.props.video}
+                source={this.standingVideos[this.props.characterId]}
                 ref={this._handleVideoRef}
                 volume={this.coucou ? 1.0 : 0.0}
                 resizeMode="cover"
