@@ -2,13 +2,13 @@
   {
     "id": "leonard_de_vinci",
     "name": "Leonard de Vinci",
-    "backgroundImage": "egypt",
+    "backgroundImage": "vitruve",
     "mainColor": "#EDD9B0"
   },
   {
     "id": "marie_curie",
     "name": "Marie Curie",
-    "backgroundImage": "egypt",
+    "backgroundImage": "science",
     "mainColor": "#7865F6"
   },
   {

@@ -7,7 +7,6 @@ import { Icon } from 'react-native-elements'
 import { FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 
-
 //Data
 import characters from '../assets/characters/characters.json';
 import SpeechToText from '../components/SpeechToText'
@@ -18,9 +17,6 @@ import {getLeonardAnswerStr, checkLeonardQuestion} from '../scripts/scriptLeonar
 import {getMarieCurieAnswerStr, checkMarieCurieQuestion} from '../scripts/scriptMarieCurie'
 import {getRamsesAnswerStr, checkRamsesQuestion} from '../scripts/scriptRamses'
 import {Audio} from "expo-av";
-
-
-
 
 class CharacterScreen extends Component {
 
@@ -186,7 +182,7 @@ class CharacterScreen extends Component {
 
         return (
             <ImageBackground
-                source={backgroundImage === "egypt" ? require('../assets/characters/backgrounds/egypt.jpg') : null}
+                source={backgroundImage === "egypt" ? require('../assets/characters/backgrounds/egypt.jpg') : backgroundImage === "science" ? require('../assets/characters/backgrounds/science.png') : backgroundImage === "vitruve" ? require('../assets/characters/backgrounds/vitruve.jpg') : null}
                 imageStyle={{resizeMode: 'cover'}}
                 style={[styles.background, {backgroundColor: mainColor}]}>
                 <SafeAreaView>
@@ -253,6 +249,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
     },
     characterContent: {
+        paddingTop: 35,
         flexGrow: 1,
         alignItems: 'center',
         justifyContent: 'center',
