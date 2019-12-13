@@ -190,7 +190,12 @@ class CharacterScreen extends Component {
                 imageStyle={{resizeMode: 'cover'}}
                 style={[styles.background, {backgroundColor: mainColor}]}>
                 <SafeAreaView>
-
+                    <Icon
+                        raised
+                        name='reply'
+                        type='font-awesome'
+                        color='#8A2BE2'
+                        onPress={() => this.goBack()} />
                     <View style={styles.characterContent}>
                         <View style={[styles.option, {backgroundColor: 'rgba(0, 0, 0, 0)'}]}>
                             <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} characterId={this.props.navigation.state.params.characterId}/>

@@ -5945,13 +5945,6 @@ react-is@^16.8.0, react-is@^16.9.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
-react-native-anchor-carousel@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/react-native-anchor-carousel/-/react-native-anchor-carousel-3.1.1.tgz#e10415a9aaf8f55746d021d22daeedd9ef17ea71"
-  integrity sha512-S31RLTKrAwmtm90HUhO+qaKRtN1/U5wOp2rib/Gzmu4ZCW8S/c5Y1dx/eM06TIh9hKQFpErAVqWQLY3j6mvm1g==
-  dependencies:
-    prop-types "^15.5.10"
-
 react-native-animatable@1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.3.tgz#a13a4af8258e3bb14d0a9d839917e9bb9274ec8a"
@@ -6013,11 +6006,6 @@ react-native-modal@^11.5.3:
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
-
-react-native-particle-background@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-particle-background/-/react-native-particle-background-1.0.2.tgz#5c078b926bb77ad9920d9fda24a9fb108e1197be"
-  integrity sha512-K4AwpCZFnUClv+buZho3fSf9lqQDnAhD3lZcUgWGnPSTkxH17OvP98YWrEnOLjgO6Q6PE5yZgvM32KZ85/SMsQ==
 
 react-native-platform-touchable@^1.1.1:
   version "1.1.1"

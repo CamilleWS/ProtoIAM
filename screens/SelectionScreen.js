@@ -13,16 +13,11 @@ import {
     Easing, ImageBackground
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import ParticleBackground from "react-native-particle-background";
 import {Video, Audio, Sound} from 'expo-av'
 import { connect } from 'react-redux';
 
 import { Icon } from 'react-native-elements'
 
-// const playbackObject = await AudioSound.createAsync(
-//   { uri: '../assets/videos/tuto_page2.mp3' },
-//   { shouldPlay: true }
-// );
 
 //Data
 import characters from '../assets/characters/characters.json';
