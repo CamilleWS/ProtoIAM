@@ -47,44 +47,44 @@ let unknwow_answers = [
 
 let videoPath = [
     [
-        require("../assets/videos/leonard_de_vinci/presentation-2.mov"),
-        require("../assets/videos/leonard_de_vinci/presentation-1.mov")
+        require("../assets/videos/leonard_de_vinci/presentation-2.mp4"),
+        require("../assets/videos/leonard_de_vinci/presentation-1.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/qui-est-la-joconde.mov")
+        require("../assets/videos/leonard_de_vinci/qui-est-la-joconde.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/oeuvres-plus-de-succes.mov")
+        require("../assets/videos/leonard_de_vinci/oeuvres-plus-de-succes.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/presentation-joconde.mov")
+        require("../assets/videos/leonard_de_vinci/presentation-joconde.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/presentation-la-cene.mov")
+        require("../assets/videos/leonard_de_vinci/presentation-la-cene.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/passion-medecine.mov")
+        require("../assets/videos/leonard_de_vinci/passion-medecine.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/relation-francois1er.mov")
+        require("../assets/videos/leonard_de_vinci/relation-francois1er.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/assistants.mov")
+        require("../assets/videos/leonard_de_vinci/assistants.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/lieu-expo-joconde.mov")
+        require("../assets/videos/leonard_de_vinci/lieu-expo-joconde.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/lieu-expo-cene.mov")
+        require("../assets/videos/leonard_de_vinci/lieu-expo-cene.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/lieu-enterrement.mov")
+        require("../assets/videos/leonard_de_vinci/lieu-enterrement.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/question-dissection.mov")
+        require("../assets/videos/leonard_de_vinci/question-dissection.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/date-deces.mov")
+        require("../assets/videos/leonard_de_vinci/date-deces.mp4")
     ],
     [
         require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),

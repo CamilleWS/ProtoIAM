@@ -28,8 +28,7 @@ let videoPath = [
         require("../assets/videos/marie_curie/video4.mp4")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),
-        require("../assets/videos/leonard_de_vinci/je_n_ai_pas_la_reponse.mp4")
+        require("../assets/videos/presentation/marie_curie_standing.mp4"),
     ]
 
 ]

@@ -28,8 +28,7 @@ let videoPath = [
         require("../assets/videos/ramses/video4.mov")
     ],
     [
-        require("../assets/videos/leonard_de_vinci/desole_je_sais_pas.mp4"),
-        require("../assets/videos/leonard_de_vinci/je_n_ai_pas_la_reponse.mp4")
+        require("../assets/videos/presentation/ramses_standing.mp4"),
     ]
 
 ]

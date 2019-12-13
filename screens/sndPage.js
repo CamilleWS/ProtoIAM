@@ -161,7 +161,7 @@ class HomeScreen extends Component {
                 <View style={styles.images}>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun }>
                     <Video
-                        source={require('../assets/videos/presentation/leonard_standing.mov')}
+                        source={require('../assets/videos/presentation/leonard_standing.mp4')}
                         isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
@@ -172,7 +172,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun2 }>
 
                     <Video
-                        source={require('../assets/videos/presentation/marie_curie_standing.mov')}
+                        source={require('../assets/videos/presentation/marie_curie_standing.mp4')}
                         isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}
@@ -182,7 +182,7 @@ class HomeScreen extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity = { .5 } onPress={ this.callFun3 }>
                     <Video
-                        source={require('../assets/videos/presentation/ramses_standing.mov')}
+                        source={require('../assets/videos/presentation/ramses_standing.mp4')}
                         isMuted={true}
                         resizeMode="cover"
                         shouldPlay={true}

@@ -20,7 +20,6 @@ import {Video} from 'expo-av'
 import {MaterialIcons, Octicons} from '@expo/vector-icons';
 
 const {width} = Dimensions.get('window');
-coucou = true;
 
 export default class CharacterVideo extends Component {
 
@@ -30,9 +29,9 @@ export default class CharacterVideo extends Component {
       super(props)
 
       this.standingVideos = {
-          "ramesses": require("../assets/videos/presentation/ramses_standing.mov"),
-          "marie_curie": require("../assets/videos/presentation/marie_curie_standing.mov"),
-          "leonard_de_vinci": require("../assets/videos/presentation/leonard_standing.mov"),
+          "ramesses": require("../assets/videos/presentation/ramses_standing.mp4"),
+          "marie_curie": require("../assets/videos/presentation/marie_curie_standing.mp4"),
+          "leonard_de_vinci": require("../assets/videos/presentation/leonard_standing.mp4"),
       };
     };
 
@@ -73,12 +72,11 @@ export default class CharacterVideo extends Component {
     }
 
     handleVolume = () => {
-        if (!coucou) {
-            (this.state.playbackObject).setVolumeAsync(1);
+        if (this.props.isTalk) {
+            this.state.playbackObject.setVolumeAsync(1);
         } else {
-            (this.state.playbackObject).setVolumeAsync(0);
+            this.state.playbackObject.setVolumeAsync(0);
         }
-        coucou = !coucou;
     }
 
     handlePlayAndPause = () => {
@@ -103,7 +101,7 @@ export default class CharacterVideo extends Component {
                 resizeMode="cover"
                 shouldPlay={this.state.play}
                 isLooping={this.state.loop}
-                style={{width: width, height: 300, backgroundColor: 'black'}}
+                style={{width: 367, height: 300}}
                 onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus, this.props.characterId)}
             />
         );
