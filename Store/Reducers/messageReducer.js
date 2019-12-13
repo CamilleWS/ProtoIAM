@@ -20,7 +20,7 @@ function toggleMessage(state = initialState, action) {
                 newState = {
                     chat: {
                         ...state.chat,
-                        [name]: [...state.chat[name], action.data.value]
+                        [name]: [action.data.value, ...state.chat[name]]
                     }
                 }
             }
