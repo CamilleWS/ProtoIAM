@@ -58,7 +58,6 @@ class CharacterScreen extends Component {
         return true;
     }
     callbackFunctionForSound = async (childData) => {
-        console.log(childData);
 
         this.refs.child.handleVolume();
 
@@ -73,9 +72,7 @@ class CharacterScreen extends Component {
     }
 
     run_tuto = async () => {
-        console.log("RUN_TUTO")
         try {
-            console.log("TRY SUCCESS")
             await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
             await this.soundObject.playAsync();
         } catch (error) {
@@ -169,7 +166,6 @@ class CharacterScreen extends Component {
               contentContainerStyle={{paddingBottom: 100}}
               onContentSizeChange={(contentWidth, contentHeight)=>{
                   this.scrollView.scrollToEnd({animated: true});
-                  console.log("test");
               }}>
               {this.props.chat[this.props.characterId] != undefined ?
                   this.props.chat[this.props.characterId].map((message, index) =>

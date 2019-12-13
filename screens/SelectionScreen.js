@@ -44,6 +44,11 @@ class SelectionScreen extends Component {
         particlesColor: '#EDD9B064'
     };
 
+    setChoseCharacterId(value) {
+        const action = {type: 'SET_CHARACTERID', value};
+        this.props.dispatch(action);
+    }
+
     runTuto = async () => {
         try {
             await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
@@ -179,6 +184,7 @@ class SelectionScreen extends Component {
         return (
             <TouchableOpacity activeOpacity={0.7} onPress={() => {
                 this.props.navigation.push('CharacterScreen', { characterId: character.id });
+                this.setChoseCharacterId(character.id);
                 this.soundObject.stopAsync().then(null);
             }}>
                 <View style={[styles.characterCard, {borderBottomColor: character.mainColor}]}>
