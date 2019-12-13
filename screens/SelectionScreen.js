@@ -15,6 +15,7 @@ import {
 import Carousel from 'react-native-snap-carousel';
 import ParticleBackground from "react-native-particle-background";
 import {Video, Audio, Sound} from 'expo-av'
+import { connect } from 'react-redux';
 
 import { Icon } from 'react-native-elements'
 
@@ -28,6 +29,8 @@ import characters from '../assets/characters/characters.json';
 import leonardStandingVideo from '../assets/videos/presentation/leonard_standing.mov';
 import marieCurieStandingVideo from '../assets/videos/presentation/marie_curie_standing.mov';
 import ramessesStandingVideo from '../assets/videos/presentation/ramses_standing.mov';
+import {Entypo, FontAwesome} from "@expo/vector-icons";
+import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 
 //Values
 const screenWidth = Dimensions.get('screen').width;
@@ -48,7 +51,95 @@ class SelectionScreen extends Component {
         } catch (error) {}
     };
 
+// const playbackObject = new Audio.Sound();
+    setChoseCharacterId(value) {
+        const action = {type: 'SET_CHARACTERID', value};
+        this.props.dispatch(action);
+    }
+
+    callFun = () =>
+    {
+        this.props.navigation.push('CharacterScreen', { characterId: "leonard_de_vinci" });
+        this.setChoseCharacterId("leonard_de_vinci");
+        this.soundObject.stopAsync();
+    }
+    callFun2 = () =>
+    {
+        this.props.navigation.push('CharacterScreen', { characterId: "marie_curie" });
+        this.setChoseCharacterId("marie_curie");
+        this.soundObject.stopAsync();
+
+        // alert("marie");
+    }
+    callFun3 = () =>
+    {
+        this.props.navigation.push('CharacterScreen', { characterId: "ramesses" });
+        this.setChoseCharacterId("ramesses");
+        this.soundObject.stopAsync();
+    }
+
+    muteAll = () => {
+        console.log(this.props.mute);
+        if (this.props.mute == false) {
+            this.soundObject.stopAsync();
+            const action = {type: 'MUTE_TUTO'};
+            this.props.dispatch(action);
+        }
+        else {
+            this.soundObject.replayAsync();
+            const action = {type: 'MUTE_TUTO'};
+            this.props.dispatch(action);
+        }
+    }
+
+    constructor () {
+        super()
+        this.spinValue = new Animated.Value(0);
+        this.spinmValue = new Animated.Value(0);
+        this.spineValue = new Animated.Value(0);
+        this.runTuto()
+    }
+
+    spin () {
+        this.spinValue.setValue(0)
+        Animated.timing(
+            this.spinValue,
+            {
+                toValue: 1,
+                duration: 2000,
+                easing: Easing.linear
+            }
+        ).start(() => this.spin())
+    }
+    spinm () {
+        this.spinmValue.setValue(0)
+        Animated.timing(
+            this.spinmValue,
+            {
+                toValue: 1,
+                duration: 4000,
+                easing: Easing.linear
+            }
+        ).start(() => this.spinm())
+    }
+    spine () {
+        this.spineValue.setValue(0)
+        Animated.timing(
+            this.spineValue,
+            {
+                toValue: 1,
+                duration: 3000,
+                easing: Easing.linear
+            }
+        ).start(() => this.spine())
+    }
+
+
     componentDidMount () {
+
+        this.spin();
+        this.spinm();
+        this.spine();
         this.setState({
             characters
         }, () => { this.onSliderMoveTo(0) });
@@ -114,6 +205,15 @@ class SelectionScreen extends Component {
                     backgroundColor="black"
                 />
                 <SafeAreaView style={[StyleSheet.absoluteFill, {justifyContent: 'center', alignItems: 'center', marginTop: 185}]}>
+
+
+
+                    <TouchableOpacity
+                        onPress={() => this.muteAll()}
+                        style={[styles.actionSheet]}>
+                        <FontAwesome name={this.props.mute === false ? 'volume-up' : 'volume-off'} size={25} color="#FFFFFF" style={styles.recordIcon}/>
+                    </TouchableOpacity>
+
                     <Image source={require('../assets/images/logo_light.png')} resizeMode={'center'} style={{width: 200, height: 70}}/>
                     <Carousel
                         data={this.state.characters}
@@ -151,6 +251,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderBottomWidth: 5,
     },
+    actionSheet: {
+        width: 50,
+        height: 50,
+        borderRadius: 30,
+        marginBottom: 30,
+        position:'absolute',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        top:-100,
+        left:30,
+    },
     characterCardVideo: {
         width: '75%',
         height: '75%'
@@ -162,4 +272,11 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SelectionScreen
+
+const mapStateToProps = (state) => {
+    return ({
+        mute: state.mute.mute,
+        characterId: state.characterId.id
+    });
+}
+export default connect (mapStateToProps)(SelectionScreen);
