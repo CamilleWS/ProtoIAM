@@ -15,6 +15,7 @@ import {
 import Carousel from 'react-native-snap-carousel';
 import ParticleBackground from "react-native-particle-background";
 import {Video, Audio, Sound} from 'expo-av'
+import { connect } from 'react-redux';
 
 import { Icon } from 'react-native-elements'
 
@@ -40,6 +41,11 @@ class SelectionScreen extends Component {
         characters: [],
         particlesColor: '#EDD9B064'
     };
+
+    setChoseCharacterId(value) {
+        const action = {type: 'SET_CHARACTERID', value};
+        this.props.dispatch(action);
+    }
 
     runTuto = async () => {
         try {
@@ -88,6 +94,7 @@ class SelectionScreen extends Component {
         return (
             <TouchableOpacity activeOpacity={0.7} onPress={() => {
                 this.props.navigation.push('CharacterScreen', { characterId: character.id });
+                this.setChoseCharacterId(character.id);
                 this.soundObject.stopAsync().then(null);
             }}>
                 <View style={[styles.characterCard, {borderBottomColor: character.mainColor}]}>
@@ -162,4 +169,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SelectionScreen
+const mapStateToProps = (state) => {
+    return ({
+        mute: state.mute.mute,
+        characterId: state.characterId.id
+    });
+}
+export default connect (mapStateToProps)(SelectionScreen);
