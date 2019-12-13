@@ -93,8 +93,8 @@ let videoPath = [
     ],
     [
         require("../assets/videos/leonard_de_vinci/oeuvres-plus-de-succes.mp4"),
-        require("../assets/videos/leonard_de_vinci/tes-plus-belles-oeuvres-v2.mp4"),
-        require("../assets/videos/leonard_de_vinci/tes-plus-belles-oeuvres-v3.mp4")
+        require("../assets/videos/leonard_de_vinci/tes-pluw-belle-oeuvres-v2.mp4"),
+        require("../assets/videos/leonard_de_vinci/tes-plus-belle-oeuvres-v3.mp4")
     ],
     [
         require("../assets/videos/leonard_de_vinci/presentation-joconde.mp4"),
@@ -154,7 +154,7 @@ let unknow_path = [
 
 
 let repeat_triggers = [
-    ["repete"], ["mal", "entendu"], ["pas", "compris"], ["hein"], ["peux", "tu", "repeter"], ["quoi", "?"], ["pardon", "?"]
+    ["repete"], ["mal", "entendu"], ["pas", "compris"], ["hein"], ["peux", "tu", "repeter"], ["quoi"], ["pardon"]
 ]
 
 const allUsed = (currentValue) => currentValue == 1;
@@ -189,9 +189,7 @@ export function checkRepeat(text)
             if (text.match(regexp)) {
                 goodKeyWord += 1
             }
-
         }
-
         if (goodKeyWord == repeat_triggers[j].length) {
             return true
         }
@@ -243,7 +241,6 @@ export function checkLeonardQuestion(text)
         variante = Math.floor(Math.random() * Math.floor(already_use[already_use.length - 1].length))
         if (already_use[already_use.length - 1].every(allUsed))
             already_use[already_use.length - 1].fill(0)
-        count++;
     }
     already_use[already_use.length - 1][variante] = 1;
     ret.video_path = unknow_path[variante];
