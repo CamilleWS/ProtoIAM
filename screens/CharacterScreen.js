@@ -1,8 +1,6 @@
 //Imports
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, ImageBackground, TextInput, KeyboardAvoidingView, Platform, BackHandler, Button, TouchableOpacity } from 'react-native';
-import PropTypes from 'prop-types';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, StyleSheet, ImageBackground, TextInput, KeyboardAvoidingView, Platform, BackHandler, TouchableOpacity, SafeAreaView } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet'
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements'
@@ -191,20 +189,17 @@ class CharacterScreen extends Component {
                 source={backgroundImage === "egypt" ? require('../assets/characters/backgrounds/egypt.jpg') : null}
                 imageStyle={{resizeMode: 'cover'}}
                 style={[styles.background, {backgroundColor: mainColor}]}>
-                <Icon
-                    raised
-                    name='reply'
-                    type='font-awesome'
-                    color='#8A2BE2'
-                    onPress={() => this.goBack()} />
-                <View style={styles.characterContent}>
-                    <View style={[styles.option, {backgroundColor: 'rgba(0, 0, 0, 0)'}]}>
-                        <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} characterId={this.props.navigation.state.params.characterId}/>
-                        <Talk parentCallback = {this.callbackFunctionForSound}/>
+                <SafeAreaView>
+
+                    <View style={styles.characterContent}>
+                        <View style={[styles.option, {backgroundColor: 'rgba(0, 0, 0, 0)'}]}>
+                            <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} characterId={this.props.navigation.state.params.characterId}/>
+                            <Talk parentCallback = {this.callbackFunctionForSound}/>
+                        </View>
+                        <CharacterVideo ref='child' {...this.props} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                     </View>
-                    <CharacterVideo ref='child' {...this.props} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
-                </View>
-                 { this.props.conversationText == 1 ?
+                </SafeAreaView>
+                 {this.props.conversationText == 1 &&
                     <BottomSheet
                         ref={(ref) => this._bottomSheet = ref }
                         snapPoints={['90%', '40%']}
@@ -216,8 +211,6 @@ class CharacterScreen extends Component {
                         springConfig={{toss: 0.8, mass: 0.52}}
                         keyboardShouldPersistTaps="handled"
                     />
-                    :
-                    null
                  }
                 <KeyboardAvoidingView
                     behavior="padding"
@@ -269,7 +262,6 @@ const styles = StyleSheet.create({
     },
     option: {
         backgroundColor: '#fff',
-        alignItems: 'center',
         top: 0,
         right: '5%',
         alignItems: 'center',
