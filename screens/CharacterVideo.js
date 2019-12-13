@@ -98,7 +98,7 @@ export default class CharacterVideo extends Component {
                 resizeMode="cover"
                 shouldPlay={this.state.play}
                 isLooping={this.state.loop}
-                style={{width: 367, height: 300}}
+                style={{width: 367, height: 300, borderRadius: 15, borderWidth: 3, borderColor: "black"}}
                 onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus, this.props.characterId)}
             />
         );
