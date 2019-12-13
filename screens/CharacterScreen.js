@@ -182,7 +182,7 @@ class CharacterScreen extends Component {
 
     goBack()
     {
-        this.soundObject.stopAsync()
+        await this.soundObject.stopAsync()
         this.props.navigation.goBack(null);
     }
     render() {

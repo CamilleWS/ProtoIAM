@@ -16,16 +16,16 @@ let answers = [
 
 let videoPath = [
     [
-        require("../assets/videos/ramses/video1.mov"),
+        require("../assets/videos/ramses/video1.mp4"),
     ],
     [
-        require("../assets/videos/ramses/video2.mov")
+        require("../assets/videos/ramses/video2.mp4")
     ],
     [
-        require("../assets/videos/ramses/video3.mov")
+        require("../assets/videos/ramses/video3.mp4")
     ],
     [
-        require("../assets/videos/ramses/video4.mov")
+        require("../assets/videos/ramses/video4.mp4")
     ],
     [
         require("../assets/videos/presentation/ramses_standing.mp4"),

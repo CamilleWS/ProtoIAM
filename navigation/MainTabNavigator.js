@@ -4,9 +4,6 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import Persona1 from '../screens/Persona1';
-import Persona2 from '../screens/Persona2';
-import Persona3 from '../screens/Persona3';
 import sndPage from '../screens/sndPage';
 import CharacterScreen from "../screens/CharacterScreen";
 
@@ -56,39 +53,6 @@ secondPage.navigationOptions = {
 };
 
 secondPage.path = '';
-
-const Perso1Stack = createStackNavigator(
-    {
-        Perso1: Persona1,
-    },
-    config
-);
-
-Perso1Stack.navigationOptions = {
-
-    tabBarLabel: 'Marie Curie',
-    tabBarIcon: ({focused, tintColor}) => (
-        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-woman' : 'md-woman'}/>
-    ),
-};
-
-Perso1Stack.path = '';
-
-const Perso3Stack = createStackNavigator(
-    {
-        Perso3: Persona3,
-    },
-    config
-);
-
-Perso3Stack.navigationOptions = {
-    tabBarLabel: 'Leonard de Vinci',
-    tabBarIcon: ({focused, tintColor}) => (
-        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-man' : 'md-man'}/>
-    ),
-};
-
-Perso3Stack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
