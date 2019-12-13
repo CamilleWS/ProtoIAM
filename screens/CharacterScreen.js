@@ -132,7 +132,7 @@ class CharacterScreen extends Component {
 
 
     callbackFunction = async (childData) => {
-        await this.setState({actualVideo: this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData)})
+        this.refs.child.changeVideo(this.checkCharacterQuestion(this.props.navigation.state.params.characterId, childData));
         let newChatElemUser = {
                 myself: true,
                 message: childData
@@ -169,7 +169,6 @@ class CharacterScreen extends Component {
               contentContainerStyle={{paddingBottom: 100}}
               onContentSizeChange={(contentWidth, contentHeight)=>{
                   this.scrollView.scrollToEnd({animated: true});
-                  console.log("test");
               }}>
               {this.props.chat[this.props.characterId] != undefined ?
                   this.props.chat[this.props.characterId].map((message, index) =>
@@ -206,7 +205,7 @@ class CharacterScreen extends Component {
                         <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} characterId={this.props.navigation.state.params.characterId}/>
                         <Talk parentCallback = {this.callbackFunctionForSound}/>
                     </View>
-                    <CharacterVideo video={this.state.actualVideo} ref='child' {...this.props} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
+                    <CharacterVideo ref='child' {...this.props} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
                 </View>
                  { this.props.conversationText == 1 ?
                     <BottomSheet

@@ -230,6 +230,7 @@ export function checkLeonardQuestion(text)
         variante = Math.floor(Math.random() * Math.floor(already_use[already_use.length - 1].length))
         if (count == 10 + already_use[already_use.length - 1].length)
             already_use[already_use.length - 1].fill(0)
+        count++;
     }
     already_use[already_use.length - 1][variante] = 1;
     for (const key in already_use) {
