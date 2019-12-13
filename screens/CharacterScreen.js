@@ -159,7 +159,7 @@ class CharacterScreen extends Component {
               style={styles.chatContent}
               contentContainerStyle={{paddingBottom: 100}}
               onContentSizeChange={(contentWidth, contentHeight)=>{
-                  this.scrollView.scrollToEnd({animated: true});
+                  this.scrollView.scrollTo({x: 0, y: 0, animated: true});
               }}>
               {this.props.chat[this.props.characterId] != undefined ?
                   this.props.chat[this.props.characterId].map((message, index) =>
