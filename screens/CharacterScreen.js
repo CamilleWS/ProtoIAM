@@ -202,8 +202,8 @@ class CharacterScreen extends Component {
                     color='#8A2BE2'
                     onPress={() => this.goBack()} />
                 <View style={styles.characterContent}>
-                    <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} characterId={this.props.navigation.state.params.characterId}/>
-                    <View style={[{position: 'absolute', bottom: 0, right: 0, zIndex: 999}, styles.changeButton]}>
+                    <View style={[styles.option, {backgroundColor: 'rgba(0, 0, 0, 0)'}]}>
+                        <Tips mainColor={mainColor} parentCallback = {this.callbackFunction} characterId={this.props.navigation.state.params.characterId}/>
                         <Talk parentCallback = {this.callbackFunctionForSound}/>
                     </View>
                     <CharacterVideo video={this.state.actualVideo} ref='child' {...this.props} characterId={this.props.navigation.state.params.characterId}> </CharacterVideo>
@@ -270,6 +270,16 @@ const styles = StyleSheet.create({
         height: '100%',
         zIndex: 20000,
         paddingBottom: 80
+    },
+    option: {
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        top: 0,
+        right: '5%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        zIndex: 2900000,
     },
     actionSheet: {
         width: '100%',

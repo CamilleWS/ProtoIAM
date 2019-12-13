@@ -67,7 +67,7 @@ export default class App extends React.Component {
                         this.props.navigation.navigate('sndPage');
                     }}>
                         <View style={{backgroundColor: "white"}}>
-                            <Text style={styles.startText}>Commencer l'expérience IAM</Text>
+                            <Text style={styles.startText}>Commencer l'expérience</Text>
                         </View>
                     </TouchableOpacity>
             </View>
