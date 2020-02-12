@@ -4,12 +4,12 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import Persona1 from '../screens/Persona1';
-import Persona2 from '../screens/Persona2';
+import sndPage from '../screens/SelectionScreen';
+import CharacterScreen from "../screens/CharacterScreen";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
-    default: {},
+    default: {headerMode: 'hidden'},
 });
 
 const HomeStack = createStackNavigator(
@@ -21,6 +21,7 @@ const HomeStack = createStackNavigator(
 
 HomeStack.navigationOptions = {
     tabBarLabel: 'Accueil',
+    tabBarVisible: false,
     tabBarIcon: ({focused, tintColor}) => (
         <TabBarIcon
             focused={focused}
@@ -36,50 +37,38 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const Perso1Stack = createStackNavigator(
+const secondPage = createStackNavigator(
     {
-        Perso1: Persona1,
+        snd: sndPage,
     },
     config
 );
 
-Perso1Stack.navigationOptions = {
+secondPage.navigationOptions = {
 
-    tabBarLabel: 'Marie Curie',
+    tabBarLabel: '2nd Page',
     tabBarIcon: ({focused, tintColor}) => (
-        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-woman' : 'md-woman'}/>
+        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-aperture' : 'md-aperture'}/>
     ),
 };
 
-Perso1Stack.path = '';
-
-const Perso2Stack = createStackNavigator(
-    {
-        Perso2: Persona2,
-    },
-    config
-);
-
-Perso2Stack.navigationOptions = {
-    tabBarLabel: 'Ramses II',
-    tabBarIcon: ({focused, tintColor}) => (
-        <TabBarIcon focused={focused} activeTintColor={tintColor} name={Platform.OS === 'ios' ? 'ios-man' : 'md-man'}/>
-    ),
-};
-
-Perso2Stack.path = '';
+secondPage.path = '';
 
 const tabNavigator = createBottomTabNavigator({
         HomeStack,
-        Perso1Stack,
-        Perso2Stack,
+        //secondPage,
+        // Perso1Stack,
+        // Perso3Stack,
     },
     {
         tabBarOptions: {
             activeTintColor: '#7D5FFF',
+            visible: false,
         }
     });
 
 tabNavigator.path = '';
+
+
 
 export default tabNavigator;

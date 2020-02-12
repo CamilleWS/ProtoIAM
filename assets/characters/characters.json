@@ -1,0 +1,20 @@
+[
+  {
+    "id": "leonard_de_vinci",
+    "name": "Leonard de Vinci",
+    "backgroundImage": "vitruve",
+    "mainColor": "#EDD9B0"
+  },
+  {
+    "id": "marie_curie",
+    "name": "Marie Curie",
+    "backgroundImage": "science",
+    "mainColor": "#7865F6"
+  },
+  {
+    "id": "ramesses",
+    "name": "Ramses II",
+    "backgroundImage": "egypt",
+    "mainColor": "#DAA570"
+  },
+]
