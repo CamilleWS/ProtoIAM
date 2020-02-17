@@ -67,8 +67,8 @@ class CharacterScreen extends Component {
 
     run_tuto = async () => {
         try {
-            await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
-            await this.soundObject.playAsync();
+            // await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page3.mp3'));
+            // await this.soundObject.playAsync();
         } catch (error) {
             // An error occurred!
         }
@@ -81,16 +81,16 @@ class CharacterScreen extends Component {
 
         let { name, backgroundImage, mainColor } = config[0];
 
-        if (this.props.mute == false)
-            this.run_tuto();
+        // if (this.props.mute == false)
+        //     this.run_tuto();
 
         if (this.state.mainColor === '')
             this.setState({mainColor});
         this.setState({name, backgroundImage});
 
 
-        if (this.props.mute == false)
-            this.run_tuto();
+        // if (this.props.mute == false)
+        //     this.run_tuto();
     };
 
     getCharacterAnswerStr = (characterId, item) =>

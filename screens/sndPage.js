@@ -57,13 +57,13 @@ class HomeScreen extends Component {
     }
 
     run_tuto = async () => {
-        try {
-            await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
-            await this.soundObject.playAsync();
-            // Your sound is playing!
-        } catch (error) {
-            // An error occurred!
-        }
+        // try {
+        //     await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
+        //     await this.soundObject.playAsync();
+        //     // Your sound is playing!
+        // } catch (error) {
+        //     // An error occurred!
+        // }
     }
     muteAll = () => {
         console.log(this.props.mute);
@@ -84,7 +84,7 @@ class HomeScreen extends Component {
       this.spinValue = new Animated.Value(0);
       this.spinmValue = new Animated.Value(0);
       this.spineValue = new Animated.Value(0);
-      this.run_tuto()
+    //   this.run_tuto()
     }
 
     componentDidMount () {

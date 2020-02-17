@@ -46,8 +46,8 @@ class SelectionScreen extends Component {
 
     runTuto = async () => {
         try {
-            await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
-            await this.soundObject.playAsync();
+            // await this.soundObject.loadAsync(require('../assets/sound_tuto/tuto_page2.mp3'));
+            // await this.soundObject.playAsync();
         } catch (error) {}
     };
 
@@ -69,7 +69,7 @@ class SelectionScreen extends Component {
         this.setState({
             characters
         }, () => { this.onSliderMoveTo(0) });
-        this.runTuto().then(null);
+        // this.runTuto().then(null);
 
     }
 
