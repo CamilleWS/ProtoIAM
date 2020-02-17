@@ -28,7 +28,7 @@
     },
     "android":{
       "package":"com.johncy.myapp",
-      "versionCode":1 , 
+      "versionCode":1 ,
       "icon":"./assets/images/IAM_logo.png"
           }
          }
