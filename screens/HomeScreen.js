@@ -70,7 +70,7 @@ export default class App extends React.Component {
             <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
                     <TouchableOpacity activOpactity={0.5} style={styles.startButton} onPress={() => {this.props.navigation.navigate('sndPage');}}>
                         <View style={{backgroundColor: "white"}}>
-                            <Text style={styles.startText}>Commencer l'expérience</Text>
+                            <Text numberOfLines={1} style={styles.startText}>Commencer l'expérience</Text>
                         </View>
                     </TouchableOpacity>
             </View>
@@ -88,11 +88,14 @@ const styles = StyleSheet.create({
     },
     startButton: {
         backgroundColor: "white",
-        paddingHorizontal: 30,
+        paddingHorizontal: 15,
         paddingVertical: 5,
-        borderRadius: 30
+        borderRadius: 30,
     },
     startText: {
+        fontFamily: 'Roboto',
+        paddingHorizontal: 10,
+        paddingBottom: 3,
         fontSize: 25,
         fontWeight: '100',
         color: "grey",
