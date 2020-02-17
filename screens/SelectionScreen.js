@@ -134,7 +134,7 @@ class SelectionScreen extends Component {
                         style={[styles.actionSheet]}>
                         <FontAwesome name={this.props.mute === false ? 'volume-up' : 'volume-off'} size={25} color="#FFFFFF" style={styles.recordIcon}/>
                     </TouchableOpacity>
-                    <Image source={require('../assets/images/logo_light.png')} resizeMode={'center'} style={{width: 200, height: 70}}/>
+                    <Image source={require('../assets/images/logo_light_historia.png')} resizeMode={'center'} style={{width: 200, height: 70}}/>
                     <Carousel
                         data={characters}
                         renderItem={this.renderCharacterCard}
