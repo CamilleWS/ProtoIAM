@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     characterCardName: {
         color: 'white',
         fontSize: 22,
-        fontFamily: 'Eina01-Bold'
+      //  fontFamily: 'Eina01-Bold'
     }
 });
 

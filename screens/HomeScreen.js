@@ -29,11 +29,6 @@ export default class App extends React.Component {
 
     componentDidMount()
     {
-        Font.loadAsync({
-            'Eina01-Bold': require('../assets/fonts/Eina01/Eina01-Bold.ttf'),
-            'Eina01-SemiBold': require('../assets/fonts/Eina01/Eina01-SemiBold.ttf'),
-            'Eina01-Regular': require('../assets/fonts/Eina01/Eina01-Regular.ttf')
-        }).then(null);
     }
 
     onPress = () => {
