@@ -51,20 +51,6 @@ class SelectionScreen extends Component {
         } catch (error) {}
     };
 
-    muteAll = () => {
-        console.log(this.props.mute);
-        if (this.props.mute == false) {
-            this.soundObject.stopAsync();
-            const action = {type: 'MUTE_TUTO'};
-            this.props.dispatch(action);
-        }
-        else {
-            this.soundObject.replayAsync();
-            const action = {type: 'MUTE_TUTO'};
-            this.props.dispatch(action);
-        }
-    };
-
     componentDidMount () {
         this.setState({
             characters
@@ -129,11 +115,6 @@ class SelectionScreen extends Component {
         return (
             <View style={{backgroundColor: 'black', width: '100%', height: '100%'}}>
                 <SafeAreaView style={[StyleSheet.absoluteFill, {justifyContent: 'center', alignItems: 'center', marginTop: 185}]}>
-                    <TouchableOpacity
-                        onPress={() => this.muteAll()}
-                        style={[styles.actionSheet]}>
-                        <FontAwesome name={this.props.mute === false ? 'volume-up' : 'volume-off'} size={25} color="#FFFFFF" style={styles.recordIcon}/>
-                    </TouchableOpacity>
                     <Image source={require('../assets/images/logo_light_historia.png')} resizeMode={'center'} style={{width: 200, height: 70}}/>
                     <Carousel
                         data={characters}
