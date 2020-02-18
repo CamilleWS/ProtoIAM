@@ -50,10 +50,13 @@ export default class CharacterVideo extends Component {
                 await this.setState({shouldGoIdle: false, loop: true});
                 await this.state.playbackObject.unloadAsync();
                 await this.state.playbackObject.loadAsync(this.standingVideos[characterId]);
-                await this.state.playbackObject.playFromPositionAsync(0);
             }
         }
     };
+
+    _onVideoLoad = async () => {
+        await this.state.playbackObject.playFromPositionAsync(0);
+    }
 
     _handleVideoRef = component => {
         this.setState({playbackObject: component})
@@ -63,7 +66,6 @@ export default class CharacterVideo extends Component {
         await this.setState({shouldGoIdle: true, loop: false});
         await this.state.playbackObject.unloadAsync();
         await this.state.playbackObject.loadAsync(video);
-        await this.state.playbackObject.playFromPositionAsync(0);
     }
 
     stopVideo = () => {
@@ -98,6 +100,7 @@ export default class CharacterVideo extends Component {
                 resizeMode="cover"
                 shouldPlay={this.state.play}
                 isLooping={this.state.loop}
+                onLoad={() => this._onVideoLoad()}
                 style={{width: 367, height: 300, borderRadius: 15, borderWidth: 3, borderColor: "black"}}
                 onPlaybackStatusUpdate={(playbackStatus) => this._onPlaybackStatusUpdate(playbackStatus, this.props.characterId)}
             />

@@ -35,7 +35,7 @@ let videoPath = [
 
 
 let keyWords = [
-    [["presenter"], ["presentez"], ["presente"], ["etesvous"], ["estu"]],
+    [["presenter"], ["presentez"], ["presente"], ["qui", "etesvous"], ["qui", "estu"]],
     [["sujet"], ["travail"], ["travaux"]],
     [["deces"], ["decede"], ["mort"]],
     [["enterre"], ["entere"], ["tombe"], ["sepulture"]],
